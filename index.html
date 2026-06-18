@@ -10,415 +10,532 @@
 <title>SwipeRight — Card Optimizer</title>
 <link rel="manifest" href="manifest.json">
 <style>
-:root {
-  --bg: #0F1117;
-  --surface: #1A1D27;
-  --surface2: #22263A;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.15);
-  --text: #F0F0F0;
-  --muted: #8A8FA8;
-  --accent: #4AE5A2;
-  --accent2: #7B6EF6;
-  --gold: #FFD166;
-  --danger: #FF6B6B;
-  --card-r: 16px;
-  --pill-r: 999px;
-  font-size: 16px;
+:root{
+  --bg:#0F1117;--surface:#1A1D27;--surface2:#22263A;--surface3:#2A2E42;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.16);
+  --text:#F0F0F0;--muted:#8A8FA8;--muted2:#5A5F78;
+  --accent:#4AE5A2;--accent2:#7B6EF6;--gold:#FFD166;--danger:#FF6B6B;--warn:#FFB347;
+  --r:14px;--rSm:10px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif; min-height: 100dvh; overflow-x: hidden; }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;overflow-x:hidden;}
+button,input,select,textarea{font-family:inherit;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
 
-/* ── APP SHELL ── */
-.app { display: flex; flex-direction: column; min-height: 100dvh; max-width: 480px; margin: 0 auto; position: relative; }
+/* ── SHELL ── */
+.app{display:flex;flex-direction:column;min-height:100dvh;max-width:480px;margin:0 auto;}
 
 /* ── HEADER ── */
-header { padding: 56px 20px 16px; background: linear-gradient(180deg, rgba(74,229,162,0.06) 0%, transparent 100%); }
-.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-.logo-mark { width: 36px; height: 36px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.logo-mark svg { width: 20px; height: 20px; fill: #0F1117; }
-.logo-text { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-.logo-text span { color: var(--accent); }
-.tagline { font-size: 13px; color: var(--muted); padding-left: 46px; }
+header{padding:52px 20px 12px;background:linear-gradient(180deg,rgba(74,229,162,0.05) 0%,transparent 100%);}
+.logo{display:flex;align-items:center;gap:9px;margin-bottom:2px;}
+.logo-mark{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-mark svg{width:18px;height:18px;fill:#0F1117;}
+.logo-text{font-size:20px;font-weight:700;letter-spacing:-0.4px;}
+.logo-text em{color:var(--accent);font-style:normal;}
+.tagline{font-size:12px;color:var(--muted);padding-left:41px;}
 
-/* ── TABS ── */
-.tab-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; padding: 16px 20px 0; }
-.tab { padding: 10px 0; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: all 0.18s; }
-.tab svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
-.tab.active { background: var(--surface2); color: var(--accent); border-color: rgba(74,229,162,0.3); }
-.tab:active { transform: scale(0.97); }
+/* ── BOTTOM NAV ── */
+.bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);background:var(--surface);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom,8px);position:sticky;bottom:0;z-index:100;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px 5px;cursor:pointer;color:var(--muted);font-size:10px;font-weight:500;border:none;background:none;transition:color .15s;position:relative;}
+.nav-item svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.nav-item.active{color:var(--accent);}
+.nav-item:active{opacity:.7;}
+.nav-badge{position:absolute;top:7px;right:50%;margin-right:-18px;background:var(--accent);color:#0F1117;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;min-width:16px;text-align:center;}
 
 /* ── PANELS ── */
-.panels { flex: 1; padding: 20px; }
-.panel { display: none; }
-.panel.active { display: block; }
+.panels{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.panel{display:none;padding:16px 20px 24px;}
+.panel.active{display:block;}
+.panel-title{font-size:17px;font-weight:600;margin-bottom:14px;}
+.section-label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin:0 0 9px;}
 
 /* ── SEARCH ── */
-.search-wrap { position: relative; margin-bottom: 16px; }
-.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-.search-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; display: block; }
-#vendorInput { width: 100%; padding: 14px 14px 14px 44px; background: var(--surface); border: 1px solid var(--border2); border-radius: 14px; color: var(--text); font-size: 16px; outline: none; -webkit-appearance: none; }
-#vendorInput::placeholder { color: var(--muted); }
-#vendorInput:focus { border-color: rgba(74,229,162,0.5); }
-.suggestions { background: var(--surface2); border: 1px solid var(--border2); border-radius: 14px; overflow: hidden; margin-top: -8px; margin-bottom: 12px; display: none; }
-.suggestion { padding: 12px 16px; font-size: 14px; cursor: pointer; color: var(--text); display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); }
-.suggestion:last-child { border-bottom: none; }
-.suggestion:active { background: var(--surface); }
-.suggestion-cat { font-size: 11px; color: var(--accent); background: rgba(74,229,162,0.1); padding: 2px 8px; border-radius: 99px; margin-left: auto; }
-
-/* ── RESULTS ── */
-.results-header { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-.results-header strong { color: var(--text); font-weight: 600; }
-.card-result { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-r); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 14px; transition: border-color 0.15s; }
-.card-result.best { border-color: rgba(74,229,162,0.4); background: linear-gradient(135deg, rgba(74,229,162,0.05) 0%, var(--surface) 60%); }
-.rank-circle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
-.rank-1 { background: rgba(74,229,162,0.15); color: var(--accent); }
-.rank-2 { background: rgba(123,110,246,0.15); color: var(--accent2); }
-.rank-3 { background: rgba(138,143,168,0.15); color: var(--muted); }
-.result-name { font-size: 15px; font-weight: 600; color: var(--text); }
-.result-earn { font-size: 14px; color: var(--accent); font-weight: 500; margin-top: 3px; }
-.result-why { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.5; }
-.best-badge { display: inline-block; font-size: 10px; background: var(--accent); color: #0F1117; padding: 2px 8px; border-radius: 99px; font-weight: 700; margin-left: 8px; vertical-align: 1px; }
-.tip { background: rgba(255,209,102,0.08); border: 1px solid rgba(255,209,102,0.2); border-radius: 12px; padding: 10px 14px; font-size: 12px; color: var(--gold); margin-top: 4px; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
-.no-results { text-align: center; padding: 3rem 1rem; color: var(--muted); }
-.no-results .big-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+.search-box{position:relative;margin-bottom:12px;}
+.search-box svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none;}
+.search-box input{width:100%;padding:12px 12px 12px 40px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:16px;outline:none;-webkit-appearance:none;}
+.search-box input::placeholder{color:var(--muted);}
+.search-box input:focus{border-color:rgba(74,229,162,.5);}
+.suggestions{background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;margin-top:-4px;margin-bottom:10px;display:none;}
+.sug{padding:11px 15px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
+.sug:last-child{border-bottom:none;}
+.sug:active{background:var(--surface);}
+.sug-cat{font-size:11px;color:var(--accent);background:rgba(74,229,162,.1);padding:2px 8px;border-radius:99px;margin-left:auto;flex-shrink:0;}
+.results-hdr{font-size:13px;color:var(--muted);margin-bottom:11px;}
+.results-hdr strong{color:var(--text);}
+.card-result{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;margin-bottom:9px;display:flex;gap:12px;}
+.card-result.best{border-color:rgba(74,229,162,.38);background:rgba(74,229,162,.04);}
+.rank-c{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.r1{background:rgba(74,229,162,.15);color:var(--accent);}
+.r2{background:rgba(123,110,246,.15);color:var(--accent2);}
+.r3{background:rgba(138,143,168,.15);color:var(--muted);}
+.res-name{font-size:14px;font-weight:600;}
+.best-badge{display:inline-block;font-size:9px;background:var(--accent);color:#0F1117;padding:2px 7px;border-radius:99px;font-weight:700;margin-left:6px;vertical-align:1px;}
+.res-earn{font-size:13px;color:var(--accent);font-weight:500;margin-top:3px;}
+.res-why{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.5;}
+.not-in-wallet{font-size:11px;color:var(--danger);margin-top:3px;}
+.tip-box{background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.18);border-radius:11px;padding:10px 13px;font-size:12px;color:var(--gold);margin-top:6px;line-height:1.5;}
+.no-res{text-align:center;padding:3rem 1rem;color:var(--muted);font-size:14px;}
+.back-row{display:none;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:12px;}
+.back-row.show{display:flex;}
+.back-row svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;}
 
 /* ── QUICK TAP ── */
-.qt-label { font-size: 13px; color: var(--muted); margin-bottom: 12px; font-weight: 500; letter-spacing: 0.3px; text-transform: uppercase; font-size: 11px; }
-.qt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.qt-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 12px; cursor: pointer; transition: all 0.15s; text-align: left; }
-.qt-btn:active { transform: scale(0.97); border-color: var(--border2); }
-.qt-icon { font-size: 24px; margin-bottom: 8px; display: block; }
-.qt-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.qt-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-.qt-earn { font-size: 12px; color: var(--accent); margin-top: 6px; font-weight: 500; }
-.qt-section-title { font-size: 15px; font-weight: 600; margin: 0 0 12px; color: var(--text); }
+.qt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px;}
+.qt-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 11px;cursor:pointer;text-align:left;transition:border-color .15s;}
+.qt-btn:active{transform:scale(.97);}
+.qt-icon{font-size:20px;margin-bottom:6px;display:block;}
+.qt-name{font-size:13px;font-weight:600;color:var(--text);}
+.qt-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.qt-earn{font-size:11px;color:var(--accent);margin-top:5px;font-weight:500;}
 
 /* ── GPS ── */
-.gps-hero { text-align: center; padding: 24px 0 20px; }
-.gps-pulse-btn { width: 80px; height: 80px; border-radius: 50%; background: rgba(74,229,162,0.1); border: 2px solid rgba(74,229,162,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; cursor: pointer; transition: all 0.2s; position: relative; }
-.gps-pulse-btn:active { transform: scale(0.95); }
-.gps-pulse-btn svg { width: 32px; height: 32px; stroke: var(--accent); fill: none; stroke-width: 2; }
-.gps-pulse-btn.pulsing::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid var(--accent); animation: pulse 1.2s ease-out infinite; }
-@keyframes pulse { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.4); } }
-.gps-label { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
-.gps-sub { font-size: 13px; color: var(--muted); }
-.nearby-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-.nearby-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; cursor: pointer; transition: all 0.15s; }
-.nearby-card:active { transform: scale(0.97); border-color: rgba(74,229,162,0.3); }
-.nearby-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.nearby-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
-.nearby-dist { display: inline-block; font-size: 11px; color: var(--accent2); background: rgba(123,110,246,0.12); padding: 2px 7px; border-radius: 99px; margin-top: 6px; }
-.nearby-best { font-size: 12px; color: var(--accent); margin-top: 8px; font-weight: 500; }
+.gps-hero{text-align:center;padding:20px 0 14px;}
+.gps-ring{width:72px;height:72px;border-radius:50%;background:rgba(74,229,162,.08);border:2px solid rgba(74,229,162,.25);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;cursor:pointer;position:relative;transition:all .2s;}
+.gps-ring:active{transform:scale(.95);}
+.gps-ring svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:2;}
+.gps-ring.pulsing::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid var(--accent);animation:pulse 1.2s ease-out infinite;}
+@keyframes pulse{0%{opacity:.6;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+.gps-lbl{font-size:15px;font-weight:600;margin-bottom:3px;}
+.gps-sub{font-size:12px;color:var(--muted);}
+.nearby-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px;}
+.nearby-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:12px;cursor:pointer;transition:border-color .15s;}
+.nearby-card:active{transform:scale(.97);border-color:rgba(74,229,162,.3);}
+.nearby-name{font-size:13px;font-weight:600;}
+.nearby-meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.nearby-dist{display:inline-block;font-size:10px;color:var(--accent2);background:rgba(123,110,246,.12);padding:2px 7px;border-radius:99px;margin-top:5px;}
+.nearby-best{font-size:11px;color:var(--accent);margin-top:6px;font-weight:500;}
 
-/* ── BACK BTN ── */
-.back-btn { display: none; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); cursor: pointer; margin-bottom: 16px; }
-.back-btn.show { display: flex; }
-.back-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+/* ── SPEND TRACKER ── */
+.tracker-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:14px;text-align:center;}
+.tracker-hero-lbl{font-size:12px;color:var(--muted);margin-bottom:4px;}
+.tracker-hero-val{font-size:30px;font-weight:700;color:var(--accent);}
+.tracker-hero-sub{font-size:12px;color:var(--muted);margin-top:3px;}
+.cat-sum{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.cat-tile{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px 12px;}
+.cat-tile-lbl{font-size:11px;color:var(--muted);margin-bottom:3px;}
+.cat-tile-val{font-size:17px;font-weight:700;}
+.cat-tile-sub{font-size:11px;color:var(--accent);margin-top:2px;}
+.add-btn-full{width:100%;padding:11px;background:var(--accent);color:#0F1117;border:none;border-radius:var(--r);font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;}
+.add-btn-full:active{opacity:.85;}
+.add-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px;display:none;}
+.add-form.show{display:block;}
+.field-label{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.field-grid input,.field-grid select,.add-form input[type=text]{padding:10px 11px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--rSm);color:var(--text);font-size:14px;outline:none;width:100%;-webkit-appearance:none;}
+.field-grid select option{background:var(--surface2);}
+.form-actions{display:flex;gap:8px;}
+.btn-save{flex:1;padding:10px;background:var(--accent);color:#0F1117;border:none;border-radius:var(--rSm);font-size:14px;font-weight:700;cursor:pointer;}
+.btn-cancel{padding:10px 15px;background:var(--surface2);color:var(--muted);border:none;border-radius:var(--rSm);font-size:14px;cursor:pointer;}
+.spend-list{display:flex;flex-direction:column;gap:8px;}
+.spend-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 13px;display:flex;align-items:center;gap:11px;}
+.spend-ico{font-size:20px;width:32px;text-align:center;flex-shrink:0;}
+.spend-body{flex:1;min-width:0;}
+.spend-vendor{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.spend-card{font-size:12px;color:var(--accent);margin-top:2px;}
+.spend-meta{font-size:11px;color:var(--muted);margin-top:1px;}
+.spend-amt{font-size:15px;font-weight:700;flex-shrink:0;}
+.spend-del{color:var(--muted2);cursor:pointer;padding:4px;flex-shrink:0;font-size:20px;line-height:1;}
+.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:13px;}
+.empty-ico{font-size:38px;margin-bottom:10px;opacity:.5;}
 
-/* ── BOTTOM NAV SAFE AREA ── */
-.bottom-spacer { height: env(safe-area-inset-bottom, 12px); }
+/* ── MY WALLET ── */
+.wallet-empty{text-align:center;padding:2rem 1rem 1rem;}
+.wallet-empty .big-ico{font-size:52px;margin-bottom:14px;opacity:.5;}
+.wallet-empty h3{font-size:17px;font-weight:600;margin-bottom:6px;}
+.wallet-empty p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px;}
+.wallet-add-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--accent);color:#0F1117;border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;}
+.wallet-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.ws-tile{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:11px;text-align:center;}
+.ws-val{font-size:20px;font-weight:700;color:var(--accent);}
+.ws-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
+.filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;}
+.filter-row::-webkit-scrollbar{display:none;}
+.chip{padding:5px 13px;background:var(--surface);border:1px solid var(--border);border-radius:99px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap;}
+.chip.on{background:rgba(74,229,162,.1);color:var(--accent);border-color:rgba(74,229,162,.3);}
+.my-cards{display:flex;flex-direction:column;gap:9px;}
+.my-card-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px 14px;}
+.mc-header{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
+.mc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.mc-name{font-size:14px;font-weight:600;flex:1;}
+.mc-af{font-size:11px;color:var(--muted);background:var(--surface2);padding:2px 8px;border-radius:99px;}
+.mc-remove{color:var(--muted2);cursor:pointer;font-size:18px;padding:2px 4px;line-height:1;flex-shrink:0;}
+.mc-cats{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:7px;}
+.mc-cat{font-size:11px;background:rgba(74,229,162,.1);color:var(--accent);padding:2px 8px;border-radius:99px;}
+.mc-tip{font-size:12px;color:var(--muted);line-height:1.5;border-top:1px solid var(--border);padding-top:7px;}
+
+/* ── ADD CARD MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:480px;padding:20px 20px 36px;max-height:90dvh;display:flex;flex-direction:column;}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px;}
+.modal-title{font-size:17px;font-weight:600;margin-bottom:4px;}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:14px;}
+.modal-search{position:relative;margin-bottom:10px;}
+.modal-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none;}
+.modal-search input{width:100%;padding:11px 11px 11px 38px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:15px;outline:none;-webkit-appearance:none;}
+.modal-search input::placeholder{color:var(--muted);}
+.modal-search input:focus{border-color:rgba(74,229,162,.5);}
+.card-list-scroll{overflow-y:auto;flex:1;margin:0 -4px;}
+.card-list-scroll::-webkit-scrollbar{display:none;}
+.card-option{display:flex;align-items:center;gap:11px;padding:11px 4px;border-bottom:1px solid var(--border);cursor:pointer;}
+.card-option:last-child{border-bottom:none;}
+.card-option:active{opacity:.7;}
+.card-opt-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.card-opt-body{flex:1;}
+.card-opt-name{font-size:14px;font-weight:500;}
+.card-opt-cats{font-size:11px;color:var(--muted);margin-top:2px;}
+.card-opt-af{font-size:11px;color:var(--muted2);flex-shrink:0;}
+.card-opt-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.card-opt-check.checked{background:var(--accent);border-color:var(--accent);}
+.card-opt-check.checked::after{content:'✓';font-size:11px;color:#0F1117;font-weight:700;}
+.modal-footer{padding-top:14px;display:flex;gap:8px;}
+.modal-save{flex:1;padding:13px;background:var(--accent);color:#0F1117;border:none;border-radius:var(--r);font-size:15px;font-weight:700;cursor:pointer;}
+.modal-close{padding:13px 18px;background:var(--surface2);color:var(--muted);border:none;border-radius:var(--r);font-size:15px;cursor:pointer;}
 
 /* ── INSTALL BANNER ── */
-.install-banner { display: none; margin: 0 20px 12px; background: var(--surface2); border: 1px solid var(--border2); border-radius: 14px; padding: 14px 16px; }
-.install-banner.show { display: flex; align-items: center; gap: 12px; }
-.install-body { flex: 1; }
-.install-title { font-size: 14px; font-weight: 600; }
-.install-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.install-btn { background: var(--accent); color: #0F1117; border: none; padding: 8px 16px; border-radius: 99px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.install-close { color: var(--muted); cursor: pointer; font-size: 20px; line-height: 1; padding: 4px; }
+.install-banner{display:none;margin:0 20px 10px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--r);padding:12px 13px;}
+.install-banner.show{display:flex;align-items:center;gap:9px;}
+.ib-body{flex:1;}
+.ib-title{font-size:13px;font-weight:600;}
+.ib-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.ib-btn{background:var(--accent);color:#0F1117;border:none;padding:7px 14px;border-radius:99px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;}
+.ib-close{color:var(--muted);cursor:pointer;font-size:20px;padding:4px;flex-shrink:0;}
 </style>
 </head>
 <body>
-<h1 class="sr-only">SwipeRight — Credit card optimizer for Deepak's wallet</h1>
-
+<h1 class="sr-only">SwipeRight — Credit card optimizer</h1>
 <div class="app">
+
   <header>
     <div class="logo">
       <div class="logo-mark">
         <svg viewBox="0 0 20 20"><rect x="1" y="5" width="18" height="13" rx="2"/><path d="M1 9h18" stroke="#0F1117" stroke-width="2" fill="none"/><circle cx="5" cy="13" r="1.5" fill="#0F1117"/></svg>
       </div>
-      <div class="logo-text">Swipe<span>Right</span></div>
+      <div class="logo-text">Swipe<em>Right</em></div>
     </div>
     <div class="tagline">Best card from your wallet, instantly</div>
   </header>
 
   <div id="install-banner" class="install-banner">
-    <div class="install-body">
-      <div class="install-title">Add to home screen</div>
-      <div class="install-sub">Use SwipeRight like a native app</div>
-    </div>
-    <button class="install-btn" id="install-btn">Install</button>
-    <span class="install-close" onclick="closeBanner()">×</span>
-  </div>
-
-  <div class="tab-bar">
-    <button class="tab active" onclick="switchTab('search')" id="tab-search" aria-label="Vendor search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      Search
-    </button>
-    <button class="tab" onclick="switchTab('quick')" id="tab-quick" aria-label="Quick tap">
-      <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      Quick tap
-    </button>
-    <button class="tab" onclick="switchTab('gps')" id="tab-gps" aria-label="Nearby stores">
-      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      Nearby
-    </button>
+    <div class="ib-body"><div class="ib-title">Add to home screen</div><div class="ib-sub">Works offline — use like a native app</div></div>
+    <button class="ib-btn" id="install-btn">Install</button>
+    <span class="ib-close" onclick="closeBanner()">×</span>
   </div>
 
   <div class="panels">
 
-    <!-- SEARCH PANEL -->
+    <!-- SEARCH -->
     <div class="panel active" id="panel-search">
-      <div class="back-btn" id="back-search" onclick="clearSearch()">
-        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Search again
+      <div class="back-row" id="back-search" onclick="clearSearch()">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Search again
       </div>
-      <div class="search-wrap" id="search-wrap">
-        <span class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
-        <input type="text" id="vendorInput" placeholder="CVS, Publix, Home Depot…" oninput="onInput()" onkeydown="if(event.key==='Enter')lookup()" autocomplete="off" spellcheck="false" />
+      <div id="search-wrap">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="vendorInput" placeholder="CVS, Publix, Shell, Netflix…" oninput="onInput()" onkeydown="if(event.key==='Enter')lookup()" autocomplete="off" spellcheck="false"/>
+        </div>
+        <div class="suggestions" id="suggestions"></div>
       </div>
-      <div class="suggestions" id="suggestions"></div>
       <div id="results"></div>
     </div>
 
-    <!-- QUICK TAP PANEL -->
+    <!-- QUICK TAP -->
     <div class="panel" id="panel-quick">
-      <div class="qt-section-title">At checkout right now?</div>
-      <div class="qt-label">Common spots</div>
+      <div class="panel-title">At checkout right now?</div>
+      <div class="section-label">Common stores</div>
       <div class="qt-grid" id="qt-grid"></div>
-      <div class="qt-label">Bills & subscriptions</div>
+      <div class="section-label">Bills &amp; subscriptions</div>
       <div class="qt-grid" id="qt-grid2"></div>
     </div>
 
-    <!-- GPS PANEL -->
+    <!-- GPS / NEARBY -->
     <div class="panel" id="panel-gps">
       <div class="gps-hero">
-        <button class="gps-pulse-btn" id="gps-btn" onclick="startGPS()" aria-label="Detect my location">
+        <div class="gps-ring" id="gps-btn" onclick="startGPS()">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 2"/></svg>
-        </button>
-        <div class="gps-label" id="gps-label">Find stores near me</div>
-        <div class="gps-sub" id="gps-sub">Tap to detect your Orlando location</div>
+        </div>
+        <div class="gps-lbl" id="gps-lbl">Find stores near me</div>
+        <div class="gps-sub" id="gps-sub">Tap to detect your location</div>
       </div>
       <div class="nearby-grid" id="nearby-grid"></div>
     </div>
 
+    <!-- SPEND TRACKER -->
+    <div class="panel" id="panel-tracker">
+      <div class="panel-title">Spend tracker</div>
+      <div class="tracker-hero">
+        <div class="tracker-hero-lbl">Total tracked spend</div>
+        <div class="tracker-hero-val" id="total-val">$0.00</div>
+        <div class="tracker-hero-sub" id="total-sub">0 purchases logged</div>
+      </div>
+      <div class="cat-sum" id="cat-sum"></div>
+      <button class="add-btn-full" onclick="toggleAddForm()">+ Log a purchase</button>
+      <div class="add-form" id="add-form">
+        <div class="field-grid">
+          <div><div class="field-label">Vendor</div><input type="text" id="f-vendor" placeholder="e.g. Publix" oninput="autoFillCard()"/></div>
+          <div><div class="field-label">Amount ($)</div><input type="number" id="f-amt" placeholder="0.00" min="0" step="0.01"/></div>
+          <div><div class="field-label">Card used</div><select id="f-card"><option value="">Select card…</option></select></div>
+          <div><div class="field-label">Category</div>
+            <select id="f-cat">
+              <option>Grocery</option><option>Gas</option><option>Dining</option><option>Streaming</option>
+              <option>Utilities</option><option>Wireless</option><option>Travel</option><option>Shopping</option>
+              <option>Drugstore</option><option>Entertainment</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-save" onclick="saveSpend()">Save</button>
+          <button class="btn-cancel" onclick="toggleAddForm()">Cancel</button>
+        </div>
+      </div>
+      <div class="section-label" style="margin-bottom:9px;">Recent purchases</div>
+      <div class="spend-list" id="spend-list"></div>
+    </div>
+
+    <!-- MY WALLET -->
+    <div class="panel" id="panel-wallet">
+      <div class="panel-title">My Wallet</div>
+      <div id="wallet-body"></div>
+    </div>
+
   </div>
-  <div class="bottom-spacer"></div>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="switchTab('search')" id="nav-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search
+    </button>
+    <button class="nav-item" onclick="switchTab('quick')" id="nav-quick">
+      <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>Quick
+    </button>
+    <button class="nav-item" onclick="switchTab('gps')" id="nav-gps">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nearby
+    </button>
+    <button class="nav-item" onclick="switchTab('tracker')" id="nav-tracker">
+      <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Tracker
+    </button>
+    <button class="nav-item" onclick="switchTab('wallet')" id="nav-wallet">
+      <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h.01"/><path d="M2 10h20"/></svg>Wallet
+      <span class="nav-badge" id="wallet-badge" style="display:none">0</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ADD CARD MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="modalOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Add cards to your wallet</div>
+    <div class="modal-sub">Select all the cards you own</div>
+    <div class="modal-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="modal-search-input" placeholder="Search cards…" oninput="filterCardOptions()" autocomplete="off"/>
+    </div>
+    <div class="card-list-scroll" id="card-option-list"></div>
+    <div class="modal-footer">
+      <button class="modal-close" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveModalCards()">Add selected</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const DB = [
-  {names:["publix","publix super market"],cat:"Grocery",recs:[
-    {card:"Amex Gold",earn:"4x MR (~8% value)",why:"4x at all U.S. supermarkets — undisputed best"},
-    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"Backup if Gold capped at $25K/yr"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate fallback"}
-  ]},
-  {names:["whole foods","whole foods market"],cat:"Grocery (Amazon)",recs:[
-    {card:"Amazon Prime Visa",earn:"5% cash back",why:"WFM counts as Amazon — highest possible earn"},
-    {card:"Amex Gold",earn:"4x MR",why:"Strong alternative without Prime membership"},
-    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"No-fee backup grocery card"}
-  ]},
-  {names:["walmart","walmart supercenter","walmart neighborhood market"],cat:"Supercenter",recs:[
-    {card:"Amex Gold",earn:"4x MR (grocery dept.)",why:"Walmart codes as supermarket for Amex Gold"},
-    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"Reliable, no annual fee"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate catch-all"}
-  ]},
-  {names:["target"],cat:"Retail",recs:[
-    {card:"Citi Custom Cash",earn:"5% if top category",why:"Choose retail — 5% on first $500/mo"},
-    {card:"BofA Customized Cash",earn:"3-5.25% online",why:"Online shopping category if ordering online"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate for in-store Target trips"}
-  ]},
-  {names:["costco","costco wholesale"],cat:"Costco",recs:[
-    {card:"Citi Costco Visa",earn:"2% cash back",why:"Required card — earns 2% annual reward cert"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Tie if you forgot Costco Visa"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"Third fallback option"}
-  ]},
-  {names:["sam's club","sams club"],cat:"Sam's Club",recs:[
-    {card:"Sam's Club MC",earn:"5% (Plus members)",why:"Best card for Sam's — mandatory for Plus tier"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Backup flat-rate card"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}
-  ]},
-  {names:["amazon","amazon.com"],cat:"Amazon",recs:[
-    {card:"Amazon Prime Visa",earn:"5% cash back",why:"No. 1 for Amazon — highest return possible"},
-    {card:"Amazon Store Card",earn:"5% or 0% financing",why:"Use for large items needing 0% promo financing"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Fallback if no Prime membership"}
-  ]},
-  {names:["cvs","cvs pharmacy","cvs health"],cat:"Drugstore",recs:[
-    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU auto-earns 3% at all drugstores"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Choose 'drugstores' for 5% on first $500/mo"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate backup"}
-  ]},
-  {names:["walgreens","walgreen"],cat:"Drugstore",recs:[
-    {card:"Apple Card",earn:"3% cash back",why:"Walgreens is an Apple Card 3% partner merchant"},
-    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU gives 3% on all drugstores"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"5% if drugstores is your top category this month"}
-  ]},
-  {names:["rite aid"],cat:"Drugstore",recs:[
-    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU earns 3% at all drug stores"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Select drugstores as Citi Custom Cash category"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}
-  ]},
-  {names:["home depot","homedepot"],cat:"Home Improvement",recs:[
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Home improvement = eligible Citi Custom Cash cat"},
-    {card:"BofA Customized Cash",earn:"3-5.25%",why:"Choose 'home improvement' category at BofA"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Reliable flat-rate for hardware runs"}
-  ]},
-  {names:["lowe's","lowes","lowe's home improvement"],cat:"Home Improvement",recs:[
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Home improvement category — best 5% option"},
-    {card:"BofA Customized Cash",earn:"3-5.25%",why:"Select home improvement as BofA category"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate catch-all"}
-  ]},
-  {names:["shell","bp","exxon","mobil","chevron","speedway","marathon","circle k","wawa","race trac","racetrac","sunoco"],cat:"Gas Station",recs:[
-    {card:"Citi Costco Visa",earn:"4% on gas",why:"Best gas card — 4% up to $7K/yr"},
-    {card:"Sam's Club MC",earn:"5% on gas",why:"5% if you're a Sam's member (up to $6K/yr)"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"5% if gas is your top spend category this month"}
-  ]},
-  {names:["mcdonald's","mcdonalds","burger king","wendy's","wendys","taco bell","chipotle","chick-fil-a","chick fil a","popeyes","kfc","subway","dunkin","panera","shake shack","five guys"],cat:"Fast Food",recs:[
-    {card:"US Bank Cash+",earn:"5% on fast food",why:"Choose 'fast food' as your Cash+ 5% category"},
-    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Gold earns 4x at ALL restaurants incl. fast food"},
-    {card:"Wells Fargo Autograph",earn:"3x pts on dining",why:"3x on dining, no annual fee"}
-  ]},
-  {names:["starbucks","dutch bros","caribou"],cat:"Coffee",recs:[
-    {card:"Amex Gold",earn:"4x MR (restaurant)",why:"Starbucks codes as restaurant — 4x Gold"},
-    {card:"US Bank Cash+",earn:"5% (fast food cat.)",why:"Starbucks may code as fast food — verify first"},
-    {card:"Wells Fargo Autograph",earn:"3x dining",why:"3x on coffee shops, reliable no-fee option"}
-  ]},
-  {names:["olive garden","chili's","chilIs","applebee's","applebees","outback","red lobster","texas roadhouse","longhorn","seasons 52","bahama breeze"],cat:"Casual Dining",recs:[
-    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Undisputed best dining card — 4x everywhere"},
-    {card:"Wells Fargo Autograph",earn:"3x pts",why:"3x dining, zero annual fee"},
-    {card:"Chase Freedom Unlimited",earn:"3% cash back",why:"3% dining, solid all-rounder"}
-  ]},
-  {names:["uber","uber eats","ubereats"],cat:"Rideshare / Delivery",recs:[
-    {card:"Apple Card",earn:"3% cash back",why:"Uber is an Apple Card 3% partner merchant"},
-    {card:"Amex Gold",earn:"$10/mo Uber Cash",why:"Gold gives $120/yr Uber Cash = effectively free"},
-    {card:"Wells Fargo Autograph",earn:"3x dining (Uber Eats)",why:"3x on Uber Eats food orders"}
-  ]},
-  {names:["lyft"],cat:"Rideshare",recs:[
-    {card:"Amex Gold",earn:"4x MR (transit/dining)",why:"Gold earns at transit-coded merchants"},
-    {card:"Wells Fargo Autograph",earn:"3x transit",why:"3x on transit category"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}
-  ]},
-  {names:["doordash","door dash","grubhub","instacart","postmates","gopuff"],cat:"Food Delivery",recs:[
-    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Delivery apps code as restaurant — 4x Gold"},
-    {card:"Wells Fargo Autograph",earn:"3x dining",why:"3x on delivery = dining category"},
-    {card:"Chase Freedom Unlimited",earn:"3% dining",why:"3% on restaurant-coded delivery"}
-  ]},
-  {names:["netflix","hulu","disney+","disney plus","hbo max","max","paramount+","peacock","apple tv","apple tv+","spotify","youtube premium","amazon prime","sling","fubo"],cat:"Streaming",recs:[
-    {card:"US Bank Cash+",earn:"5% on streaming",why:"Choose 'TV/internet/streaming' — best streaming card"},
-    {card:"Citi Custom Cash",earn:"5% if top category",why:"5% if streaming is your #1 category this month"},
-    {card:"Wells Fargo Autograph",earn:"3x on streaming",why:"3x on streaming services, no annual fee"}
-  ]},
-  {names:["at&t","att"],cat:"Wireless",recs:[
-    {card:"US Bank Cash+",earn:"5% on cell providers",why:"5% on phone bill — top pick for any phone plan"},
-    {card:"Citi AT&T Points Plus",earn:"3x pts + bill credit",why:"AT&T-specific card earns 3x + bill credits"},
-    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x on phone plans, simple no-fee card"}
-  ]},
-  {names:["t-mobile","tmobile"],cat:"Wireless",recs:[
-    {card:"US Bank Cash+",earn:"5% on cell providers",why:"Best pick — 5% on all cell phone providers"},
-    {card:"Apple Card",earn:"3% cash back",why:"T-Mobile is an Apple Card 3% partner merchant"},
-    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x phone plans, solid no-fee backup"}
-  ]},
-  {names:["verizon"],cat:"Wireless",recs:[
-    {card:"US Bank Cash+",earn:"5% on cell providers",why:"5% on all cell phone bills — undisputed best"},
-    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x phone plan backup"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate if others maxed"}
-  ]},
-  {names:["duke energy","fpl","florida power","xcel energy","georgia power","con edison","electric","utility","water bill","gas bill","pepco"],cat:"Utilities",recs:[
-    {card:"US Bank Cash+",earn:"5% on home utilities",why:"BEST utility card — 5% on electric/water/gas bills"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate backup for utility spend"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback for utility payments"}
-  ]},
-  {names:["apple","apple store","apple.com"],cat:"Apple",recs:[
-    {card:"Apple Card",earn:"3% cash back",why:"3% on ALL Apple purchases — only card with this rate"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Fallback if Apple Card not in wallet"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}
-  ]},
-  {names:["best buy","bestbuy"],cat:"Electronics",recs:[
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Electronics = eligible category at Citi Custom Cash"},
-    {card:"BofA Customized Cash",earn:"3-5.25% online",why:"Online Best Buy orders earn at BofA shopping cat."},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate for in-store electronics"}
-  ]},
-  {names:["ashley","ashley furniture","ashley homestore","ashley store"],cat:"Furniture",recs:[
-    {card:"Ashley Store Card",earn:"0% financing promo",why:"Use ONLY for 0% deferred interest promos at Ashley"},
-    {card:"US Bank Cash+",earn:"5% on furniture",why:"Choose 'furniture stores' as Cash+ 5% category"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Furniture is an eligible Citi Custom Cash category"}
-  ]},
-  {names:["marriott","hilton","hyatt","ihg","sheraton","westin","courtyard","hampton inn","holiday inn","doubletree","omni","ritz","four seasons"],cat:"Hotels",recs:[
-    {card:"Bilt Blue",earn:"3x + Hyatt transfer",why:"Transfer Bilt 1:1 to Hyatt — best hotel redemption"},
-    {card:"Chase Freedom Unlimited",earn:"5% via Chase portal",why:"Book via Chase Travel for 5% back"},
-    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on hotel stays, no annual fee"}
-  ]},
-  {names:["delta","united","american airlines","southwest","jetblue","spirit","frontier","alaska airlines"],cat:"Airlines",recs:[
-    {card:"Amex Gold",earn:"3x MR on flights",why:"3x on airfare, transfer MR to Delta/Air France/etc."},
-    {card:"Bilt Blue",earn:"3x + transfer to airlines",why:"Transfer to United, American, Alaska partners"},
-    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on airfare, no annual fee"}
-  ]},
-  {names:["hertz","enterprise","avis","budget","national","alamo"],cat:"Car Rental",recs:[
-    {card:"Chase Freedom Unlimited",earn:"5% via Chase portal",why:"Book via Chase Travel portal for 5%"},
-    {card:"Bilt Blue",earn:"3x on travel",why:"3x on rental cars + transfer partner potential"},
-    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on car rentals, no annual fee"}
-  ]},
-  {names:["planet fitness","la fitness","equinox","orangetheory","crunch","ymca","anytime fitness","lifetime fitness","gold's gym"],cat:"Gym / Fitness",recs:[
-    {card:"US Bank Cash+",earn:"5% on gym/fitness",why:"Choose 'gyms & fitness clubs' as Cash+ category"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback for fitness spend"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}
-  ]},
-  {names:["regal","amc","cinemark","movie theater","alamo drafthouse","odeon"],cat:"Movies",recs:[
-    {card:"US Bank Cash+",earn:"5% on movie theaters",why:"Choose 'movie theaters' as Cash+ category"},
-    {card:"Discover IT",earn:"5% (when featured)",why:"Check quarterly rotating categories — often Q4"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}
-  ]},
-  {names:["sunpass","e-pass","toll","sunrail","lynx","bus","metro","transit","parking"],cat:"Transit",recs:[
-    {card:"Wells Fargo Autograph",earn:"3x on transit",why:"3x on transit, tolls, and commute spend"},
-    {card:"Bilt Blue",earn:"2x on Rent Day",why:"1st of month: Bilt earns 2x on all transit"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback for transit"}
-  ]},
-  {names:["airbnb","vrbo"],cat:"Lodging",recs:[
-    {card:"Bilt Blue",earn:"3x on travel",why:"3x on Airbnb + transfer to Hyatt/United"},
-    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on short-term rentals"},
-    {card:"Amex Gold",earn:"3x on travel",why:"3x on travel bookings"}
-  ]},
-  {names:["amazon web services","aws","google cloud","microsoft azure","digitalocean","godaddy"],cat:"Software/Cloud",recs:[
-    {card:"BofA Customized Cash",earn:"3-5.25% online shopping",why:"AWS/cloud bills often code as online shopping at BofA"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Reliable flat-rate for SaaS/cloud spend"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}
-  ]},
-  {names:["tj maxx","tjmaxx","marshalls","ross","burlington"],cat:"Discount Retail",recs:[
-    {card:"BofA Customized Cash",earn:"3% online shopping",why:"Online orders earn at BofA shopping category"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate for discount retail stores"},
-    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}
-  ]},
-  {names:["ikea"],cat:"Furniture / Home",recs:[
-    {card:"US Bank Cash+",earn:"5% furniture stores",why:"Choose 'furniture stores' as your Cash+ cat"},
-    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Furniture category eligible at Citi Custom Cash"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}
-  ]},
-  {names:["trader joe's","trader joes"],cat:"Grocery",recs:[
-    {card:"Amex Gold",earn:"4x MR at supermarkets",why:"Trader Joe's = supermarket — 4x Amex Gold"},
-    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"3% at U.S. supermarkets, no annual fee"},
-    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate fallback"}
-  ]},
+/* ═══════════════════════════════════════════════════════════
+   MASTER CARD CATALOG  (all 20 cards)
+═══════════════════════════════════════════════════════════ */
+const ALL_CARDS=[
+  {id:"amex_gold",name:"Amex Gold",issuer:"American Express",af:250,color:"#C8960C",cats:["Dining","Grocery","Travel"],tip:"4x at restaurants & U.S. supermarkets. 3x flights. $120 dining credit + $120 Uber Cash effectively offsets the fee."},
+  {id:"amex_bce",name:"Amex Blue Cash Everyday",issuer:"American Express",af:0,color:"#0078CC",cats:["Grocery","Gas","Online Shopping"],tip:"3% groceries/gas/online retail (each up to $6K/yr). Great no-fee backup to Amex Gold."},
+  {id:"cfu",name:"Chase Freedom Unlimited",issuer:"Chase",af:0,color:"#005EB8",cats:["Dining","Drugstore","Catch-all"],tip:"1.5% on everything, 3% dining & drugstores, 5% Chase Travel. Best all-around catch-all."},
+  {id:"citi_cc",name:"Citi Custom Cash",issuer:"Citi",af:0,color:"#D50032",cats:["Flex 5%"],tip:"5% on your #1 eligible spend category each month (up to $500). Choose gas, groceries, dining, streaming, home improvement, drugstores, and more."},
+  {id:"citi_costco",name:"Citi Costco Visa",issuer:"Citi",af:0,color:"#E31837",cats:["Gas","Dining","Travel","Costco"],tip:"4% gas (up to $7K), 3% restaurants & travel, 2% Costco. Must-use for every gas fill-up."},
+  {id:"citi_att",name:"Citi AT&T Points Plus",issuer:"Citi",af:0,color:"#00A8E0",cats:["Wireless"],tip:"3x on AT&T bills + bill credits. Set AT&T autopay here and save on your monthly bill."},
+  {id:"citi_simp",name:"Citi Simplicity",issuer:"Citi",af:0,color:"#AA0022",cats:["Balance Transfer","0% APR"],tip:"Not a rewards card. Use only for 0% intro APR on balance transfers or large purchases. Pay off before promo ends."},
+  {id:"wf_active",name:"Wells Fargo Active Cash",issuer:"Wells Fargo",af:0,color:"#CF202E",cats:["Catch-all"],tip:"Unlimited 2% flat on everything. Best no-fee flat-rate card. Use whenever no other card gives 3%+."},
+  {id:"wf_auto",name:"Wells Fargo Autograph",issuer:"Wells Fargo",af:0,color:"#CF202E",cats:["Dining","Travel","Gas","Streaming","Transit","Phone"],tip:"3x on 6 categories: restaurants, travel, gas, streaming, transit, phone plans. No annual fee. Criminally underused."},
+  {id:"bofa",name:"BofA Customized Cash",issuer:"Bank of America",af:0,color:"#E31837",cats:["Online Shopping","Chosen Category"],tip:"3% on chosen category (5.25% with Preferred Rewards at $100K+). Choose online shopping or home improvement."},
+  {id:"bilt",name:"Bilt Blue",issuer:"Wells Fargo / Bilt",af:0,color:"#4A4AFF",cats:["Rent","Dining","Travel"],tip:"Only card to earn points on rent — no processing fee! 3x travel, 2x dining. Transfer to Hyatt 1:1."},
+  {id:"amazon_prime",name:"Amazon Prime Visa",issuer:"Chase",af:0,color:"#FF9900",cats:["Amazon","Whole Foods"],tip:"5% at Amazon.com & Whole Foods with Prime. Non-negotiable for every Amazon order."},
+  {id:"amazon_store",name:"Amazon Store Card",issuer:"Synchrony",af:0,color:"#FF9900",cats:["Amazon Financing"],tip:"5% at Amazon OR 0% deferred financing. Use for large Amazon purchases needing a 0% promo."},
+  {id:"sams",name:"Sam's Club MC",issuer:"Synchrony",af:0,color:"#0067A0",cats:["Gas","Sam's Club"],tip:"5% on gas (up to $6K), 5% in-club for Plus members. Best card for Sam's shoppers."},
+  {id:"apple",name:"Apple Card",issuer:"Goldman Sachs",af:0,color:"#888888",cats:["Apple","Uber","T-Mobile","Walgreens"],tip:"3% at Apple, Uber, T-Mobile, Walgreens, Panera & more. 2% via Apple Pay everywhere else."},
+  {id:"ashley",name:"Ashley Store Card",issuer:"Synchrony",af:0,color:"#8B4513",cats:["Ashley Financing"],tip:"Use ONLY for 0% deferred interest promos on furniture. No rewards value outside Ashley."},
+  {id:"dcu",name:"DCU Visa Platinum",issuer:"DCU",af:0,color:"#003087",cats:["Low-APR Financing"],tip:"Not for rewards — use for low-APR balance carry or large purchase financing. Keep open for credit health."},
+  {id:"discover",name:"Discover IT",issuer:"Discover",af:0,color:"#F76800",cats:["Rotating 5%"],tip:"5% on rotating quarterly categories (up to $1,500). Year-1 Cashback Match = effectively 10% on 5% cats."},
+  {id:"c1_qs",name:"Capital One QuickSilver",issuer:"Capital One",af:0,color:"#D03027",cats:["Catch-all","International"],tip:"1.5% flat with no foreign transaction fee. Best use: international travel. Consider upgrading to Venture."},
+  {id:"usb_cash",name:"US Bank Cash+",issuer:"US Bank",af:0,color:"#B80A17",cats:["Utilities","Streaming","Fast Food","Gym","Cell Phone","Movie Theaters"],tip:"5% on two chosen categories (up to $2K/qtr each). Choose utilities + cell phone. Most underused card in wallet."},
+  {id:"usb_shield",name:"US Bank Shield Visa",issuer:"US Bank",af:0,color:"#B80A17",cats:["Mobile Wallet"],tip:"Rewards mobile wallet / contactless pay. Verify earn rate — use if it beats Apple Card's 2% on Apple Pay."},
 ];
 
-const QUICK_SPOTS = [
+/* ═══════════════════════════════════════════════════════════
+   VENDOR DATABASE
+═══════════════════════════════════════════════════════════ */
+const DB=[
+  {names:["publix","publix super market"],cat:"Grocery",icon:"🛒",recs:[
+    {card:"Amex Gold",earn:"4x MR (~8% value)",why:"4x at all U.S. supermarkets — best grocery card"},
+    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"Backup when Gold hits $25K cap"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate fallback"}]},
+  {names:["whole foods","whole foods market"],cat:"Grocery (Amazon)",icon:"🥦",recs:[
+    {card:"Amazon Prime Visa",earn:"5% cash back",why:"WFM counts as Amazon — highest possible earn"},
+    {card:"Amex Gold",earn:"4x MR",why:"Strong alt without Prime membership"},
+    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"No-fee grocery backup"}]},
+  {names:["walmart","walmart supercenter","walmart neighborhood market"],cat:"Supercenter",icon:"🛒",recs:[
+    {card:"Amex Gold",earn:"4x MR",why:"Walmart codes as supermarket for Amex Gold"},
+    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"Reliable, no annual fee"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate catch-all"}]},
+  {names:["trader joe's","trader joes"],cat:"Grocery",icon:"🛍️",recs:[
+    {card:"Amex Gold",earn:"4x MR",why:"Trader Joe's codes as supermarket — 4x Gold"},
+    {card:"Amex Blue Cash Everyday",earn:"3% cash back",why:"3% at U.S. supermarkets, no fee"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}]},
+  {names:["target"],cat:"Retail",icon:"🎯",recs:[
+    {card:"Citi Custom Cash",earn:"5% if top category",why:"Choose retail — 5% on first $500/mo"},
+    {card:"BofA Customized Cash",earn:"3–5.25% online",why:"Online shopping category at BofA"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best in-store flat-rate"}]},
+  {names:["costco","costco wholesale"],cat:"Costco",icon:"🏪",recs:[
+    {card:"Citi Costco Visa",earn:"2% cash back",why:"Required card — earns 2% annual reward cert"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Tie if you forgot Costco Visa"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"Third fallback option"}]},
+  {names:["sam's club","sams club"],cat:"Sam's Club",icon:"🏬",recs:[
+    {card:"Sam's Club MC",earn:"5% (Plus members)",why:"Must-use — mandatory for Plus tier"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Backup flat-rate card"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}]},
+  {names:["amazon","amazon.com"],cat:"Amazon",icon:"📦",recs:[
+    {card:"Amazon Prime Visa",earn:"5% cash back",why:"#1 for Amazon — highest return possible"},
+    {card:"Amazon Store Card",earn:"5% or 0% financing",why:"Use for large items needing 0% promo"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Fallback without Prime"}]},
+  {names:["cvs","cvs pharmacy","cvs health"],cat:"Drugstore",icon:"💊",recs:[
+    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU auto-earns 3% at all drugstores"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Choose 'drugstores' for 5% up to $500/mo"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate backup"}]},
+  {names:["walgreens","walgreen"],cat:"Drugstore",icon:"💊",recs:[
+    {card:"Apple Card",earn:"3% cash back",why:"Walgreens is an Apple Card 3% partner merchant"},
+    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU gives 3% on all drugstores"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"5% if drugstores is your top category"}]},
+  {names:["rite aid"],cat:"Drugstore",icon:"💊",recs:[
+    {card:"Chase Freedom Unlimited",earn:"3% at drugstores",why:"CFU earns 3% at all drug stores"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Select drugstores as Custom Cash category"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}]},
+  {names:["home depot","homedepot"],cat:"Home Improvement",icon:"🔨",recs:[
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Home improvement = eligible Citi Custom Cash cat"},
+    {card:"BofA Customized Cash",earn:"3–5.25%",why:"Choose 'home improvement' category at BofA"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Reliable flat-rate fallback"}]},
+  {names:["lowe's","lowes"],cat:"Home Improvement",icon:"🔧",recs:[
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Home improvement category — best 5% option"},
+    {card:"BofA Customized Cash",earn:"3–5.25%",why:"Select home improvement at BofA"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate catch-all"}]},
+  {names:["shell","bp","exxon","mobil","chevron","speedway","marathon","circle k","wawa","racetrac","sunoco","quiktrip","7-eleven"],cat:"Gas Station",icon:"⛽",recs:[
+    {card:"Citi Costco Visa",earn:"4% on gas",why:"Best gas card — 4% up to $7K/yr"},
+    {card:"Sam's Club MC",earn:"5% on gas",why:"5% if you're a Sam's member (up to $6K/yr)"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"5% if gas is your top spend category this month"}]},
+  {names:["mcdonald's","mcdonalds","burger king","wendy's","wendys","taco bell","chipotle","chick-fil-a","chick fil a","popeyes","kfc","subway","dunkin","panera","shake shack","five guys","in-n-out"],cat:"Fast Food",icon:"🍔",recs:[
+    {card:"US Bank Cash+",earn:"5% on fast food",why:"Choose 'fast food' as your Cash+ 5% category"},
+    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Gold earns 4x at ALL restaurants incl. fast food"},
+    {card:"Wells Fargo Autograph",earn:"3x pts on dining",why:"3x dining, no annual fee"}]},
+  {names:["starbucks","dutch bros","caribou coffee"],cat:"Coffee",icon:"☕",recs:[
+    {card:"Amex Gold",earn:"4x MR (restaurant)",why:"Starbucks codes as restaurant — 4x Gold"},
+    {card:"US Bank Cash+",earn:"5% (fast food cat)",why:"May code as fast food — verify on statement"},
+    {card:"Wells Fargo Autograph",earn:"3x dining",why:"3x on coffee shops, reliable no-fee option"}]},
+  {names:["olive garden","chili's","chilIs","applebee's","applebees","outback","red lobster","texas roadhouse","longhorn","seasons 52","bahama breeze","flemings","bonefish","capital grille"],cat:"Casual Dining",icon:"🍽️",recs:[
+    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Undisputed best dining card — 4x everywhere"},
+    {card:"Wells Fargo Autograph",earn:"3x pts",why:"3x dining, zero annual fee"},
+    {card:"Chase Freedom Unlimited",earn:"3% cash back",why:"3% dining, solid all-rounder"}]},
+  {names:["uber","uber eats","ubereats"],cat:"Rideshare / Delivery",icon:"🚕",recs:[
+    {card:"Apple Card",earn:"3% cash back",why:"Uber is an Apple Card 3% partner merchant"},
+    {card:"Amex Gold",earn:"$10/mo Uber Cash",why:"Gold gives $120/yr Uber Cash = effectively free rides"},
+    {card:"Wells Fargo Autograph",earn:"3x dining (Uber Eats)",why:"3x on Uber Eats food orders"}]},
+  {names:["lyft"],cat:"Rideshare",icon:"🚗",recs:[
+    {card:"Amex Gold",earn:"4x MR (transit/dining)",why:"Gold earns at transit-coded merchants"},
+    {card:"Wells Fargo Autograph",earn:"3x transit",why:"3x on transit category"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}]},
+  {names:["doordash","door dash","grubhub","instacart","postmates","gopuff"],cat:"Food Delivery",icon:"🥡",recs:[
+    {card:"Amex Gold",earn:"4x MR at restaurants",why:"Delivery apps code as restaurant — 4x Gold"},
+    {card:"Wells Fargo Autograph",earn:"3x dining",why:"3x on delivery orders"},
+    {card:"Chase Freedom Unlimited",earn:"3% dining",why:"3% on restaurant-coded delivery"}]},
+  {names:["netflix","hulu","disney+","disney plus","hbo max","max","paramount+","peacock","apple tv+","spotify","youtube premium","sling","fubo","discovery+"],cat:"Streaming",icon:"📺",recs:[
+    {card:"US Bank Cash+",earn:"5% on streaming",why:"Choose 'TV/internet/streaming' — best streaming card"},
+    {card:"Citi Custom Cash",earn:"5% if top category",why:"5% if streaming is your #1 category this month"},
+    {card:"Wells Fargo Autograph",earn:"3x on streaming",why:"3x on streaming services, no annual fee"}]},
+  {names:["at&t","att"],cat:"Wireless",icon:"📱",recs:[
+    {card:"US Bank Cash+",earn:"5% on cell providers",why:"5% on phone bill — top pick for any carrier"},
+    {card:"Citi AT&T Points Plus",earn:"3x pts + bill credit",why:"AT&T-specific card earns 3x + bill credits"},
+    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x on phone plans, simple no-fee card"}]},
+  {names:["t-mobile","tmobile"],cat:"Wireless",icon:"📱",recs:[
+    {card:"US Bank Cash+",earn:"5% on cell providers",why:"Best pick — 5% on all cell phone providers"},
+    {card:"Apple Card",earn:"3% cash back",why:"T-Mobile is an Apple Card 3% partner merchant"},
+    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x phone plans, solid no-fee backup"}]},
+  {names:["verizon"],cat:"Wireless",icon:"📱",recs:[
+    {card:"US Bank Cash+",earn:"5% on cell providers",why:"5% on all cell phone bills — undisputed best"},
+    {card:"Wells Fargo Autograph",earn:"3x phone plans",why:"3x phone plan backup"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate if others maxed"}]},
+  {names:["duke energy","fpl","florida power","con edison","xcel","electric","utility","water bill","gas bill","pepco"],cat:"Utilities",icon:"⚡",recs:[
+    {card:"US Bank Cash+",earn:"5% on home utilities",why:"BEST utility card — 5% on electric/water/gas bills"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate backup for utility spend"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback for utility payments"}]},
+  {names:["apple","apple store","apple.com"],cat:"Apple",icon:"🍎",recs:[
+    {card:"Apple Card",earn:"3% cash back",why:"3% on ALL Apple purchases — only card with this rate"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Fallback if Apple Card not used"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}]},
+  {names:["best buy","bestbuy"],cat:"Electronics",icon:"🖥️",recs:[
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Electronics = eligible Citi Custom Cash category"},
+    {card:"BofA Customized Cash",earn:"3–5.25% online",why:"Online Best Buy orders earn at BofA shopping cat."},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate for in-store electronics"}]},
+  {names:["ashley","ashley furniture","ashley homestore","ashley store"],cat:"Furniture",icon:"🛋️",recs:[
+    {card:"Ashley Store Card",earn:"0% financing promo",why:"Use ONLY for 0% deferred interest promos"},
+    {card:"US Bank Cash+",earn:"5% on furniture",why:"Choose 'furniture stores' as Cash+ category"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Furniture is an eligible Custom Cash category"}]},
+  {names:["marriott","hilton","hyatt","ihg","sheraton","westin","courtyard","hampton inn","holiday inn","doubletree","omni","ritz"],cat:"Hotels",icon:"🏨",recs:[
+    {card:"Bilt Blue",earn:"3x + Hyatt transfer",why:"Transfer Bilt 1:1 to Hyatt — best hotel redemption"},
+    {card:"Chase Freedom Unlimited",earn:"5% via Chase portal",why:"Book via Chase Travel for 5% back"},
+    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on hotel stays, no annual fee"}]},
+  {names:["delta","united","american airlines","southwest","jetblue","spirit","frontier","alaska airlines"],cat:"Airlines",icon:"✈️",recs:[
+    {card:"Amex Gold",earn:"3x MR on flights",why:"3x on airfare, transfer MR to Delta/Air France/etc."},
+    {card:"Bilt Blue",earn:"3x + transfer to airlines",why:"Transfer to United, American, Alaska partners"},
+    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on airfare, no annual fee"}]},
+  {names:["hertz","enterprise","avis","budget","national","alamo"],cat:"Car Rental",icon:"🚗",recs:[
+    {card:"Chase Freedom Unlimited",earn:"5% via Chase portal",why:"Book via Chase Travel portal for 5%"},
+    {card:"Bilt Blue",earn:"3x on travel",why:"3x on rental cars + transfer partner potential"},
+    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on car rentals, no annual fee"}]},
+  {names:["planet fitness","la fitness","equinox","orangetheory","crunch","ymca","anytime fitness","lifetime fitness"],cat:"Gym / Fitness",icon:"🏋️",recs:[
+    {card:"US Bank Cash+",earn:"5% on gym/fitness",why:"Choose 'gyms & fitness clubs' as Cash+ category"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}]},
+  {names:["regal","amc","cinemark","alamo drafthouse","movie theater"],cat:"Movies",icon:"🎬",recs:[
+    {card:"US Bank Cash+",earn:"5% on movie theaters",why:"Choose 'movie theaters' as Cash+ category"},
+    {card:"Discover IT",earn:"5% (when featured)",why:"Check quarterly rotating categories — often Q4"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}]},
+  {names:["sunpass","e-pass","toll","sunrail","lynx","bus","metro","transit","parking"],cat:"Transit",icon:"🚇",recs:[
+    {card:"Wells Fargo Autograph",earn:"3x on transit",why:"3x on transit, tolls, and commute spend"},
+    {card:"Bilt Blue",earn:"2x on Rent Day",why:"1st of month: Bilt earns 2x on all transit"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback for transit"}]},
+  {names:["airbnb","vrbo"],cat:"Lodging",icon:"🏠",recs:[
+    {card:"Bilt Blue",earn:"3x on travel",why:"3x on Airbnb + transfer to Hyatt/United"},
+    {card:"Wells Fargo Autograph",earn:"3x on travel",why:"3x on short-term rentals"},
+    {card:"Amex Gold",earn:"3x on travel",why:"3x on travel bookings"}]},
+  {names:["ikea"],cat:"Furniture / Home",icon:"🪑",recs:[
+    {card:"US Bank Cash+",earn:"5% furniture stores",why:"Choose 'furniture stores' as your Cash+ cat"},
+    {card:"Citi Custom Cash",earn:"5% if chosen",why:"Furniture category eligible at Citi Custom Cash"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Flat-rate fallback"}]},
+  {names:["tj maxx","tjmaxx","marshalls","ross","burlington"],cat:"Discount Retail",icon:"🛍️",recs:[
+    {card:"BofA Customized Cash",earn:"3–5.25% online",why:"Online orders earn at BofA shopping category"},
+    {card:"Wells Fargo Active Cash",earn:"2% cash back",why:"Best flat-rate for discount stores"},
+    {card:"Chase Freedom Unlimited",earn:"1.5% cash back",why:"General fallback"}]},
+];
+
+const QUICK_SPOTS=[
   {icon:"🛒",name:"Grocery store",sub:"Publix, Walmart…",earn:"Amex Gold 4x",vendor:"publix"},
   {icon:"⛽",name:"Gas station",sub:"Shell, Exxon…",earn:"Citi Costco 4%",vendor:"shell"},
   {icon:"🍔",name:"Fast food",sub:"McDonald's, Taco Bell…",earn:"US Bank Cash+ 5%",vendor:"mcdonald's"},
   {icon:"☕",name:"Coffee",sub:"Starbucks, Dunkin…",earn:"Amex Gold 4x",vendor:"starbucks"},
-  {icon:"💊",name:"Pharmacy",sub:"CVS, Walgreens…",earn:"CFU 3% or Apple 3%",vendor:"cvs"},
-  {icon:"🛍️",name:"Amazon",sub:"Amazon.com",earn:"Prime Visa 5%",vendor:"amazon"},
+  {icon:"💊",name:"Pharmacy",sub:"CVS, Walgreens…",earn:"CFU 3% / Apple 3%",vendor:"cvs"},
+  {icon:"📦",name:"Amazon",sub:"Amazon.com",earn:"Prime Visa 5%",vendor:"amazon"},
 ];
-const QUICK_BILLS = [
+const QUICK_BILLS=[
   {icon:"📺",name:"Streaming",sub:"Netflix, Hulu…",earn:"US Bank Cash+ 5%",vendor:"netflix"},
   {icon:"📱",name:"Phone bill",sub:"AT&T, T-Mobile…",earn:"US Bank Cash+ 5%",vendor:"at&t"},
   {icon:"⚡",name:"Utility bill",sub:"Electric, water…",earn:"US Bank Cash+ 5%",vendor:"duke energy"},
   {icon:"🚕",name:"Rideshare",sub:"Uber, Lyft…",earn:"Apple Card 3%",vendor:"uber"},
 ];
-
-const NEARBY = [
+const NEARBY=[
   {name:"Publix",cat:"Grocery",dist:"0.4 mi",best:"Amex Gold — 4x MR",vendor:"publix"},
   {name:"Shell Gas",cat:"Gas Station",dist:"0.6 mi",best:"Citi Costco Visa — 4%",vendor:"shell"},
   {name:"CVS Pharmacy",cat:"Drugstore",dist:"0.8 mi",best:"Chase Freedom Unlimited — 3%",vendor:"cvs"},
@@ -428,46 +545,87 @@ const NEARBY = [
   {name:"Target",cat:"Retail",dist:"1.8 mi",best:"Citi Custom Cash — 5%",vendor:"target"},
   {name:"Home Depot",cat:"Home Improvement",dist:"2.1 mi",best:"Citi Custom Cash — 5%",vendor:"home depot"},
 ];
+const CAT_ICONS={Grocery:"🛒",Gas:"⛽",Dining:"🍽️",Streaming:"📺",Utilities:"⚡",Wireless:"📱",Travel:"✈️",Shopping:"🛍️",Drugstore:"💊",Entertainment:"🎬",Other:"💳"};
 
-function norm(s){ return s.toLowerCase().replace(/[^a-z0-9]/g,''); }
-function findVendor(q){
-  const nq = norm(q);
-  for(const e of DB) for(const n of e.names) if(norm(n).includes(nq)||nq.includes(norm(n))) return e;
-  return null;
-}
-function allNames(){ const a=[]; for(const e of DB) a.push(...e.names.map(n=>({name:n,cat:e.cat}))); return a; }
+/* ═══════════════════════════════════════════════════════════
+   PERSISTENCE  (localStorage)
+═══════════════════════════════════════════════════════════ */
+function loadState(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch{return def;}}
+function saveState(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch{}}
 
-function renderResults(vendor, entry){
-  const res = document.getElementById('results');
+let myCardIds=loadState('sr_wallet',[]);   // array of card ids the user owns
+let spends=loadState('sr_spends',[]);
+let walletFilter='All';
+let modalSelected=new Set(myCardIds);      // tracks selections in modal
+
+function myCards(){return ALL_CARDS.filter(c=>myCardIds.includes(c.id));}
+function cardOwned(name){return myCardIds.length===0||myCards().some(c=>c.name===name);}
+
+/* ═══════════════════════════════════════════════════════════
+   SEARCH / VENDOR LOOKUP
+═══════════════════════════════════════════════════════════ */
+function norm(s){return s.toLowerCase().replace(/[^a-z0-9]/g,'');}
+function findVendor(q){const nq=norm(q);for(const e of DB)for(const n of e.names)if(norm(n).includes(nq)||nq.includes(norm(n)))return e;return null;}
+function allNames(){const a=[];for(const e of DB)a.push(...e.names.map(n=>({name:n,cat:e.cat})));return a;}
+
+function renderResults(vendor,entry){
+  const res=document.getElementById('results');
   if(!entry){
-    res.innerHTML=`<div class="no-results"><div class="big-icon">🔍</div><div style="font-size:15px;font-weight:600;margin-bottom:6px">No match for "${vendor}"</div><div style="font-size:13px;color:var(--muted)">Try: Publix, CVS, Shell, Amazon, Netflix…</div></div>`;
+    res.innerHTML=`<div class="no-res">No match for "<strong>${vendor}</strong>"<br><span style="font-size:12px;color:var(--muted)">Try: Publix, CVS, Shell, Amazon, Netflix…</span></div>`;
     return;
   }
-  let h=`<div class="results-header">Best cards for <strong>${vendor}</strong> <span style="font-size:12px;color:var(--muted)">(${entry.cat})</span></div>`;
-  entry.recs.forEach((r,i)=>{
-    h+=`<div class="card-result ${i===0?'best':''}">
-      <div class="rank-circle rank-${i+1}">${i+1}</div>
-      <div>
-        <div class="result-name">${r.card}${i===0?'<span class="best-badge">Best</span>':''}</div>
-        <div class="result-earn">→ ${r.earn}</div>
-        <div class="result-why">${r.why}</div>
-      </div>
-    </div>`;
-  });
-  h+=`<div class="tip">💡 Always confirm category coding on your first statement — some merchants code unexpectedly.</div>`;
-  res.innerHTML = h;
+  // filter to owned cards if wallet set up, otherwise show all
+  const walletSet=myCardIds.length>0;
+  let h=`<div class="results-hdr">Best cards for <strong>${vendor}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
+  if(walletSet){h+=`<div style="font-size:11px;color:var(--accent2);margin-bottom:10px;">★ Showing your wallet cards first</div>`;}
+  let rank=0;
+  // first pass: owned cards
+  const shown=new Set();
+  for(const r of entry.recs){
+    if(!cardOwned(r.card))continue;
+    rank++;shown.add(r.card);
+    h+=recHTML(rank,r,true,true);
+  }
+  // second pass: non-owned recommendations (greyed)
+  if(walletSet){
+    for(const r of entry.recs){
+      if(shown.has(r.card))continue;
+      h+=recHTML(null,r,false,false);
+    }
+  } else {
+    // no wallet set — show all ranked
+    for(const r of entry.recs){
+      if(shown.has(r.card))continue;
+      rank++;h+=recHTML(rank,r,rank===1,true);
+    }
+  }
+  h+=`<div class="tip-box">💡 Confirm category coding on your first statement — some merchants code unexpectedly.</div>`;
+  res.innerHTML=h;
   document.getElementById('back-search').classList.add('show');
   document.getElementById('search-wrap').style.display='none';
   document.getElementById('suggestions').style.display='none';
 }
 
-function lookup(){
-  const v = document.getElementById('vendorInput').value.trim();
-  if(!v) return;
-  document.getElementById('suggestions').style.display='none';
-  renderResults(v, findVendor(v));
+function recHTML(rank,r,isBest,inWallet){
+  const owned=cardOwned(r.card);
+  const notOwned=myCardIds.length>0&&!owned;
+  return `<div class="card-result ${isBest?'best':''}" style="${notOwned?'opacity:.45':''}">
+    <div class="rank-c ${rank===1?'r1':rank===2?'r2':'r3'}">${rank||'—'}</div>
+    <div>
+      <div class="res-name">${r.card}${isBest&&inWallet?'<span class="best-badge">Best</span>':''}</div>
+      <div class="res-earn">→ ${r.earn}</div>
+      <div class="res-why">${r.why}</div>
+      ${notOwned?`<div class="not-in-wallet">⚠ Not in your wallet</div>`:''}
+    </div>
+  </div>`;
 }
 
+function lookup(){
+  const v=document.getElementById('vendorInput').value.trim();
+  if(!v)return;
+  document.getElementById('suggestions').style.display='none';
+  renderResults(v,findVendor(v));
+}
 function clearSearch(){
   document.getElementById('vendorInput').value='';
   document.getElementById('results').innerHTML='';
@@ -476,54 +634,44 @@ function clearSearch(){
   document.getElementById('suggestions').style.display='none';
   document.getElementById('vendorInput').focus();
 }
-
 function onInput(){
-  const v = document.getElementById('vendorInput').value.trim();
-  const sugg = document.getElementById('suggestions');
+  const v=document.getElementById('vendorInput').value.trim();
+  const sugg=document.getElementById('suggestions');
   if(v.length<2){sugg.style.display='none';return;}
   const q=norm(v);
-  const matches = allNames().filter(x=>norm(x.name).includes(q)).slice(0,6);
+  const matches=allNames().filter(x=>norm(x.name).includes(q)).slice(0,6);
   if(!matches.length){sugg.style.display='none';return;}
-  sugg.innerHTML=matches.map(x=>`<div class="suggestion" onclick="selectSug('${x.name.replace(/'/g,"\\'")}')"><span>${x.name.charAt(0).toUpperCase()+x.name.slice(1)}</span><span class="suggestion-cat">${x.cat}</span></div>`).join('');
+  sugg.innerHTML=matches.map(x=>`<div class="sug" onclick="selectSug('${x.name.replace(/'/g,"\\'")}')"><span>${x.name.charAt(0).toUpperCase()+x.name.slice(1)}</span><span class="sug-cat">${x.cat}</span></div>`).join('');
   sugg.style.display='block';
 }
-
 function selectSug(name){
   document.getElementById('vendorInput').value=name.charAt(0).toUpperCase()+name.slice(1);
   document.getElementById('suggestions').style.display='none';
   lookup();
 }
 
-function switchTab(t){
-  document.querySelectorAll('.tab').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(el=>el.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
-  document.getElementById('panel-'+t).classList.add('active');
-}
-
+/* ═══════════════════════════════════════════════════════════
+   QUICK TAP
+═══════════════════════════════════════════════════════════ */
 function buildQuick(){
   document.getElementById('qt-grid').innerHTML=QUICK_SPOTS.map(s=>`
     <button class="qt-btn" onclick="quickPick('${s.vendor}','${s.name}')">
       <span class="qt-icon">${s.icon}</span>
-      <div class="qt-name">${s.name}</div>
-      <div class="qt-sub">${s.sub}</div>
+      <div class="qt-name">${s.name}</div><div class="qt-sub">${s.sub}</div>
       <div class="qt-earn">${s.earn}</div>
     </button>`).join('');
   document.getElementById('qt-grid2').innerHTML=QUICK_BILLS.map(s=>`
     <button class="qt-btn" onclick="quickPick('${s.vendor}','${s.name}')">
       <span class="qt-icon">${s.icon}</span>
-      <div class="qt-name">${s.name}</div>
-      <div class="qt-sub">${s.sub}</div>
+      <div class="qt-name">${s.name}</div><div class="qt-sub">${s.sub}</div>
       <div class="qt-earn">${s.earn}</div>
     </button>`).join('');
 }
+function quickPick(vendor,displayName){switchTab('search');document.getElementById('vendorInput').value=displayName;renderResults(displayName,findVendor(vendor));}
 
-function quickPick(vendor, displayName){
-  switchTab('search');
-  document.getElementById('vendorInput').value=displayName;
-  renderResults(displayName, findVendor(vendor));
-}
-
+/* ═══════════════════════════════════════════════════════════
+   GPS / NEARBY
+═══════════════════════════════════════════════════════════ */
 function buildNearby(){
   document.getElementById('nearby-grid').innerHTML=NEARBY.map(s=>`
     <div class="nearby-card" onclick="nearbyPick('${s.vendor}','${s.name}')">
@@ -533,69 +681,267 @@ function buildNearby(){
       <div class="nearby-best">${s.best}</div>
     </div>`).join('');
 }
-
-function nearbyPick(vendor, name){
-  switchTab('search');
-  document.getElementById('vendorInput').value=name;
-  renderResults(name, findVendor(vendor));
-}
-
 function startGPS(){
-  const btn=document.getElementById('gps-btn');
-  const label=document.getElementById('gps-label');
-  const sub=document.getElementById('gps-sub');
-  btn.classList.add('pulsing');
-  label.textContent='Detecting…';
-  if(!navigator.geolocation){
-    btn.classList.remove('pulsing');
-    label.textContent='GPS unavailable';
-    sub.textContent='Showing nearby stores for Orlando area';
-    buildNearby();
-    return;
-  }
+  const btn=document.getElementById('gps-btn'),lbl=document.getElementById('gps-lbl'),sub=document.getElementById('gps-sub');
+  btn.classList.add('pulsing');lbl.textContent='Detecting…';
+  if(!navigator.geolocation){btn.classList.remove('pulsing');lbl.textContent='GPS unavailable';buildNearby();return;}
   navigator.geolocation.getCurrentPosition(
-    pos=>{
-      btn.classList.remove('pulsing');
-      label.textContent='Location found';
-      sub.textContent=`${pos.coords.latitude.toFixed(3)}, ${pos.coords.longitude.toFixed(3)} — Orlando area stores`;
-      buildNearby();
-    },
-    ()=>{
-      btn.classList.remove('pulsing');
-      label.textContent='Using Orlando area';
-      sub.textContent='Showing common stores in your area';
-      buildNearby();
-    },
+    pos=>{btn.classList.remove('pulsing');lbl.textContent='Location found';sub.textContent=`${pos.coords.latitude.toFixed(3)}, ${pos.coords.longitude.toFixed(3)} — Orlando area`;buildNearby();},
+    ()=>{btn.classList.remove('pulsing');lbl.textContent='Using Orlando area';sub.textContent='Showing common stores near you';buildNearby();},
     {timeout:8000}
   );
 }
+function nearbyPick(vendor,name){switchTab('search');document.getElementById('vendorInput').value=name;renderResults(name,findVendor(vendor));}
 
-// PWA install
+/* ═══════════════════════════════════════════════════════════
+   SPEND TRACKER
+═══════════════════════════════════════════════════════════ */
+function toggleAddForm(){
+  const f=document.getElementById('add-form');
+  f.classList.toggle('show');
+  if(f.classList.contains('show'))document.getElementById('f-vendor').focus();
+}
+function autoFillCard(){
+  const v=document.getElementById('f-vendor').value.trim();
+  if(!v)return;
+  const entry=findVendor(v);
+  if(!entry||!entry.recs.length)return;
+  // prefer owned card
+  const owned=myCards();
+  const best=entry.recs.find(r=>owned.some(c=>c.name===r.card))||entry.recs[0];
+  const sel=document.getElementById('f-card');
+  for(let i=0;i<sel.options.length;i++){if(sel.options[i].value===best.card){sel.selectedIndex=i;break;}}
+  const catMap={Grocery:"Grocery",Gas:"Gas","Fast Food":"Dining",Coffee:"Dining","Casual Dining":"Dining",Streaming:"Streaming",Utilities:"Utilities",Wireless:"Wireless",Hotels:"Travel",Airlines:"Travel","Car Rental":"Travel",Movies:"Entertainment",Drugstore:"Drugstore"};
+  const catSel=document.getElementById('f-cat');
+  const mapped=catMap[entry.cat]||'Other';
+  for(let i=0;i<catSel.options.length;i++){if(catSel.options[i].value===mapped){catSel.selectedIndex=i;break;}}
+}
+function saveSpend(){
+  const vendor=document.getElementById('f-vendor').value.trim();
+  const amt=parseFloat(document.getElementById('f-amt').value);
+  const card=document.getElementById('f-card').value;
+  const cat=document.getElementById('f-cat').value;
+  if(!vendor||!amt||!card){alert('Please fill in vendor, amount, and card.');return;}
+  const entry=findVendor(vendor);
+  const rec=entry?entry.recs[0]:null;
+  spends.unshift({id:Date.now(),vendor,amt,card,cat,icon:entry?entry.icon:'💳',earn:rec?rec.earn:'',date:new Date().toLocaleDateString()});
+  saveState('sr_spends',spends);
+  document.getElementById('f-vendor').value='';document.getElementById('f-amt').value='';
+  document.getElementById('f-card').value='';
+  document.getElementById('add-form').classList.remove('show');
+  renderTracker();
+}
+function deleteSpend(id){spends=spends.filter(s=>s.id!==id);saveState('sr_spends',spends);renderTracker();}
+function renderTracker(){
+  const total=spends.reduce((s,x)=>s+x.amt,0);
+  document.getElementById('total-val').textContent='$'+total.toFixed(2);
+  document.getElementById('total-sub').textContent=spends.length+' purchase'+(spends.length===1?'':'s')+' logged';
+  const cats={};
+  for(const s of spends)cats[s.cat]=(cats[s.cat]||0)+s.amt;
+  const top=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  document.getElementById('cat-sum').innerHTML=top.length?top.map(([c,v])=>`
+    <div class="cat-tile">
+      <div class="cat-tile-lbl">${CAT_ICONS[c]||'💳'} ${c}</div>
+      <div class="cat-tile-val">$${v.toFixed(0)}</div>
+      <div class="cat-tile-sub">${total>0?(v/total*100).toFixed(0):0}% of spend</div>
+    </div>`).join(''):'';
+  const list=document.getElementById('spend-list');
+  if(!spends.length){list.innerHTML='<div class="empty-state"><div class="empty-ico">📊</div>No purchases yet.<br>Tap "+ Log a purchase" to start tracking.</div>';return;}
+  list.innerHTML=spends.slice(0,30).map(s=>`
+    <div class="spend-item">
+      <div class="spend-ico">${s.icon||'💳'}</div>
+      <div class="spend-body">
+        <div class="spend-vendor">${s.vendor}</div>
+        <div class="spend-card">${s.card}${s.earn?' — '+s.earn:''}</div>
+        <div class="spend-meta">${s.cat} · ${s.date}</div>
+      </div>
+      <div class="spend-amt">$${s.amt.toFixed(2)}</div>
+      <div class="spend-del" onclick="deleteSpend(${s.id})">×</div>
+    </div>`).join('');
+}
+function populateCardSelect(){
+  const sel=document.getElementById('f-card');
+  // show owned cards first, then rest
+  const owned=myCards();
+  const rest=ALL_CARDS.filter(c=>!myCardIds.includes(c.id));
+  const list=myCardIds.length>0?[...owned,...rest]:ALL_CARDS;
+  list.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=c.name+(myCardIds.length>0&&!myCardIds.includes(c.id)?' (not in wallet)':'');sel.appendChild(o);});
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MY WALLET
+═══════════════════════════════════════════════════════════ */
+const WALLET_FILTERS=['All','No Fee','Dining','Gas','Grocery','Streaming','Utilities','Travel'];
+
+function renderWallet(){
+  const body=document.getElementById('wallet-body');
+  if(myCardIds.length===0){
+    body.innerHTML=`
+      <div class="wallet-empty">
+        <div class="big-ico">💳</div>
+        <h3>Set up your wallet</h3>
+        <p>Tell SwipeRight which cards you own so recommendations are personalized to <em>your</em> wallet only.</p>
+        <button class="wallet-add-btn" onclick="openModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><path d="M12 5v14M5 12h14"/></svg>
+          Add my cards
+        </button>
+      </div>`;
+    updateWalletBadge();
+    return;
+  }
+  // stats row
+  const owned=myCards();
+  const totalAF=owned.reduce((s,c)=>s+c.af,0);
+  const noFee=owned.filter(c=>c.af===0).length;
+  let html=`<div class="wallet-stats-row">
+    <div class="ws-tile"><div class="ws-val">${owned.length}</div><div class="ws-lbl">Cards</div></div>
+    <div class="ws-tile"><div class="ws-val">${noFee}</div><div class="ws-lbl">No annual fee</div></div>
+    <div class="ws-tile"><div class="ws-val">$${totalAF}</div><div class="ws-lbl">Annual fees</div></div>
+  </div>`;
+  // filter chips
+  html+=`<div class="filter-row">`;
+  WALLET_FILTERS.forEach(f=>{html+=`<div class="chip ${f===walletFilter?'on':''}" onclick="setFilter('${f}')">${f}</div>`;});
+  html+=`</div>`;
+  // add more button
+  html+=`<div style="display:flex;justify-content:flex-end;margin-bottom:12px;"><button onclick="openModal()" style="background:var(--surface2);border:1px solid var(--border2);color:var(--accent);padding:7px 14px;border-radius:99px;font-size:13px;font-weight:600;cursor:pointer;">+ Add more cards</button></div>`;
+  // filter cards
+  const filterFn={
+    'All':()=>true,'No Fee':c=>c.af===0,
+    'Dining':c=>c.cats.some(x=>/dining|restaurant|food/i.test(x)),
+    'Gas':c=>c.cats.some(x=>/gas/i.test(x)),
+    'Grocery':c=>c.cats.some(x=>/grocery|supermarket/i.test(x)),
+    'Streaming':c=>c.cats.some(x=>/streaming/i.test(x)),
+    'Utilities':c=>c.cats.some(x=>/util/i.test(x)),
+    'Travel':c=>c.cats.some(x=>/travel|airline|hotel|rent/i.test(x)),
+  };
+  const filtered=owned.filter(filterFn[walletFilter]||filterFn['All']);
+  html+=`<div class="my-cards">`;
+  if(!filtered.length){html+=`<div class="empty-state">No cards match this filter.</div>`;}
+  filtered.forEach(c=>{
+    html+=`<div class="my-card-item">
+      <div class="mc-header">
+        <div class="mc-dot" style="background:${c.color}"></div>
+        <div class="mc-name">${c.name}</div>
+        <div class="mc-af">${c.af?'$'+c.af+'/yr':'No fee'}</div>
+        <div class="mc-remove" onclick="removeCard('${c.id}')" title="Remove card">×</div>
+      </div>
+      <div class="mc-cats">${c.cats.map(x=>`<span class="mc-cat">${x}</span>`).join('')}</div>
+      <div class="mc-tip">${c.tip}</div>
+    </div>`;
+  });
+  html+=`</div>`;
+  body.innerHTML=html;
+  updateWalletBadge();
+}
+
+function setFilter(f){walletFilter=f;renderWallet();}
+function removeCard(id){
+  myCardIds=myCardIds.filter(x=>x!==id);
+  saveState('sr_wallet',myCardIds);
+  modalSelected=new Set(myCardIds);
+  renderWallet();
+  // refresh select in tracker
+  refreshCardSelect();
+}
+function updateWalletBadge(){
+  const badge=document.getElementById('wallet-badge');
+  if(myCardIds.length>0){badge.style.display='block';badge.textContent=myCardIds.length;}
+  else{badge.style.display='none';}
+}
+function refreshCardSelect(){
+  const sel=document.getElementById('f-card');
+  while(sel.options.length>1)sel.remove(1);
+  const owned=myCards();
+  const rest=ALL_CARDS.filter(c=>!myCardIds.includes(c.id));
+  const list=myCardIds.length>0?[...owned,...rest]:ALL_CARDS;
+  list.forEach(c=>{const o=document.createElement('option');o.value=c.name;o.textContent=c.name+(myCardIds.length>0&&!myCardIds.includes(c.id)?' (not in wallet)':'');sel.appendChild(o);});
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ADD CARD MODAL
+═══════════════════════════════════════════════════════════ */
+function openModal(){
+  modalSelected=new Set(myCardIds);
+  document.getElementById('modal-search-input').value='';
+  renderCardOptions('');
+  document.getElementById('modal-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('modal-search-input').focus(),200);
+}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('show');}
+function modalOverlayClick(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+function renderCardOptions(query){
+  const q=norm(query);
+  const filtered=ALL_CARDS.filter(c=>q===''||norm(c.name).includes(q)||norm(c.issuer).includes(q)||c.cats.some(x=>norm(x).includes(q)));
+  document.getElementById('card-option-list').innerHTML=filtered.map(c=>`
+    <div class="card-option" onclick="toggleCardSelect('${c.id}')">
+      <div class="card-opt-dot" style="background:${c.color}"></div>
+      <div class="card-opt-body">
+        <div class="card-opt-name">${c.name}</div>
+        <div class="card-opt-cats">${c.cats.join(' · ')}</div>
+      </div>
+      <div class="card-opt-af">${c.af?'$'+c.af+'/yr':'No fee'}</div>
+      <div class="card-opt-check ${modalSelected.has(c.id)?'checked':''}" id="chk-${c.id}"></div>
+    </div>`).join('');
+}
+function filterCardOptions(){renderCardOptions(document.getElementById('modal-search-input').value.trim());}
+function toggleCardSelect(id){
+  if(modalSelected.has(id))modalSelected.delete(id);else modalSelected.add(id);
+  const chk=document.getElementById('chk-'+id);
+  if(chk)chk.className='card-opt-check'+(modalSelected.has(id)?' checked':'');
+}
+function saveModalCards(){
+  myCardIds=[...modalSelected];
+  saveState('sr_wallet',myCardIds);
+  closeModal();
+  renderWallet();
+  refreshCardSelect();
+  // if already on search panel with results, re-render them
+  const v=document.getElementById('vendorInput').value.trim();
+  if(v&&document.getElementById('results').innerHTML)renderResults(v,findVendor(v));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════════════ */
+function switchTab(t){
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(el=>el.classList.remove('active'));
+  document.getElementById('nav-'+t).classList.add('active');
+  document.getElementById('panel-'+t).classList.add('active');
+  if(t==='tracker')renderTracker();
+  if(t==='wallet')renderWallet();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PWA / INSTALL
+═══════════════════════════════════════════════════════════ */
 let deferredPrompt;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();
-  deferredPrompt=e;
-  document.getElementById('install-banner').classList.add('show');
-});
-document.getElementById('install-btn').addEventListener('click',async()=>{
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const {outcome}=await deferredPrompt.userChoice;
-  deferredPrompt=null;
-  document.getElementById('install-banner').classList.remove('show');
-});
-function closeBanner(){ document.getElementById('install-banner').classList.remove('show'); }
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('install-banner').classList.add('show');});
+document.getElementById('install-btn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;document.getElementById('install-banner').classList.remove('show');});
+function closeBanner(){document.getElementById('install-banner').classList.remove('show');}
 
-document.getElementById('vendorInput').addEventListener('keydown',e=>{
-  if(e.key==='Escape') document.getElementById('suggestions').style.display='none';
-});
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#suggestions')&&!e.target.closest('#vendorInput'))
-    document.getElementById('suggestions').style.display='none';
-});
+/* ═══════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════ */
+document.getElementById('vendorInput').addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('suggestions').style.display='none';});
+document.addEventListener('click',e=>{if(!e.target.closest('#suggestions')&&!e.target.closest('#vendorInput'))document.getElementById('suggestions').style.display='none';});
 
 buildQuick();
+populateCardSelect();
+renderTracker();
+updateWalletBadge();
+
+// Show wallet onboarding prompt if no cards set yet
+if(myCardIds.length===0){
+  setTimeout(()=>{
+    const banner=document.createElement('div');
+    banner.style.cssText='margin:0 20px 10px;background:rgba(74,229,162,.08);border:1px solid rgba(74,229,162,.25);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;';
+    banner.innerHTML=`<div style="flex:1;font-size:13px;color:var(--accent);">👋 <strong>New here?</strong> Add your cards to get personalized picks.</div><button onclick="switchTab('wallet')" style="background:var(--accent);color:#0F1117;border:none;padding:7px 14px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;">Set up wallet</button><span onclick="this.parentElement.remove()" style="color:var(--muted);cursor:pointer;font-size:20px;padding:4px;flex-shrink:0;">×</span>`;
+    document.getElementById('install-banner').insertAdjacentElement('afterend',banner);
+  },600);
+}
 </script>
-<script>if("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
+<script>if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js');</script>
 </body>
 </html>
