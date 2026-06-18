@@ -1,7 +1,7 @@
 {
   "name": "SwipeRight — Card Optimizer",
   "short_name": "SwipeRight",
-  "description": "Best credit card from your wallet for every purchase. 150+ cards. Works offline.",
+  "description": "Best credit card from your wallet for every purchase. 80+ cards. Works offline.",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#0F1117",
