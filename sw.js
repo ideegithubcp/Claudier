@@ -1,4 +1,4 @@
-const CACHE = 'swiperight-v5';
+const CACHE = 'swiperight-v6';
 const ASSETS = [
   '/', '/index.html', '/manifest.json',
   '/cards.json', '/vendors.json',

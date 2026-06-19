@@ -401,13 +401,50 @@ header{padding:52px 20px 10px;background:linear-gradient(180deg,rgba(0,198,184,0
   </div>
 </div>
 
+<!-- EDIT CATALOG CARD MODAL -->
+<div class="modal-overlay" id="edit-overlay" onclick="editOverlayClick(event)" role="dialog" aria-modal="true" aria-label="Edit card details">
+  <div class="modal" style="padding:20px 20px 0;">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="edit-modal-title">Edit card</div>
+    <div class="modal-sub">Your edits override catalog data and survive data refreshes.</div>
+    <div class="custom-form-scroll">
+      <div style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.2);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--gold);line-height:1.5;">
+        💡 Overrides are stored locally and are never overwritten by refreshes. Leave a field blank to keep the catalog default.
+      </div>
+      <div class="cfield">
+        <label for="edit-af">Annual fee ($)</label>
+        <input type="number" id="edit-af" placeholder="Enter corrected annual fee" min="0" step="1"/>
+        <div style="font-size:11px;color:var(--muted2);margin-top:3px;" id="edit-af-hint"></div>
+      </div>
+      <div class="cfield">
+        <label for="edit-earn">Earn rate — your corrected description</label>
+        <textarea id="edit-earn" style="height:80px;" placeholder="e.g. 4x restaurants (up to $50K/yr), 4x U.S. supermarkets (up to $25K/yr), 3x flights…"></textarea>
+        <div style="font-size:11px;color:var(--muted2);margin-top:3px;" id="edit-earn-hint"></div>
+      </div>
+      <div class="cfield">
+        <label for="edit-tip">Tip / personal notes</label>
+        <textarea id="edit-tip" placeholder="e.g. My renewal date is March. I use the dining credit at Grubhub monthly."></textarea>
+      </div>
+      <div class="cfield">
+        <label>Categories</label>
+        <div class="cat-multi" id="edit-cats"></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="flex-wrap:wrap;gap:8px;">
+      <button class="modal-close" onclick="closeEditModal()">Cancel</button>
+      <button style="padding:13px 14px;background:rgba(255,107,107,.12);color:var(--danger);border:1px solid rgba(255,107,107,.3);border-radius:var(--r);font-size:14px;cursor:pointer;" onclick="clearCardEdit()">Reset defaults</button>
+      <button class="modal-save" style="flex:1;min-width:120px;" onclick="saveCardEdit()">Save overrides</button>
+    </div>
+  </div>
+</div>
+
 <!-- DISCLAIMER MODAL -->
 <div class="modal-overlay" id="disc-overlay" onclick="if(event.target===this)closeDisclaimer()" role="dialog" aria-modal="true" aria-label="Disclaimer">
   <div class="disc-modal">
     <div class="modal-handle"></div>
     <div class="disc-scroll">
       <h2>⚠️ Data Disclaimer</h2>
-      <p><strong>Card data last verified: <span id="disc-date">2025-06-18</span></strong></p>
+      <p><strong>Card data last verified: <span id="disc-date">2026-06-18</span></strong></p>
       <p>SwipeRight provides general information about credit card rewards programs for educational purposes only. This is <strong>not financial advice</strong>.</p>
       <ul>
         <li>Annual fees, earn rates, and card benefits <strong>change frequently</strong> without notice. Always verify current terms at the issuer's official website before making any financial decisions.</li>
@@ -434,7 +471,7 @@ header{padding:52px 20px 10px;background:linear-gradient(180deg,rgba(0,198,184,0
 /* ════════════════════════════════════════════════
    CONFIG
 ════════════════════════════════════════════════ */
-const GOOGLE_PLACES_API_KEY = '';  // Set your key here — leave blank to use text-based fallback
+const GOOGLE_PLACES_API_KEY = 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY';
 const DATA_VERSION_KEY = 'sr_data_v';
 const REFRESH_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -450,6 +487,7 @@ function saveS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{showToa
 
 let myCardIds = loadS('sr_wallet',[]);
 let customCards = loadS('sr_custom',[]);
+let cardOverrides = loadS('sr_card_overrides',{});  // {cardId: {af, earn, tip, cats}}
 let walletFilter = 'All';
 let modalSelected = new Set(myCardIds);
 let customCatSelection = new Set();
@@ -886,7 +924,7 @@ const WALLET_FILTERS=['All','No Fee','Dining','Gas','Grocery','Streaming','Utili
 const CC_CATS=['Dining','Grocery','Gas','Travel','Streaming','Utilities','Wireless','Shopping','Drugstore','Entertainment','Rent','Catch-all','Balance Transfer','Other'];
 
 function allWalletCards(){
-  const catalog=CARD_CATALOG.filter(c=>myCardIds.includes(c.id));
+  const catalog=CARD_CATALOG.filter(c=>myCardIds.includes(c.id)).map(applyOverrides);
   return [...catalog,...customCards];
 }
 function cardOwned(name){
@@ -944,11 +982,14 @@ function renderWallet(){
         <div class="mc-name">${escHtml(c.name)}</div>
         ${isCustom?'<span class="mc-custom-badge">Custom</span>':''}
         <div class="mc-af">${c.af?'$'+c.af+'/yr':'No fee'}</div>
-        ${isCustom?`<button class="mc-edit" onclick="editCustomCard('${c.id}')" aria-label="Edit ${c.name}">✏</button>`:''}
+        <button class="mc-edit" onclick="${isCustom?`editCustomCard('${c.id}')`:`openEditModal('${c.id}')`}" aria-label="Edit ${c.name}">✏</button>
         <button class="mc-remove" onclick="removeCard('${c.id}','${isCustom?'custom':'catalog'}')" aria-label="Remove ${c.name}">×</button>
       </div>
       <div class="mc-cats">${(c.cats||[]).map(x=>`<span class="mc-cat">${escHtml(x)}</span>`).join('')}</div>
-      <div class="mc-tip">${escHtml(c.tip||c.earn||'')}</div>
+      <div class="mc-tip">
+        ${cardOverrides[c.id]?.earn ? '<span style="font-size:10px;color:var(--accent2);background:rgba(123,110,246,.12);padding:2px 7px;border-radius:99px;margin-bottom:5px;display:inline-block;">✏ Edited</span><br>' : ''}
+        ${escHtml(getCardTip(c))}
+      </div>
     </div>`;
   });
   html+=`</div>`;
@@ -1165,6 +1206,122 @@ function populateCardSelect(){
   // No tracker panel — kept for custom card form compatibility
 }
 
+
+/* ════════════════════════════════════════════════
+   CARD OVERRIDES — edit catalog card details
+════════════════════════════════════════════════ */
+let editingCatalogId = null;
+let editCatSelection = new Set();
+const CC_CATS_EDIT = ['Dining','Grocery','Gas','Travel','Streaming','Utilities','Wireless','Shopping','Drugstore','Entertainment','Rent','Catch-all','Balance Transfer','Other'];
+
+function getCardTip(c){
+  const ov = cardOverrides[c.id];
+  return ov?.tip || c.tip || ov?.earn || c.earn || '';
+}
+
+function getCardEarn(c){
+  const ov = cardOverrides[c.id];
+  return ov?.earn || c.earn || c.tip || '';
+}
+
+function getCardAF(c){
+  const ov = cardOverrides[c.id];
+  return ov?.af !== undefined ? ov.af : (c.af || 0);
+}
+
+function getCardCats(c){
+  const ov = cardOverrides[c.id];
+  return ov?.cats || c.cats || [];
+}
+
+// Apply overrides to a card object for display
+function applyOverrides(c){
+  const ov = cardOverrides[c.id];
+  if(!ov) return c;
+  return { ...c,
+    af: ov.af !== undefined ? ov.af : c.af,
+    tip: ov.tip || c.tip,
+    cats: ov.cats?.length ? ov.cats : c.cats,
+    earn: ov.earn || c.earn,
+    _hasOverride: true
+  };
+}
+
+function openEditModal(cardId){
+  const c = CARD_CATALOG.find(x=>x.id===cardId);
+  if(!c) return;
+  editingCatalogId = cardId;
+  const ov = cardOverrides[cardId] || {};
+
+  document.getElementById('edit-modal-title').textContent = c.name;
+  document.getElementById('edit-af').value = ov.af !== undefined ? ov.af : '';
+  document.getElementById('edit-af-hint').textContent = 'Catalog value: $' + c.af + '/yr';
+  document.getElementById('edit-earn').value = ov.earn || '';
+  document.getElementById('edit-earn-hint').textContent = 'Catalog: ' + (c.tip || '').slice(0, 80) + (c.tip?.length > 80 ? '…' : '');
+  document.getElementById('edit-tip').value = ov.tip || '';
+
+  editCatSelection = new Set(ov.cats?.length ? ov.cats : c.cats);
+  buildEditCatToggles();
+
+  document.getElementById('edit-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('edit-af').focus(), 200);
+}
+
+function closeEditModal(){
+  document.getElementById('edit-overlay').classList.remove('show');
+  editingCatalogId = null;
+}
+
+function editOverlayClick(e){
+  if(e.target === document.getElementById('edit-overlay')) closeEditModal();
+}
+
+function buildEditCatToggles(){
+  document.getElementById('edit-cats').innerHTML = CC_CATS_EDIT.map(c => `
+    <div class="cat-toggle ${editCatSelection.has(c)?'on':''}" onclick="toggleEditCat('${c}')" id="ecat-${c}">${c}</div>`).join('');
+}
+
+function toggleEditCat(c){
+  if(editCatSelection.has(c)) editCatSelection.delete(c); else editCatSelection.add(c);
+  const el = document.getElementById('ecat-'+c);
+  if(el) el.className = 'cat-toggle' + (editCatSelection.has(c)?' on':'');
+}
+
+function saveCardEdit(){
+  if(!editingCatalogId) return;
+  const afRaw = document.getElementById('edit-af').value.trim();
+  const earn  = document.getElementById('edit-earn').value.trim();
+  const tip   = document.getElementById('edit-tip').value.trim();
+  const cats  = [...editCatSelection];
+
+  const ov = {};
+  if(afRaw !== '') ov.af = parseFloat(afRaw) || 0;
+  if(earn) ov.earn = earn;
+  if(tip)  ov.tip  = tip;
+  if(cats.length) ov.cats = cats;
+
+  if(Object.keys(ov).length === 0){
+    // Nothing entered — treat as clear
+    delete cardOverrides[editingCatalogId];
+  } else {
+    cardOverrides[editingCatalogId] = ov;
+  }
+
+  saveS('sr_card_overrides', cardOverrides);
+  closeEditModal();
+  renderWallet();
+  showToast('✓ Card overrides saved', 'success');
+}
+
+function clearCardEdit(){
+  if(!editingCatalogId) return;
+  delete cardOverrides[editingCatalogId];
+  saveS('sr_card_overrides', cardOverrides);
+  closeEditModal();
+  renderWallet();
+  showToast('Card reset to catalog defaults');
+}
+
 /* ════════════════════════════════════════════════
    NAVIGATION
 ════════════════════════════════════════════════ */
@@ -1219,7 +1376,7 @@ document.getElementById('vendorInput').addEventListener('keydown',e=>{
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
-    ['modal-overlay','custom-overlay','disc-overlay'].forEach(id=>{
+    ['modal-overlay','custom-overlay','disc-overlay','edit-overlay'].forEach(id=>{
       document.getElementById(id).classList.remove('show');
     });
   }
