@@ -839,25 +839,48 @@ function startGPS(){
   );
 }
 
+function loadMapsApi(){
+  return new Promise((resolve,reject)=>{
+    if(window.google?.maps?.places){resolve();return;}
+    if(window.__mapsApiResolvers){window.__mapsApiResolvers.push(resolve);return;}
+    window.__mapsApiResolvers=[resolve];
+    window.__mapsApiReady=function(){(window.__mapsApiResolvers||[]).forEach(fn=>fn());};
+    const s=document.createElement('script');
+    s.src=`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_PLACES_API_KEY}&libraries=places&callback=__mapsApiReady`;
+    s.onerror=reject;
+    document.head.appendChild(s);
+  });
+}
+
+function getHiddenMapDiv(){
+  let d=document.getElementById('__map_hidden');
+  if(!d){d=document.createElement('div');d.id='__map_hidden';d.style.cssText='position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;';document.body.appendChild(d);}
+  return d;
+}
+
 async function fetchNearbyPlaces(lat,lng){
   document.getElementById('nearby-grid').innerHTML='<div style="grid-column:1/-1;padding:1rem;text-align:center;color:var(--muted);font-size:13px;">Finding stores near you…</div>';
   try{
+    await loadMapsApi();
+    const map=new google.maps.Map(getHiddenMapDiv(),{center:{lat,lng},zoom:15});
+    const svc=new google.maps.places.PlacesService(map);
     const types=['supermarket','gas_station','pharmacy','restaurant','department_store'];
     const results=[];
-    for(const type of types){
-      const url=`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=2000&type=${type}&key=${GOOGLE_PLACES_API_KEY}`;
-      const res=await fetch(url);
-      const data=await res.json();
-      if(data.results){
-        results.push(...data.results.slice(0,2).map(p=>({
-          name:p.name,
-          types:p.types||[],
-          dist:p.geometry?.location ? calcDist(lat,lng,p.geometry.location.lat,p.geometry.location.lng) : null,
-          rating:p.rating
-        })));
-      }
-    }
-    renderNearbyFromPlaces(results.slice(0,8));
+    await Promise.all(types.map(type=>new Promise(res=>{
+      svc.nearbySearch({location:{lat,lng},radius:2000,type},(places,status)=>{
+        if(status===google.maps.places.PlacesServiceStatus.OK&&places){
+          results.push(...places.slice(0,2).map(p=>({
+            name:p.name,
+            types:p.types||[],
+            dist:p.geometry?.location?calcDist(lat,lng,p.geometry.location.lat(),p.geometry.location.lng()):null,
+            rating:p.rating
+          })));
+        }
+        res();
+      });
+    })));
+    if(results.length) renderNearbyFromPlaces(results.slice(0,8));
+    else{renderNearbyFallback();showToast('No stores found nearby','error');}
   }catch(e){
     renderNearbyFallback();showToast('Places API error — showing fallback stores','error');
   }
@@ -868,17 +891,16 @@ function searchPlacesByText(){
   if(!loc){showToast('Enter a location to search','error');return;}
   if(!GOOGLE_PLACES_API_KEY){renderNearbyFallback();showToast('Add a Google Places API key in the app config','error');return;}
   document.getElementById('nearby-grid').innerHTML='<div style="grid-column:1/-1;padding:1rem;text-align:center;color:var(--muted);font-size:13px;">Searching…</div>';
-  // Geocode the text first, then do nearby search
-  fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(loc)}&key=${GOOGLE_PLACES_API_KEY}`)
-    .then(r=>r.json())
-    .then(data=>{
-      if(data.results?.[0]){
-        const {lat,lng}=data.results[0].geometry.location;
-        fetchNearbyPlaces(lat,lng);
+  loadMapsApi().then(()=>{
+    new google.maps.Geocoder().geocode({address:loc},(results,status)=>{
+      if(status==='OK'&&results[0]){
+        const loc2=results[0].geometry.location;
+        fetchNearbyPlaces(loc2.lat(),loc2.lng());
       } else {
         renderNearbyFallback();showToast('Location not found','error');
       }
-    }).catch(()=>{renderNearbyFallback();});
+    });
+  }).catch(()=>{renderNearbyFallback();});
 }
 
 function calcDist(lat1,lng1,lat2,lng2){
