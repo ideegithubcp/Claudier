@@ -1,8 +1,11 @@
-const CACHE = 'swiperight-v7';
+const CACHE = 'swiperight-v8';
 const ASSETS = [
-  '/manifest.json',
+  '/', '/index.html', '/app.css', '/manifest.json',
   '/cards.json', '/vendors.json',
-  '/icon-192.png', '/icon-512.png'
+  '/icon-192.png', '/icon-512.png',
+  '/js/app.js', '/js/config.js', '/js/storage.js', '/js/state.js',
+  '/js/data.js', '/js/search.js', '/js/places.js',
+  '/js/wallet.js', '/js/overrides.js', '/js/ui.js',
 ];
 
 // Install — cache all assets
