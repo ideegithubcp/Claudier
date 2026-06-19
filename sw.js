@@ -1,6 +1,6 @@
-const CACHE = 'swiperight-v6';
+const CACHE = 'swiperight-v7';
 const ASSETS = [
-  '/', '/index.html', '/manifest.json',
+  '/manifest.json',
   '/cards.json', '/vendors.json',
   '/icon-192.png', '/icon-512.png'
 ];
@@ -23,14 +23,13 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Fetch — cache-first for app assets, network-first for data JSON
+// Fetch — network-first for HTML + JSON (always fresh on deploy), cache-first for static assets
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
-  const isData = url.pathname.endsWith('.json');
+  const isNetworkFirst = url.pathname.endsWith('.json') || url.pathname === '/' || url.pathname.endsWith('.html');
 
-  if (isData) {
-    // Network-first for JSON data files (allows refresh to work)
+  if (isNetworkFirst) {
     e.respondWith(
       fetch(e.request)
         .then(res => {
@@ -42,7 +41,7 @@ self.addEventListener('fetch', e => {
         .catch(() => caches.match(e.request))
     );
   } else {
-    // Cache-first for app shell
+    // Cache-first for images and other static assets
     e.respondWith(
       caches.match(e.request).then(cached => {
         if (cached) return cached;
