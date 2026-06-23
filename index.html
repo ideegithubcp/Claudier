@@ -36,6 +36,7 @@
 
   <div class="data-bar">
     <span class="data-bar-status" id="data-status">Loading…</span>
+    <span class="visit-count" id="visit-count"></span>
     <button class="refresh-btn" id="refresh-btn" onclick="refreshData()" aria-label="Refresh card data">
       <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
       Refresh
@@ -243,5 +244,6 @@
 <input type="file" id="import-file" accept=".json" style="display:none" onchange="importWallet(event)"/>
 
 <script type="module" src="js/app.js"></script>
+<script data-goatcounter="https://swiperight.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

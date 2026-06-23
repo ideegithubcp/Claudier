@@ -23,6 +23,21 @@ export function switchTab(t) {
   document.getElementById('panel-' + t).classList.add('active');
   if (t === 'wallet') renderWallet();
   if (t === 'gps') import('./places.js').then(({ initNearbyTab }) => initNearbyTab());
+  // Track tab switch as virtual page view (GoatCounter)
+  if (window.goatcounter?.count) {
+    window.goatcounter.count({ path: '/tab/' + t, title: 'Tab: ' + t });
+  }
+}
+
+export function initVisitorCount() {
+  fetch('https://swiperight.goatcounter.com/counter//.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      if (!data?.count) return;
+      const el = document.getElementById('visit-count');
+      if (el) el.textContent = '👥 ' + data.count + ' visits';
+    })
+    .catch(() => {}); // silently ignore — analytics is non-critical
 }
 
 export function openDisclaimer() { document.getElementById('disc-overlay').classList.add('show'); }

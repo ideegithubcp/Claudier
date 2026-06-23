@@ -72,6 +72,7 @@ header {
 .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .disclaimer-btn { background: none; border: none; color: var(--muted2); font-size: 11px; cursor: pointer; text-decoration: underline; padding: 0; }
+.visit-count { font-size: 11px; color: var(--muted2); white-space: nowrap; margin-right: auto; }
 
 /* BOTTOM NAV — 3 tabs */
 .bottom-nav { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom, 8px); position: sticky; bottom: 0; z-index: 100; }
