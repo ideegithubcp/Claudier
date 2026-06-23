@@ -1,4 +1,4 @@
-const CACHE = 'swiperight-v9';
+const CACHE = 'swiperight-v10';
 const ASSETS = [
   '/', '/index.html', '/app.css', '/manifest.json',
   '/cards.json', '/vendors.json',
@@ -30,7 +30,8 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
-  const isNetworkFirst = url.pathname.endsWith('.json') || url.pathname === '/' || url.pathname.endsWith('.html');
+  // JS files are network-first too so deploys take effect without SW cache bumps
+  const isNetworkFirst = url.pathname.endsWith('.json') || url.pathname.endsWith('.js') || url.pathname === '/' || url.pathname.endsWith('.html') || url.pathname.endsWith('.css');
 
   if (isNetworkFirst) {
     e.respondWith(

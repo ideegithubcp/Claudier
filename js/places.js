@@ -180,7 +180,7 @@ export async function fetchNearbyPlaces(lat, lng) {
 
     await Promise.race([
       Promise.all(types.map(type => new Promise(res => {
-        svc.nearbySearch({ location: { lat, lng }, radius: 4800, type }, (places, status) => {
+        svc.nearbySearch({ location: { lat, lng }, radius: 16093, type }, (places, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK && places) {
             results.push(...places.slice(0, 3).map(p => ({
               name: p.name,
@@ -198,10 +198,10 @@ export async function fetchNearbyPlaces(lat, lng) {
     if (results.length) {
       results.sort((a, b) => (parseFloat(a.dist) || 99) - (parseFloat(b.dist) || 99));
       renderNearbyFromPlaces(results.slice(0, 8));
-      document.getElementById('gps-sub').textContent = `${results.length} stores found within 3 miles`;
+      document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
     } else {
       renderNearbyFallback(false);
-      showToast('No stores found within 3 miles', 'error');
+      showToast('No stores found within 10 miles', 'error');
     }
   } catch (e) {
     console.error('[SwipeRight] fetchNearbyPlaces:', e.message);
@@ -239,7 +239,7 @@ export function startGPS() {
       btn.classList.remove('pulsing');
       const { latitude: lat, longitude: lng } = pos.coords;
       lbl.textContent = 'Searching nearby…';
-      sub.textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)} · within 3 miles`;
+      sub.textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)} · within 10 miles`;
       if (GOOGLE_PLACES_API_KEY) {
         fetchNearbyPlaces(lat, lng);
       } else {
