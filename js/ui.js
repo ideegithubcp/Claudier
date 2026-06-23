@@ -3,6 +3,10 @@ import { renderWallet } from './wallet.js';
 
 export function escHtml(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 export function escAttr(s) { return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+// For values injected as JS string arguments inside onclick="fn('...')" attributes.
+// Uses backslash escaping (not HTML entities) so the browser's HTML-entity-decoder
+// cannot turn &#x27; back into a raw ' that breaks the JS string delimiter.
+export function escJs(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/</g, '\\x3c').replace(/>/g, '\\x3e'); }
 
 export function showToast(msg, type = '') {
   const t = document.getElementById('toast');

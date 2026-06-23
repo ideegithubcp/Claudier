@@ -1,5 +1,5 @@
 import { GOOGLE_PLACES_API_KEY } from './config.js';
-import { showToast, escAttr, escHtml, switchTab } from './ui.js';
+import { showToast, escAttr, escHtml, escJs, switchTab } from './ui.js';
 import { findBestVendor, renderResults } from './search.js';
 import { state } from './state.js';
 import { allWalletCards } from './cards.js';
@@ -9,7 +9,7 @@ const NEARBY_FALLBACK = [
   { name: 'Shell Gas', cat: 'Gas Station', dist: '0.6', best: 'Citi Costco Visa — 4%', vendor: 'shell' },
   { name: 'CVS Pharmacy', cat: 'Drugstore', dist: '0.8', best: 'Chase Freedom Unlimited — 3%', vendor: 'cvs' },
   { name: 'Starbucks', cat: 'Coffee', dist: '0.9', best: 'Amex Gold — 4x MR', vendor: 'starbucks' },
-  { name: "McDonald's", cat: 'Fast Food', dist: '1.1', best: 'Amex Gold — 4x MR', vendor: "mcdonald's" },
+  { name: "McDonald's", cat: 'Fast Food', dist: '1.1', best: 'Amex Gold — 4x MR', vendor: 'mcdonalds' },
   { name: 'Walgreens', cat: 'Pharmacy', dist: '1.3', best: 'Apple Card — 3%', vendor: 'walgreens' },
   { name: 'Target', cat: 'Retail', dist: '1.8', best: 'RedCard 5% / Citi Custom 5%', vendor: 'target' },
   { name: 'Home Depot', cat: 'Home Improvement', dist: '2.1', best: 'Citi Custom Cash — 5%', vendor: 'home depot' },
@@ -28,8 +28,8 @@ const PLACE_TYPE_MAP = {
   'supermarket': 'grocery store', 'grocery_or_supermarket': 'grocery store',
   'gas_station': 'shell', 'convenience_store': 'circle k',
   'pharmacy': 'cvs', 'drugstore': 'cvs',
-  // Restaurant-type places → use mcdonald's as generic dining proxy (has broad Dining recs)
-  'restaurant': "mcdonald's", 'food': "mcdonald's",
+  // Restaurant-type places → use mcdonalds as generic dining proxy (has broad Dining recs)
+  'restaurant': 'mcdonalds', 'food': 'mcdonalds',
   'cafe': 'starbucks', 'bakery': 'starbucks',
   'department_store': 'target', 'clothing_store': 'target',
   'home_goods_store': 'home depot', 'hardware_store': 'home depot',
@@ -114,7 +114,7 @@ function showNearbyLoading() {
 
 function nearbyCardHTML(name, cat, dist, best, vendor) {
   const icon = CAT_ICONS[cat] || '🏪';
-  return `<div class="nearby-card" onclick="nearbyPick('${escAttr(vendor)}','${escAttr(name)}')">
+  return `<div class="nearby-card" onclick="nearbyPick('${escJs(vendor)}','${escJs(name)}')">
     <div class="nearby-icon">${icon}</div>
     <div class="nearby-name">${escHtml(name)}</div>
     <div class="nearby-cat">${escHtml(cat)}</div>
@@ -153,7 +153,7 @@ function renderNearbyFromPlaces(places) {
     const bestRec = ownedRec || recs[0];
     const bestCard = bestRec?.card || 'Check your wallet';
     const bestEarn = bestRec?.earn || '';
-    return `<div class="nearby-card" onclick="nearbyPick('${escAttr(vendorKey)}','${escAttr(p.name)}')">
+    return `<div class="nearby-card" onclick="nearbyPick('${escJs(vendorKey)}','${escJs(p.name)}')">
       <div class="nearby-icon">${icon}</div>
       <div class="nearby-name">${escHtml(p.name)}</div>
       <div class="nearby-cat">${escHtml(catLabel || 'Store')}</div>
