@@ -1,5 +1,6 @@
 import { state } from './state.js';
-import { escHtml, escAttr } from './ui.js';
+import { escHtml, escAttr, switchTab } from './ui.js';
+import { allWalletCards } from './cards.js';
 
 export function norm(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim(); }
 
@@ -68,25 +69,9 @@ export function findBestVendor(query) {
   return results.length > 0 ? results[0].entry : null;
 }
 
-function cardOwned(name) {
-  if (state.myCardIds.length === 0 && state.customCards.length === 0) return true;
-  return allWalletCards().some(c => c.name === name);
-}
-
-function allWalletCards() {
-  const catalog = state.CARD_CATALOG.filter(c => state.myCardIds.includes(c.id)).map(applyOverrides);
-  return [...catalog, ...state.customCards];
-}
-
-function applyOverrides(c) {
-  const ov = state.cardOverrides[c.id];
-  if (!ov) return c;
-  return { ...c, af: ov.af !== undefined ? ov.af : c.af, tip: ov.tip || c.tip, cats: ov.cats?.length ? ov.cats : c.cats, earn: ov.earn || c.earn, _hasOverride: true };
-}
-
-function recHTML(rank, r, isBest, inWallet) {
-  const owned = cardOwned(r.card);
-  const notOwned = (state.myCardIds.length > 0 || state.customCards.length > 0) && !owned;
+function recHTML(rank, r, isBest, inWallet, walletNames) {
+  const owned = walletNames === null || walletNames.has(r.card);
+  const notOwned = walletNames !== null && !owned;
   const rankClass = rank === 1 ? 'r1' : rank === 2 ? 'r2' : rank === 3 ? 'r3' : 'rX';
   return `<div class="card-result ${isBest && inWallet ? 'best' : ''} ${notOwned ? 'dimmed' : ''}" role="option" aria-selected="${isBest ? 'true' : 'false'}">
     <div class="rank-c ${rankClass}">${rank || '—'}</div>
@@ -106,25 +91,29 @@ export function renderResults(vendor, entry) {
     return;
   }
   const hasWallet = state.myCardIds.length > 0 || state.customCards.length > 0;
+  // Pre-compute owned card names once — avoids O(n²) repeated allWalletCards() calls
+  const wallet = hasWallet ? allWalletCards() : [];
+  const walletNames = hasWallet ? new Set(wallet.map(c => c.name)) : null;
+
   let h = `<div class="results-hdr">Best cards for <strong>${escHtml(entry.names[0])}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
   if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
 
   const shown = new Set(); let rank = 0;
   for (const r of entry.recs) {
-    if (!cardOwned(r.card)) continue;
-    rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true);
+    if (walletNames && !walletNames.has(r.card)) continue;
+    rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames);
   }
   for (const cc of state.customCards) {
     if (shown.has(cc.name)) continue;
     if (cc.cats.some(c => c.toLowerCase() === entry.cat.toLowerCase())) {
       rank++; shown.add(cc.name);
-      h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true);
+      h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true, walletNames);
     }
   }
   if (hasWallet) {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false); }
+    for (const r of entry.recs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames); }
   } else {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; rank++; h += recHTML(rank, r, rank === 1, true); }
+    for (const r of entry.recs) { if (shown.has(r.card)) continue; rank++; h += recHTML(rank, r, rank === 1, true, null); }
   }
   h += `<div class="tip-box">💡 Verify category coding on your first statement — some merchants code unexpectedly. <button onclick="openDisclaimer()" style="background:none;border:none;color:var(--gold);text-decoration:underline;cursor:pointer;font-size:12px;padding:0;">Full disclaimer →</button></div>`;
   res.innerHTML = h;
@@ -148,21 +137,25 @@ export function clearSearch() {
   document.getElementById('vendorInput').focus();
 }
 
+let _inputTimer;
 export function onInput() {
-  const v = document.getElementById('vendorInput').value.trim();
-  const sugg = document.getElementById('suggestions');
-  if (v.length < 2) { sugg.style.display = 'none'; return; }
-  const results = searchVendors(v);
-  if (!results.length) { sugg.style.display = 'none'; return; }
-  sugg.innerHTML = results.map(({ entry, score }) => `
-    <div class="sug" onclick="selectSug('${escAttr(entry.names[0])}')" role="option">
-      <span>${entry.names[0].charAt(0).toUpperCase() + entry.names[0].slice(1)}</span>
-      <div class="sug-meta">
-        <span class="sug-cat">${entry.cat}</span>
-        ${score < 0.85 ? '<span class="sug-score">~match</span>' : ''}
-      </div>
-    </div>`).join('');
-  sugg.style.display = 'block';
+  clearTimeout(_inputTimer);
+  _inputTimer = setTimeout(() => {
+    const v = document.getElementById('vendorInput').value.trim();
+    const sugg = document.getElementById('suggestions');
+    if (v.length < 2) { sugg.style.display = 'none'; return; }
+    const results = searchVendors(v);
+    if (!results.length) { sugg.style.display = 'none'; return; }
+    sugg.innerHTML = results.map(({ entry, score }) => `
+      <div class="sug" onclick="selectSug('${escAttr(entry.names[0])}')" role="option">
+        <span>${entry.names[0].charAt(0).toUpperCase() + entry.names[0].slice(1)}</span>
+        <div class="sug-meta">
+          <span class="sug-cat">${entry.cat}</span>
+          ${score < 0.85 ? '<span class="sug-score">~match</span>' : ''}
+        </div>
+      </div>`).join('');
+    sugg.style.display = 'block';
+  }, 150);
 }
 
 export function selectSug(name) {
@@ -172,35 +165,49 @@ export function selectSug(name) {
 }
 
 const QUICK_SPOTS = [
-  { icon: '🛒', name: 'Grocery store', sub: 'Publix, Walmart…', earn: 'Amex Gold 4x', vendor: 'publix' },
-  { icon: '⛽', name: 'Gas station', sub: 'Shell, Exxon…', earn: 'Citi Costco 4%', vendor: 'shell' },
-  { icon: '🍔', name: 'Fast food', sub: "McDonald's, Taco Bell…", earn: 'Amex Gold 4x', vendor: "mcdonald's" },
-  { icon: '☕', name: 'Coffee', sub: 'Starbucks, Dunkin…', earn: 'Amex Gold 4x', vendor: 'starbucks' },
-  { icon: '💊', name: 'Pharmacy', sub: 'CVS, Walgreens…', earn: 'CFU 3% / Apple 3%', vendor: 'cvs' },
-  { icon: '📦', name: 'Amazon', sub: 'Amazon.com', earn: 'Prime Visa 5%', vendor: 'amazon' },
+  { icon: '🛒', name: 'Grocery store', sub: 'Publix, Walmart…', vendor: 'publix' },
+  { icon: '⛽', name: 'Gas station', sub: 'Shell, Exxon…', vendor: 'shell' },
+  { icon: '🍔', name: 'Fast food', sub: "McDonald's, Taco Bell…", vendor: "mcdonald's" },
+  { icon: '☕', name: 'Coffee', sub: 'Starbucks, Dunkin…', vendor: 'starbucks' },
+  { icon: '💊', name: 'Pharmacy', sub: 'CVS, Walgreens…', vendor: 'cvs' },
+  { icon: '📦', name: 'Amazon', sub: 'Amazon.com', vendor: 'amazon' },
 ];
 const QUICK_BILLS = [
-  { icon: '📺', name: 'Streaming', sub: 'Netflix, Hulu…', earn: 'US Bank Cash+ 5%', vendor: 'netflix' },
-  { icon: '📱', name: 'Phone bill', sub: 'AT&T, T-Mobile…', earn: 'US Bank Cash+ 5%', vendor: 'at&t' },
-  { icon: '⚡', name: 'Utility bill', sub: 'Electric, water…', earn: 'US Bank Cash+ 5%', vendor: 'duke energy' },
-  { icon: '🚕', name: 'Rideshare', sub: 'Uber, Lyft…', earn: 'Apple 3% / Savor 4%', vendor: 'uber' },
+  { icon: '📺', name: 'Streaming', sub: 'Netflix, Hulu…', vendor: 'netflix' },
+  { icon: '📱', name: 'Phone bill', sub: 'AT&T, T-Mobile…', vendor: 'at&t' },
+  { icon: '⚡', name: 'Utility bill', sub: 'Electric, water…', vendor: 'duke energy' },
+  { icon: '🚕', name: 'Rideshare', sub: 'Uber, Lyft…', vendor: 'uber' },
 ];
 
 export function buildQuick() {
+  const wallet = allWalletCards();
+  const walletNames = new Set(wallet.map(c => c.name));
+
+  function bestEarn(vendorKey) {
+    const entry = findBestVendor(vendorKey);
+    if (!entry?.recs?.length) return '';
+    // Show best card the user owns; fall back to catalog's top pick
+    const match = wallet.length
+      ? entry.recs.find(r => walletNames.has(r.card))
+      : null;
+    const rec = match || entry.recs[0];
+    return rec ? rec.earn : '';
+  }
+
   document.getElementById('qt-grid').innerHTML = QUICK_SPOTS.map(s => `
-    <button class="qt-btn" onclick="quickPick('${s.vendor}','${s.name}')">
-      <span class="qt-icon">${s.icon}</span><div class="qt-name">${s.name}</div>
-      <div class="qt-sub">${s.sub}</div><div class="qt-earn">${s.earn}</div>
+    <button class="qt-btn" onclick="quickPick('${escAttr(s.vendor)}','${escAttr(s.name)}')">
+      <span class="qt-icon">${s.icon}</span><div class="qt-name">${escHtml(s.name)}</div>
+      <div class="qt-sub">${escHtml(s.sub)}</div><div class="qt-earn">${escHtml(bestEarn(s.vendor))}</div>
     </button>`).join('');
   document.getElementById('qt-grid2').innerHTML = QUICK_BILLS.map(s => `
-    <button class="qt-btn" onclick="quickPick('${s.vendor}','${s.name}')">
-      <span class="qt-icon">${s.icon}</span><div class="qt-name">${s.name}</div>
-      <div class="qt-sub">${s.sub}</div><div class="qt-earn">${s.earn}</div>
+    <button class="qt-btn" onclick="quickPick('${escAttr(s.vendor)}','${escAttr(s.name)}')">
+      <span class="qt-icon">${s.icon}</span><div class="qt-name">${escHtml(s.name)}</div>
+      <div class="qt-sub">${escHtml(s.sub)}</div><div class="qt-earn">${escHtml(bestEarn(s.vendor))}</div>
     </button>`).join('');
 }
 
 export function quickPick(v, d) {
-  import('./ui.js').then(({ switchTab }) => switchTab('search'));
+  switchTab('search');
   document.getElementById('vendorInput').value = d;
   renderResults(d, findBestVendor(v));
 }

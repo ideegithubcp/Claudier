@@ -1,21 +1,12 @@
 import { state } from './state.js';
 import { saveS } from './storage.js';
 import { showToast, escHtml, escAttr } from './ui.js';
-import { fuzzyScore, norm } from './search.js';
+import { fuzzyScore, norm, buildQuick } from './search.js';
+import { CC_CATS, applyOverrides, allWalletCards } from './cards.js';
+
+export { applyOverrides, allWalletCards };
 
 export const WALLET_FILTERS = ['All', 'No Fee', 'Dining', 'Gas', 'Grocery', 'Streaming', 'Utilities', 'Travel', 'Shopping'];
-export const CC_CATS = ['Dining', 'Grocery', 'Gas', 'Travel', 'Streaming', 'Utilities', 'Wireless', 'Shopping', 'Drugstore', 'Entertainment', 'Rent', 'Catch-all', 'Balance Transfer', 'Other'];
-
-export function applyOverrides(c) {
-  const ov = state.cardOverrides[c.id];
-  if (!ov) return c;
-  return { ...c, af: ov.af !== undefined ? ov.af : c.af, tip: ov.tip || c.tip, cats: ov.cats?.length ? ov.cats : c.cats, earn: ov.earn || c.earn, _hasOverride: true };
-}
-
-export function allWalletCards() {
-  const catalog = state.CARD_CATALOG.filter(c => state.myCardIds.includes(c.id)).map(applyOverrides);
-  return [...catalog, ...state.customCards];
-}
 
 export function getCardTip(c) {
   const ov = state.cardOverrides[c.id];
@@ -51,12 +42,14 @@ export function renderWallet() {
     <div class="ws-tile"><div class="ws-val">$${totalAF}</div><div class="ws-lbl">Annual fees</div></div>
   </div>
   <div class="filter-row">`;
-  WALLET_FILTERS.forEach(f => { html += `<div class="chip ${f === state.walletFilter ? 'on' : ''}" onclick="setWalletFilter('${f}')">${f}</div>`; });
+  WALLET_FILTERS.forEach(f => {
+    html += `<button type="button" class="chip ${f === state.walletFilter ? 'on' : ''}" onclick="setWalletFilter('${escAttr(f)}')">${escHtml(f)}</button>`;
+  });
   html += `</div><div class="wallet-actions">
-    <div class="wact-btn wact-add" onclick="openModal()" role="button">+ From catalog</div>
-    <div class="wact-btn wact-custom" onclick="openCustomModal()" role="button">✏ Custom card</div>
-    <div class="wact-btn wact-export" onclick="exportWallet()" role="button">⬇ Export</div>
-    <div class="wact-btn wact-import" onclick="document.getElementById('import-file').click()" role="button">⬆ Import</div>
+    <button type="button" class="wact-btn wact-add" onclick="openModal()">+ From catalog</button>
+    <button type="button" class="wact-btn wact-custom" onclick="openCustomModal()">✏ Custom card</button>
+    <button type="button" class="wact-btn wact-export" onclick="exportWallet()">⬇ Export</button>
+    <button type="button" class="wact-btn wact-import" onclick="document.getElementById('import-file').click()">⬆ Import</button>
   </div>`;
   const ff = {
     'All': () => true, 'No Fee': c => !c.af,
@@ -73,14 +66,15 @@ export function renderWallet() {
   if (!filtered.length) html += `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:13px;">No cards match this filter.</div>`;
   filtered.forEach(c => {
     const isCustom = !!c.custom;
+    const editOnClick = isCustom ? `editCustomCard('${escAttr(c.id)}')` : `openEditModal('${escAttr(c.id)}')`;
     html += `<div class="my-card-item" role="listitem">
       <div class="mc-header">
         <div class="mc-dot" style="background:${c.color || '#8A8FA8'}"></div>
         <div class="mc-name">${escHtml(c.name)}</div>
         ${isCustom ? '<span class="mc-custom-badge">Custom</span>' : ''}
         <div class="mc-af">${c.af ? '$' + c.af + '/yr' : 'No fee'}</div>
-        <button class="mc-edit" onclick="${isCustom ? `editCustomCard('${c.id}')` : `openEditModal('${c.id}')`}" aria-label="Edit ${c.name}">✏</button>
-        <button class="mc-remove" onclick="removeCard('${c.id}','${isCustom ? 'custom' : 'catalog'}')" aria-label="Remove ${c.name}">×</button>
+        <button class="mc-edit" onclick="${editOnClick}" aria-label="Edit ${escAttr(c.name)}">✏</button>
+        <button class="mc-remove" onclick="removeCard('${escAttr(c.id)}','${isCustom ? 'custom' : 'catalog'}')" aria-label="Remove ${escAttr(c.name)}">×</button>
       </div>
       <div class="mc-cats">${(c.cats || []).map(x => `<span class="mc-cat">${escHtml(x)}</span>`).join('')}</div>
       <div class="mc-tip">
@@ -100,6 +94,7 @@ export function removeCard(id, type) {
   if (type === 'custom') { state.customCards = state.customCards.filter(c => c.id !== id); saveS('sr_custom', state.customCards); }
   else { state.myCardIds = state.myCardIds.filter(x => x !== id); saveS('sr_wallet', state.myCardIds); state.modalSelected = new Set(state.myCardIds); }
   renderWallet();
+  buildQuick();
   showToast('Card removed');
 }
 
@@ -129,14 +124,14 @@ export function renderCardOptions(q) {
   Object.entries(groups).forEach(([issuer, cards]) => {
     html += `<div class="issuer-label">${escHtml(issuer)}</div>`;
     cards.forEach(c => {
-      html += `<div class="card-option" onclick="toggleCardSelect('${c.id}')" role="option" aria-selected="${state.modalSelected.has(c.id)}">
+      html += `<div class="card-option" onclick="toggleCardSelect('${escAttr(c.id)}')" role="option" aria-selected="${state.modalSelected.has(c.id)}">
         <div class="card-opt-dot" style="background:${c.color}"></div>
         <div class="card-opt-body">
           <div class="card-opt-name">${escHtml(c.name)}</div>
           <div class="card-opt-cats">${c.cats.join(' · ')}</div>
         </div>
         <div class="card-opt-af">${c.af ? '$' + c.af + '/yr' : 'No fee'}</div>
-        <div class="card-opt-check ${state.modalSelected.has(c.id) ? 'checked' : ''}" id="chk-${c.id}"></div>
+        <div class="card-opt-check ${state.modalSelected.has(c.id) ? 'checked' : ''}" id="chk-${escAttr(c.id)}"></div>
       </div>`;
     });
   });
@@ -155,7 +150,7 @@ export function toggleCardSelect(id) {
 export function saveModalCards() {
   state.myCardIds = [...state.modalSelected];
   saveS('sr_wallet', state.myCardIds);
-  closeModal(); renderWallet();
+  closeModal(); renderWallet(); buildQuick();
   const v = document.getElementById('vendorInput').value.trim();
   if (v && document.getElementById('results').innerHTML) {
     import('./search.js').then(({ renderResults, findBestVendor }) => renderResults(v, findBestVendor(v)));
@@ -199,7 +194,7 @@ export function customOverlayClick(e) { if (e.target === document.getElementById
 
 export function buildCatToggles() {
   document.getElementById('cc-cats').innerHTML = CC_CATS.map(c => `
-    <div class="cat-toggle ${state.customCatSelection.has(c) ? 'on' : ''}" onclick="toggleCustomCat('${c}')" id="ccat-${c}" role="checkbox" aria-checked="${state.customCatSelection.has(c)}">${c}</div>`).join('');
+    <div class="cat-toggle ${state.customCatSelection.has(c) ? 'on' : ''}" onclick="toggleCustomCat('${escAttr(c)}')" id="ccat-${escAttr(c)}" role="checkbox" aria-checked="${state.customCatSelection.has(c)}">${escHtml(c)}</div>`).join('');
 }
 
 export function toggleCustomCat(c) {
@@ -233,7 +228,7 @@ export function saveCustomCard() {
   if (state.editingCustomId) state.customCards = state.customCards.map(c => c.id === state.editingCustomId ? card : c);
   else state.customCards.unshift(card);
   saveS('sr_custom', state.customCards);
-  closeCustomModal(); renderWallet();
+  closeCustomModal(); renderWallet(); buildQuick();
   showToast(state.editingCustomId ? '✓ Card updated' : '✓ Custom card added', 'success');
 }
 
@@ -262,7 +257,7 @@ export function importWallet(e) {
       saveS('sr_wallet', state.myCardIds);
       saveS('sr_custom', state.customCards);
       state.modalSelected = new Set(state.myCardIds);
-      renderWallet();
+      renderWallet(); buildQuick();
       showToast(`✓ Imported ${state.myCardIds.length + state.customCards.length} cards`, 'success');
     } catch { showToast('Invalid wallet file', 'error'); }
   };

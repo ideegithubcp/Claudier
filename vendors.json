@@ -1,53 +1,1410 @@
 {
-  "meta": { "version": "1.0.0", "lastUpdated": "2025-06-18" },
+  "meta": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-06-22"
+  },
   "vendors": [
-    {"names":["publix","publix super market"],"cat":"Grocery","icon":"🛒","recs":[{"card":"Amex Gold","earn":"4x MR (~8%)","why":"4x at all U.S. supermarkets"},{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% at U.S. supermarkets up to $6K/yr"},{"card":"Amex Blue Cash Everyday","earn":"3% cash back","why":"Backup — no annual fee"}]},
-    {"names":["whole foods","whole foods market"],"cat":"Grocery","icon":"🥦","recs":[{"card":"Amazon Prime Visa","earn":"5% cash back","why":"WFM counts as Amazon"},{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% if you have BCP"},{"card":"Amex Gold","earn":"4x MR","why":"Strong grocery alt"}]},
-    {"names":["walmart","walmart supercenter","walmart neighborhood market"],"cat":"Grocery","icon":"🛒","recs":[{"card":"Amex Gold","earn":"4x MR","why":"Walmart codes as supermarket"},{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% at supermarkets"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate catch-all"}]},
-    {"names":["trader joe's","trader joes"],"cat":"Grocery","icon":"🛍️","recs":[{"card":"Amex Gold","earn":"4x MR","why":"Supermarket category"},{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% at U.S. supermarkets"},{"card":"Amex Blue Cash Everyday","earn":"3% cash back","why":"No-fee backup"}]},
-    {"names":["kroger","kroger marketplace","fred meyer","king soopers","harris teeter","fry's food"],"cat":"Grocery","icon":"🛒","recs":[{"card":"Kroger Rewards World MC","earn":"5% fuel points","why":"Kroger's own card — best for loyalty"},{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% at supermarkets"},{"card":"Amex Gold","earn":"4x MR","why":"4x at supermarkets"}]},
-    {"names":["aldi","lidl","sprouts","meijer","hy-vee"],"cat":"Grocery","icon":"🛒","recs":[{"card":"Amex Blue Cash Preferred","earn":"6% cash back","why":"6% at U.S. supermarkets"},{"card":"Amex Gold","earn":"4x MR","why":"4x at supermarkets"},{"card":"Amex Blue Cash Everyday","earn":"3% cash back","why":"No-fee backup"}]},
-    {"names":["target"],"cat":"Shopping","icon":"🎯","recs":[{"card":"Target RedCard","earn":"5% off all Target","why":"Target's own card — best return"},{"card":"Citi Custom Cash","earn":"5% if top category","why":"5% on first $500/mo"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Best in-store flat-rate"}]},
-    {"names":["costco","costco wholesale"],"cat":"Shopping","icon":"🏪","recs":[{"card":"Citi Costco Visa","earn":"2% cash back","why":"Required card — earns 2% annual reward cert"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Tie without Costco card"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"Fallback option"}]},
-    {"names":["sam's club","sams club"],"cat":"Shopping","icon":"🏬","recs":[{"card":"Sam's Club MC","earn":"5% (Plus members)","why":"Must-use for Sam's Plus members"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Backup flat-rate card"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"General fallback"}]},
-    {"names":["amazon","amazon.com","amazon fresh"],"cat":"Shopping","icon":"📦","recs":[{"card":"Amazon Prime Visa","earn":"5% cash back","why":"#1 for Amazon — highest possible"},{"card":"Amazon Store Card","earn":"5% or 0% financing","why":"Use for large items needing 0% promo"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Fallback without Prime"}]},
-    {"names":["cvs","cvs pharmacy","cvs health"],"cat":"Drugstore","icon":"💊","recs":[{"card":"Chase Freedom Unlimited","earn":"3% at drugstores","why":"Auto-earns 3% at drugstores"},{"card":"Chase Freedom Flex","earn":"3% at drugstores","why":"Also 3% on drugstores"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"5% if drugstores is your top category"}]},
-    {"names":["walgreens","walgreen"],"cat":"Drugstore","icon":"💊","recs":[{"card":"Apple Card","earn":"3% cash back","why":"Walgreens is Apple Card 3% partner"},{"card":"Chase Freedom Unlimited","earn":"3% at drugstores","why":"CFU gives 3% on all drugstores"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"5% if drugstores is top category"}]},
-    {"names":["rite aid"],"cat":"Drugstore","icon":"💊","recs":[{"card":"Chase Freedom Unlimited","earn":"3% at drugstores","why":"CFU earns 3% at all drug stores"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Select drugstores as category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"}]},
-    {"names":["home depot","homedepot"],"cat":"Shopping","icon":"🔨","recs":[{"card":"Home Depot Consumer Card","earn":"0% financing promos","why":"Best for large project financing"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Home improvement = eligible category"},{"card":"BofA Customized Cash","earn":"3-5.25%","why":"Choose home improvement at BofA"}]},
-    {"names":["lowe's","lowes","lowe's home improvement"],"cat":"Shopping","icon":"🔧","recs":[{"card":"Lowe's Advantage Card","earn":"5% off all Lowe's","why":"Lowe's card gives 5% on every purchase"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Home improvement category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate catch-all"}]},
-    {"names":["best buy","bestbuy"],"cat":"Shopping","icon":"🖥️","recs":[{"card":"Best Buy Visa Card","earn":"5% back in rewards","why":"Best Buy's own card — 5% back"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Electronics = eligible category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate for in-store"}]},
-    {"names":["shell","bp","exxon","exxonmobil","mobil","chevron","speedway","marathon","circle k","wawa","racetrac","sunoco","quiktrip","qt","7-eleven","buc-ee's","casey's"],"cat":"Gas","icon":"⛽","recs":[{"card":"Citi Costco Visa","earn":"4% on gas","why":"Best gas card — 4% up to $7K/yr"},{"card":"Sam's Club MC","earn":"5% on gas","why":"5% for Sam's members up to $6K/yr"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"5% if gas is your top category"}]},
-    {"names":["mcdonald's","mcdonalds","burger king","wendy's","wendys","taco bell","chipotle","chick-fil-a","chick fil a","popeyes","kfc","subway","dunkin","shake shack","five guys","in-n-out","whataburger","sonic","jack in the box","culver's","raising cane's"],"cat":"Dining","icon":"🍔","recs":[{"card":"Amex Gold","earn":"4x MR","why":"4x at ALL restaurants incl. fast food"},{"card":"Capital One Savor","earn":"4% dining","why":"4% on all dining & entertainment"},{"card":"US Bank Cash+","earn":"5% fast food","why":"Choose 'fast food' as Cash+ category"}]},
-    {"names":["starbucks","dutch bros","caribou coffee","peet's coffee","tim hortons"],"cat":"Dining","icon":"☕","recs":[{"card":"Amex Gold","earn":"4x MR","why":"Starbucks codes as restaurant"},{"card":"Capital One Savor","earn":"4% dining","why":"4% on all dining"},{"card":"Chase Sapphire Reserve","earn":"3x dining","why":"3x on all dining worldwide"}]},
-    {"names":["panera","panera bread"],"cat":"Dining","icon":"🥖","recs":[{"card":"Apple Card","earn":"3% cash back","why":"Panera is an Apple Card 3% partner"},{"card":"Amex Gold","earn":"4x MR","why":"4x at restaurants"},{"card":"Capital One Savor","earn":"4% dining","why":"4% on dining"}]},
-    {"names":["olive garden","chili's","applebee's","outback","red lobster","texas roadhouse","longhorn","seasons 52","bahama breeze","darden","bonefish","capital grille","flemings","ruth's chris","cheesecake factory","pf changs","bj's restaurant"],"cat":"Dining","icon":"🍽️","recs":[{"card":"Amex Gold","earn":"4x MR","why":"Undisputed best dining card — 4x"},{"card":"Capital One Savor","earn":"4% dining","why":"4% on dining & entertainment"},{"card":"Chase Sapphire Reserve","earn":"3x dining","why":"3x dining, 1.5¢/pt via CSR portal"}]},
-    {"names":["uber","uber eats","ubereats"],"cat":"Dining","icon":"🚕","recs":[{"card":"Apple Card","earn":"3% cash back","why":"Uber is Apple Card 3% partner"},{"card":"Amex Gold","earn":"$10/mo Uber Cash","why":"$120/yr Uber Cash = free rides"},{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"Uber codes as travel for CSR 3x"}]},
-    {"names":["lyft"],"cat":"Travel","icon":"🚗","recs":[{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"Lyft codes as travel for CSR"},{"card":"Wells Fargo Autograph","earn":"3x transit","why":"3x on transit category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"}]},
-    {"names":["doordash","door dash","grubhub","instacart","postmates","gopuff","uber eats","caviar"],"cat":"Dining","icon":"🥡","recs":[{"card":"Amex Gold","earn":"4x MR","why":"Delivery apps code as restaurant"},{"card":"Capital One Savor","earn":"4% dining","why":"4% on dining deliveries"},{"card":"Chase Sapphire Reserve","earn":"3x dining","why":"3x on restaurant-coded delivery"}]},
-    {"names":["netflix","hulu","disney+","disney plus","hbo max","max","paramount+","peacock","apple tv+","spotify","youtube premium","sling","fubo","discovery+","espn+","crunchyroll","showtime","starz"],"cat":"Streaming","icon":"📺","recs":[{"card":"US Bank Cash+","earn":"5% streaming","why":"Choose TV/streaming — best card"},{"card":"Amex Blue Cash Preferred","earn":"6% on select streaming","why":"6% on select streaming services"},{"card":"Citi Custom Cash","earn":"5% if top category","why":"5% if streaming is your #1 category"}]},
-    {"names":["at&t","att"],"cat":"Wireless","icon":"📱","recs":[{"card":"US Bank Cash+","earn":"5% cell providers","why":"5% on all phone bills"},{"card":"Citi AT&T Points Plus","earn":"3x + bill credit","why":"AT&T-specific card with bill credits"},{"card":"Wells Fargo Autograph","earn":"3x phone plans","why":"3x on phone plans, no annual fee"}]},
-    {"names":["t-mobile","tmobile","metro by t-mobile","metro pcs"],"cat":"Wireless","icon":"📱","recs":[{"card":"US Bank Cash+","earn":"5% cell providers","why":"Best for all carriers"},{"card":"Apple Card","earn":"3% cash back","why":"T-Mobile is Apple Card 3% partner"},{"card":"Wells Fargo Autograph","earn":"3x phone plans","why":"3x phone plans, solid no-fee backup"}]},
-    {"names":["verizon","verizon wireless"],"cat":"Wireless","icon":"📱","recs":[{"card":"US Bank Cash+","earn":"5% cell providers","why":"5% on all phone bills"},{"card":"Wells Fargo Autograph","earn":"3x phone plans","why":"3x phone plans"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate backup"}]},
-    {"names":["cricket wireless","boost mobile","visible","consumer cellular","mint mobile"],"cat":"Wireless","icon":"📱","recs":[{"card":"US Bank Cash+","earn":"5% cell providers","why":"5% on all cell phone providers"},{"card":"Wells Fargo Autograph","earn":"3x phone plans","why":"3x on phone plans"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"}]},
-    {"names":["duke energy","fpl","florida power","florida power & light","con edison","xcel energy","dominion energy","georgia power","pepco","pge","pg&e","national grid","centerpoint","aep","evergy","we energies"],"cat":"Utilities","icon":"⚡","recs":[{"card":"US Bank Cash+","earn":"5% home utilities","why":"BEST utility card — 5% on electric/water/gas bills"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate backup"},{"card":"Chase Ink Business Cash","earn":"5% internet/phone","why":"5% on cable/internet/phone for business"}]},
-    {"names":["comcast","xfinity","spectrum","cox","at&t internet","verizon fios","centurylink","lumen","frontier internet","optimum","altice","mediacom","dish","directv"],"cat":"Utilities","icon":"📡","recs":[{"card":"US Bank Cash+","earn":"5% home utilities","why":"Cable/internet = home utilities category"},{"card":"Chase Ink Business Cash","earn":"5% internet","why":"5% on cable & internet for business"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate backup"}]},
-    {"names":["apple","apple store","apple.com"],"cat":"Shopping","icon":"🍎","recs":[{"card":"Apple Card","earn":"3% cash back","why":"3% on ALL Apple purchases — only card with this rate"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"},{"card":"Amex Platinum","earn":"5x flights via Amex Travel","why":"If booking Apple TV+ travel bundles"}]},
-    {"names":["ashley","ashley furniture","ashley homestore","ashley store"],"cat":"Shopping","icon":"🛋️","recs":[{"card":"Ashley Store Card","earn":"0% financing promo","why":"Use ONLY for 0% deferred interest promos"},{"card":"US Bank Cash+","earn":"5% furniture","why":"Choose 'furniture stores' as Cash+ category"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Furniture is an eligible Custom Cash category"}]},
-    {"names":["ikea"],"cat":"Shopping","icon":"🪑","recs":[{"card":"US Bank Cash+","earn":"5% furniture","why":"Choose 'furniture stores' as Cash+ cat"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"Furniture category eligible"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"}]},
-    {"names":["tj maxx","tjmaxx","marshalls","ross","burlington","nordstrom rack"],"cat":"Shopping","icon":"🛍️","recs":[{"card":"Capital One Savor","earn":"3% sometimes grocery-coded","why":"Discount stores sometimes code as grocery"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Best flat-rate"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"Fallback"}]},
-    {"names":["nordstrom","nordstrom.com"],"cat":"Shopping","icon":"👗","recs":[{"card":"Nordstrom Visa Card","earn":"3x Nordy points","why":"Nordstrom card gives 3x — best return"},{"card":"Capital One Savor","earn":"3% grocery (dept coded)","why":"Dept stores sometimes code as grocery"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate backup"}]},
-    {"names":["macy's","macys"],"cat":"Shopping","icon":"🏬","recs":[{"card":"Macy's Credit Card","earn":"5% Star Rewards","why":"Macy's card gives 5% — best return"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate backup"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"General fallback"}]},
-    {"names":["marriott","hilton","hyatt","ihg","sheraton","westin","courtyard","hampton inn","holiday inn","doubletree","omni","ritz carlton","ritz","four seasons","kimpton","loews"],"cat":"Travel","icon":"🏨","recs":[{"card":"Chase Sapphire Reserve","earn":"3x travel + 1.5¢/pt","why":"Best overall hotel redemptions"},{"card":"Bilt Rewards","earn":"3x + Hyatt transfer","why":"Transfer 1:1 to Hyatt — outstanding value"},{"card":"Wells Fargo Autograph","earn":"3x travel","why":"3x on hotels, no annual fee"}]},
-    {"names":["delta","united","american airlines","southwest","jetblue","spirit","frontier","alaska airlines","air france","british airways","lufthansa","emirate","emirates","hawaiian airlines"],"cat":"Travel","icon":"✈️","recs":[{"card":"Amex Gold","earn":"3x MR on flights","why":"3x, transfer MR to Delta/Air France"},{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"3x, transfer to United/Southwest/Hyatt"},{"card":"Capital One Venture X","earn":"5x flights via C1 Travel","why":"5x via portal, 2x everywhere else"}]},
-    {"names":["hertz","enterprise","avis","budget","national","alamo","sixt","turo","zipcar"],"cat":"Travel","icon":"🚗","recs":[{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"Car rentals = travel category"},{"card":"Capital One Venture X","earn":"10x via C1 Travel portal","why":"Book via portal for 10x"},{"card":"Wells Fargo Autograph","earn":"3x travel","why":"3x on car rentals, no annual fee"}]},
-    {"names":["airbnb","vrbo","booking.com","hotels.com","expedia","priceline","kayak"],"cat":"Travel","icon":"🏠","recs":[{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"All OTA/booking sites = travel category"},{"card":"Bilt Rewards","earn":"3x on travel","why":"3x + transfer to Hyatt/United"},{"card":"Capital One Venture X","earn":"10x hotels via C1 portal","why":"Book direct in C1 portal for 10x"}]},
-    {"names":["sunpass","e-pass","toll","sunrail","lynx","bus","metro","transit","parking","parkwhiz","spothero","amtrak"],"cat":"Travel","icon":"🚇","recs":[{"card":"Wells Fargo Autograph","earn":"3x transit","why":"3x on transit, tolls, and commute spend"},{"card":"Bilt Rewards","earn":"2x on Rent Day","why":"1st of month: 2x on all transit"},{"card":"Chase Sapphire Reserve","earn":"3x travel","why":"Transit = travel for CSR"}]},
-    {"names":["planet fitness","la fitness","equinox","orangetheory","crunch","ymca","anytime fitness","lifetime fitness","gold's gym","f45","barry's","soulcycle","peloton"],"cat":"Entertainment","icon":"🏋️","recs":[{"card":"US Bank Cash+","earn":"5% gym/fitness","why":"Choose 'gyms & fitness clubs' as Cash+ category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"General fallback"}]},
-    {"names":["regal","amc","cinemark","alamo drafthouse","movie theater","landmark theatres","fandango"],"cat":"Entertainment","icon":"🎬","recs":[{"card":"Capital One Savor","earn":"4% entertainment","why":"4% on entertainment including movies"},{"card":"US Bank Cash+","earn":"5% movie theaters","why":"Choose 'movie theaters' as Cash+ category"},{"card":"Chase Sapphire Reserve","earn":"3x dining","why":"Theaters sometimes code as dining"}]},
-    {"names":["ticketmaster","stubhub","seatgeek","livenation","live nation","axs","eventbrite"],"cat":"Entertainment","icon":"🎟️","recs":[{"card":"Capital One Savor","earn":"4% entertainment","why":"4% on entertainment & live events"},{"card":"Amex Platinum","earn":"access + perks","why":"Amex presale access + concierge"},{"card":"Chase Sapphire Reserve","earn":"3x or dining-coded","why":"Some events code as dining"}]},
-    {"names":["planet fitness","la fitness","equinox","orangetheory","crunch","ymca"],"cat":"Entertainment","icon":"🏋️","recs":[{"card":"US Bank Cash+","earn":"5% gym/fitness","why":"Choose 'gyms & fitness clubs' category"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Flat-rate fallback"},{"card":"Chase Freedom Unlimited","earn":"1.5% cash back","why":"General fallback"}]},
-    {"names":["costco gas","bj's wholesale","bj's gas","sam's club gas"],"cat":"Gas","icon":"⛽","recs":[{"card":"Citi Costco Visa","earn":"4% on gas","why":"Best gas card for warehouse club gas"},{"card":"Sam's Club MC","earn":"5% gas (Sam's)","why":"5% at Sam's Club gas for members"},{"card":"Citi Custom Cash","earn":"5% if chosen","why":"5% if gas is your top category"}]},
-    {"names":["amazon web services","aws","google cloud","microsoft azure","digitalocean","godaddy","squarespace","shopify","wix"],"cat":"Shopping","icon":"☁️","recs":[{"card":"BofA Customized Cash","earn":"3-5.25% online shopping","why":"AWS/cloud bills often code as online shopping"},{"card":"Chase Ink Business Cash","earn":"5% internet/tech","why":"Some tech services code as internet/cable"},{"card":"Wells Fargo Active Cash","earn":"2% cash back","why":"Reliable flat-rate for SaaS/cloud spend"}]}
+    {
+      "names": [
+        "publix",
+        "publix super market"
+      ],
+      "cat": "Grocery",
+      "icon": "🛒",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR (~8%)",
+          "why": "4x at all U.S. supermarkets"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% at U.S. supermarkets up to $6K/yr"
+        },
+        {
+          "card": "Amex Blue Cash Everyday",
+          "earn": "3% cash back",
+          "why": "Backup — no annual fee"
+        }
+      ]
+    },
+    {
+      "names": [
+        "whole foods",
+        "whole foods market"
+      ],
+      "cat": "Grocery",
+      "icon": "🥦",
+      "recs": [
+        {
+          "card": "Amazon Prime Visa",
+          "earn": "5% cash back",
+          "why": "WFM counts as Amazon"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% if you have BCP"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Strong grocery alt"
+        }
+      ]
+    },
+    {
+      "names": [
+        "walmart",
+        "walmart supercenter",
+        "walmart neighborhood market"
+      ],
+      "cat": "Grocery",
+      "icon": "🛒",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Walmart codes as supermarket"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% at supermarkets"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate catch-all"
+        }
+      ]
+    },
+    {
+      "names": [
+        "trader joe's",
+        "trader joes"
+      ],
+      "cat": "Grocery",
+      "icon": "🛍️",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Supermarket category"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% at U.S. supermarkets"
+        },
+        {
+          "card": "Amex Blue Cash Everyday",
+          "earn": "3% cash back",
+          "why": "No-fee backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "kroger",
+        "kroger marketplace",
+        "fred meyer",
+        "king soopers",
+        "harris teeter",
+        "fry's food"
+      ],
+      "cat": "Grocery",
+      "icon": "🛒",
+      "recs": [
+        {
+          "card": "Kroger Rewards World MC",
+          "earn": "5% fuel points",
+          "why": "Kroger's own card — best for loyalty"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% at supermarkets"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "4x at supermarkets"
+        }
+      ]
+    },
+    {
+      "names": [
+        "aldi",
+        "lidl",
+        "sprouts",
+        "meijer",
+        "hy-vee"
+      ],
+      "cat": "Grocery",
+      "icon": "🛒",
+      "recs": [
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% cash back",
+          "why": "6% at U.S. supermarkets"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "4x at supermarkets"
+        },
+        {
+          "card": "Amex Blue Cash Everyday",
+          "earn": "3% cash back",
+          "why": "No-fee backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "target"
+      ],
+      "cat": "Shopping",
+      "icon": "🎯",
+      "recs": [
+        {
+          "card": "Target RedCard",
+          "earn": "5% off all Target",
+          "why": "Target's own card — best return"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if top category",
+          "why": "5% on first $500/mo"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Best in-store flat-rate"
+        }
+      ]
+    },
+    {
+      "names": [
+        "costco",
+        "costco wholesale"
+      ],
+      "cat": "Shopping",
+      "icon": "🏪",
+      "recs": [
+        {
+          "card": "Citi Costco Visa",
+          "earn": "2% cash back",
+          "why": "Required card — earns 2% annual reward cert"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Tie without Costco card"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "Fallback option"
+        }
+      ]
+    },
+    {
+      "names": [
+        "sam's club",
+        "sams club"
+      ],
+      "cat": "Shopping",
+      "icon": "🏬",
+      "recs": [
+        {
+          "card": "Sam's Club MC",
+          "earn": "5% (Plus members)",
+          "why": "Must-use for Sam's Plus members"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Backup flat-rate card"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "General fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "amazon",
+        "amazon.com",
+        "amazon fresh"
+      ],
+      "cat": "Shopping",
+      "icon": "📦",
+      "recs": [
+        {
+          "card": "Amazon Prime Visa",
+          "earn": "5% cash back",
+          "why": "#1 for Amazon — highest possible"
+        },
+        {
+          "card": "Amazon Store Card",
+          "earn": "5% or 0% financing",
+          "why": "Use for large items needing 0% promo"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Fallback without Prime"
+        }
+      ]
+    },
+    {
+      "names": [
+        "cvs",
+        "cvs pharmacy",
+        "cvs health"
+      ],
+      "cat": "Drugstore",
+      "icon": "💊",
+      "recs": [
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "3% at drugstores",
+          "why": "Auto-earns 3% at drugstores"
+        },
+        {
+          "card": "Chase Freedom Flex",
+          "earn": "3% at drugstores",
+          "why": "Also 3% on drugstores"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "5% if drugstores is your top category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "walgreens",
+        "walgreen"
+      ],
+      "cat": "Drugstore",
+      "icon": "💊",
+      "recs": [
+        {
+          "card": "Apple Card",
+          "earn": "3% cash back",
+          "why": "Walgreens is Apple Card 3% partner"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "3% at drugstores",
+          "why": "CFU gives 3% on all drugstores"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "5% if drugstores is top category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "rite aid"
+      ],
+      "cat": "Drugstore",
+      "icon": "💊",
+      "recs": [
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "3% at drugstores",
+          "why": "CFU earns 3% at all drug stores"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Select drugstores as category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "home depot",
+        "homedepot"
+      ],
+      "cat": "Shopping",
+      "icon": "🔨",
+      "recs": [
+        {
+          "card": "Home Depot Consumer Card",
+          "earn": "0% financing promos",
+          "why": "Best for large project financing"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Home improvement = eligible category"
+        },
+        {
+          "card": "BofA Customized Cash",
+          "earn": "3-5.25%",
+          "why": "Choose home improvement at BofA"
+        }
+      ]
+    },
+    {
+      "names": [
+        "lowe's",
+        "lowes",
+        "lowe's home improvement"
+      ],
+      "cat": "Shopping",
+      "icon": "🔧",
+      "recs": [
+        {
+          "card": "Lowe's Advantage Card",
+          "earn": "5% off all Lowe's",
+          "why": "Lowe's card gives 5% on every purchase"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Home improvement category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate catch-all"
+        }
+      ]
+    },
+    {
+      "names": [
+        "best buy",
+        "bestbuy"
+      ],
+      "cat": "Shopping",
+      "icon": "🖥️",
+      "recs": [
+        {
+          "card": "Best Buy Visa Card",
+          "earn": "5% back in rewards",
+          "why": "Best Buy's own card — 5% back"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Electronics = eligible category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate for in-store"
+        }
+      ]
+    },
+    {
+      "names": [
+        "shell",
+        "bp",
+        "exxon",
+        "exxonmobil",
+        "mobil",
+        "chevron",
+        "speedway",
+        "marathon",
+        "circle k",
+        "wawa",
+        "racetrac",
+        "sunoco",
+        "quiktrip",
+        "qt",
+        "7-eleven",
+        "buc-ee's",
+        "casey's"
+      ],
+      "cat": "Gas",
+      "icon": "⛽",
+      "recs": [
+        {
+          "card": "Citi Costco Visa",
+          "earn": "4% on gas",
+          "why": "Best gas card — 4% up to $7K/yr"
+        },
+        {
+          "card": "Sam's Club MC",
+          "earn": "5% on gas",
+          "why": "5% for Sam's members up to $6K/yr"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "5% if gas is your top category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "mcdonald's",
+        "mcdonalds",
+        "burger king",
+        "wendy's",
+        "wendys",
+        "taco bell",
+        "chipotle",
+        "chick-fil-a",
+        "chick fil a",
+        "popeyes",
+        "kfc",
+        "subway",
+        "dunkin",
+        "shake shack",
+        "five guys",
+        "in-n-out",
+        "whataburger",
+        "sonic",
+        "jack in the box",
+        "culver's",
+        "raising cane's"
+      ],
+      "cat": "Dining",
+      "icon": "🍔",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "4x at ALL restaurants incl. fast food"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "4% dining",
+          "why": "4% on all dining & entertainment"
+        },
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% fast food",
+          "why": "Choose 'fast food' as Cash+ category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "starbucks",
+        "dutch bros",
+        "caribou coffee",
+        "peet's coffee",
+        "tim hortons"
+      ],
+      "cat": "Dining",
+      "icon": "☕",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Starbucks codes as restaurant"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "4% dining",
+          "why": "4% on all dining"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "3x on all dining worldwide"
+        }
+      ]
+    },
+    {
+      "names": [
+        "panera",
+        "panera bread"
+      ],
+      "cat": "Dining",
+      "icon": "🥖",
+      "recs": [
+        {
+          "card": "Apple Card",
+          "earn": "3% cash back",
+          "why": "Panera is an Apple Card 3% partner"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "4x at restaurants"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "4% dining",
+          "why": "4% on dining"
+        }
+      ]
+    },
+    {
+      "names": [
+        "olive garden",
+        "chili's",
+        "applebee's",
+        "outback",
+        "red lobster",
+        "texas roadhouse",
+        "longhorn",
+        "seasons 52",
+        "bahama breeze",
+        "darden",
+        "bonefish",
+        "capital grille",
+        "flemings",
+        "ruth's chris",
+        "cheesecake factory",
+        "pf changs",
+        "bj's restaurant"
+      ],
+      "cat": "Dining",
+      "icon": "🍽️",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Undisputed best dining card — 4x"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "4% dining",
+          "why": "4% on dining & entertainment"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "3x dining, 1.5¢/pt via CSR portal"
+        }
+      ]
+    },
+    {
+      "names": [
+        "uber",
+        "uber eats",
+        "ubereats"
+      ],
+      "cat": "Dining",
+      "icon": "🚕",
+      "recs": [
+        {
+          "card": "Apple Card",
+          "earn": "3% cash back",
+          "why": "Uber is Apple Card 3% partner"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "$10/mo Uber Cash",
+          "why": "$120/yr Uber Cash = free rides"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "Uber codes as travel for CSR 3x"
+        }
+      ]
+    },
+    {
+      "names": [
+        "lyft"
+      ],
+      "cat": "Travel",
+      "icon": "🚗",
+      "recs": [
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "Lyft codes as travel for CSR"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x transit",
+          "why": "3x on transit category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "doordash",
+        "door dash",
+        "grubhub",
+        "instacart",
+        "postmates",
+        "gopuff",
+        "uber eats",
+        "caviar"
+      ],
+      "cat": "Dining",
+      "icon": "🥡",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x MR",
+          "why": "Delivery apps code as restaurant"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "4% dining",
+          "why": "4% on dining deliveries"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "3x on restaurant-coded delivery"
+        }
+      ]
+    },
+    {
+      "names": [
+        "netflix",
+        "hulu",
+        "disney+",
+        "disney plus",
+        "hbo max",
+        "max",
+        "paramount+",
+        "peacock",
+        "apple tv+",
+        "spotify",
+        "youtube premium",
+        "sling",
+        "fubo",
+        "discovery+",
+        "espn+",
+        "crunchyroll",
+        "showtime",
+        "starz"
+      ],
+      "cat": "Streaming",
+      "icon": "📺",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% streaming",
+          "why": "Choose TV/streaming — best card"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% on select streaming",
+          "why": "6% on select streaming services"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if top category",
+          "why": "5% if streaming is your #1 category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "at&t",
+        "att"
+      ],
+      "cat": "Wireless",
+      "icon": "📱",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% cell providers",
+          "why": "5% on all phone bills"
+        },
+        {
+          "card": "Citi AT&T Points Plus",
+          "earn": "3x + bill credit",
+          "why": "AT&T-specific card with bill credits"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x phone plans",
+          "why": "3x on phone plans, no annual fee"
+        }
+      ]
+    },
+    {
+      "names": [
+        "t-mobile",
+        "tmobile",
+        "metro by t-mobile",
+        "metro pcs"
+      ],
+      "cat": "Wireless",
+      "icon": "📱",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% cell providers",
+          "why": "Best for all carriers"
+        },
+        {
+          "card": "Apple Card",
+          "earn": "3% cash back",
+          "why": "T-Mobile is Apple Card 3% partner"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x phone plans",
+          "why": "3x phone plans, solid no-fee backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "verizon",
+        "verizon wireless"
+      ],
+      "cat": "Wireless",
+      "icon": "📱",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% cell providers",
+          "why": "5% on all phone bills"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x phone plans",
+          "why": "3x phone plans"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "cricket wireless",
+        "boost mobile",
+        "visible",
+        "consumer cellular",
+        "mint mobile"
+      ],
+      "cat": "Wireless",
+      "icon": "📱",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% cell providers",
+          "why": "5% on all cell phone providers"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x phone plans",
+          "why": "3x on phone plans"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "duke energy",
+        "fpl",
+        "florida power",
+        "florida power & light",
+        "con edison",
+        "xcel energy",
+        "dominion energy",
+        "georgia power",
+        "pepco",
+        "pge",
+        "pg&e",
+        "national grid",
+        "centerpoint",
+        "aep",
+        "evergy",
+        "we energies"
+      ],
+      "cat": "Utilities",
+      "icon": "⚡",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% home utilities",
+          "why": "BEST utility card — 5% on electric/water/gas bills"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate backup"
+        },
+        {
+          "card": "Chase Ink Business Cash",
+          "earn": "5% internet/phone",
+          "why": "5% on cable/internet/phone for business"
+        }
+      ]
+    },
+    {
+      "names": [
+        "comcast",
+        "xfinity",
+        "spectrum",
+        "cox",
+        "at&t internet",
+        "verizon fios",
+        "centurylink",
+        "lumen",
+        "frontier internet",
+        "optimum",
+        "altice",
+        "mediacom",
+        "dish",
+        "directv"
+      ],
+      "cat": "Utilities",
+      "icon": "📡",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% home utilities",
+          "why": "Cable/internet = home utilities category"
+        },
+        {
+          "card": "Chase Ink Business Cash",
+          "earn": "5% internet",
+          "why": "5% on cable & internet for business"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "apple",
+        "apple store",
+        "apple.com"
+      ],
+      "cat": "Shopping",
+      "icon": "🍎",
+      "recs": [
+        {
+          "card": "Apple Card",
+          "earn": "3% cash back",
+          "why": "3% on ALL Apple purchases — only card with this rate"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        },
+        {
+          "card": "Amex Platinum",
+          "earn": "5x flights via Amex Travel",
+          "why": "If booking Apple TV+ travel bundles"
+        }
+      ]
+    },
+    {
+      "names": [
+        "ashley",
+        "ashley furniture",
+        "ashley homestore",
+        "ashley store"
+      ],
+      "cat": "Shopping",
+      "icon": "🛋️",
+      "recs": [
+        {
+          "card": "Ashley Store Card",
+          "earn": "0% financing promo",
+          "why": "Use ONLY for 0% deferred interest promos"
+        },
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% furniture",
+          "why": "Choose 'furniture stores' as Cash+ category"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Furniture is an eligible Custom Cash category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "ikea"
+      ],
+      "cat": "Shopping",
+      "icon": "🪑",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% furniture",
+          "why": "Choose 'furniture stores' as Cash+ cat"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "Furniture category eligible"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "tj maxx",
+        "tjmaxx",
+        "marshalls",
+        "ross",
+        "burlington",
+        "nordstrom rack"
+      ],
+      "cat": "Shopping",
+      "icon": "🛍️",
+      "recs": [
+        {
+          "card": "Capital One Savor",
+          "earn": "3% sometimes grocery-coded",
+          "why": "Discount stores sometimes code as grocery"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Best flat-rate"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "Fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "nordstrom",
+        "nordstrom.com"
+      ],
+      "cat": "Shopping",
+      "icon": "👗",
+      "recs": [
+        {
+          "card": "Nordstrom Visa Card",
+          "earn": "3x Nordy points",
+          "why": "Nordstrom card gives 3x — best return"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "3% grocery (dept coded)",
+          "why": "Dept stores sometimes code as grocery"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate backup"
+        }
+      ]
+    },
+    {
+      "names": [
+        "macy's",
+        "macys"
+      ],
+      "cat": "Shopping",
+      "icon": "🏬",
+      "recs": [
+        {
+          "card": "Macy's Credit Card",
+          "earn": "5% Star Rewards",
+          "why": "Macy's card gives 5% — best return"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate backup"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "General fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "marriott",
+        "hilton",
+        "hyatt",
+        "ihg",
+        "sheraton",
+        "westin",
+        "courtyard",
+        "hampton inn",
+        "holiday inn",
+        "doubletree",
+        "omni",
+        "ritz carlton",
+        "ritz",
+        "four seasons",
+        "kimpton",
+        "loews"
+      ],
+      "cat": "Travel",
+      "icon": "🏨",
+      "recs": [
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel + 1.5¢/pt",
+          "why": "Best overall hotel redemptions"
+        },
+        {
+          "card": "Bilt Rewards",
+          "earn": "3x + Hyatt transfer",
+          "why": "Transfer 1:1 to Hyatt — outstanding value"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x travel",
+          "why": "3x on hotels, no annual fee"
+        }
+      ]
+    },
+    {
+      "names": [
+        "delta",
+        "united",
+        "american airlines",
+        "southwest",
+        "jetblue",
+        "spirit",
+        "frontier",
+        "alaska airlines",
+        "air france",
+        "british airways",
+        "lufthansa",
+        "emirate",
+        "emirates",
+        "hawaiian airlines"
+      ],
+      "cat": "Travel",
+      "icon": "✈️",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "3x MR on flights",
+          "why": "3x, transfer MR to Delta/Air France"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "3x, transfer to United/Southwest/Hyatt"
+        },
+        {
+          "card": "Capital One Venture X",
+          "earn": "5x flights via C1 Travel",
+          "why": "5x via portal, 2x everywhere else"
+        }
+      ]
+    },
+    {
+      "names": [
+        "hertz",
+        "enterprise",
+        "avis",
+        "budget",
+        "national",
+        "alamo",
+        "sixt",
+        "turo",
+        "zipcar"
+      ],
+      "cat": "Travel",
+      "icon": "🚗",
+      "recs": [
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "Car rentals = travel category"
+        },
+        {
+          "card": "Capital One Venture X",
+          "earn": "10x via C1 Travel portal",
+          "why": "Book via portal for 10x"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x travel",
+          "why": "3x on car rentals, no annual fee"
+        }
+      ]
+    },
+    {
+      "names": [
+        "airbnb",
+        "vrbo",
+        "booking.com",
+        "hotels.com",
+        "expedia",
+        "priceline",
+        "kayak"
+      ],
+      "cat": "Travel",
+      "icon": "🏠",
+      "recs": [
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "All OTA/booking sites = travel category"
+        },
+        {
+          "card": "Bilt Rewards",
+          "earn": "3x on travel",
+          "why": "3x + transfer to Hyatt/United"
+        },
+        {
+          "card": "Capital One Venture X",
+          "earn": "10x hotels via C1 portal",
+          "why": "Book direct in C1 portal for 10x"
+        }
+      ]
+    },
+    {
+      "names": [
+        "sunpass",
+        "e-pass",
+        "toll",
+        "sunrail",
+        "lynx",
+        "bus",
+        "metro",
+        "transit",
+        "parking",
+        "parkwhiz",
+        "spothero",
+        "amtrak"
+      ],
+      "cat": "Travel",
+      "icon": "🚇",
+      "recs": [
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3x transit",
+          "why": "3x on transit, tolls, and commute spend"
+        },
+        {
+          "card": "Bilt Rewards",
+          "earn": "2x on Rent Day",
+          "why": "1st of month: 2x on all transit"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel",
+          "why": "Transit = travel for CSR"
+        }
+      ]
+    },
+    {
+      "names": [
+        "planet fitness",
+        "la fitness",
+        "equinox",
+        "orangetheory",
+        "crunch",
+        "ymca",
+        "anytime fitness",
+        "lifetime fitness",
+        "gold's gym",
+        "f45",
+        "barry's",
+        "soulcycle",
+        "peloton"
+      ],
+      "cat": "Entertainment",
+      "icon": "🏋️",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% gym/fitness",
+          "why": "Choose 'gyms & fitness clubs' as Cash+ category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "General fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "regal",
+        "amc",
+        "cinemark",
+        "alamo drafthouse",
+        "movie theater",
+        "landmark theatres",
+        "fandango"
+      ],
+      "cat": "Entertainment",
+      "icon": "🎬",
+      "recs": [
+        {
+          "card": "Capital One Savor",
+          "earn": "4% entertainment",
+          "why": "4% on entertainment including movies"
+        },
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% movie theaters",
+          "why": "Choose 'movie theaters' as Cash+ category"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "Theaters sometimes code as dining"
+        }
+      ]
+    },
+    {
+      "names": [
+        "ticketmaster",
+        "stubhub",
+        "seatgeek",
+        "livenation",
+        "live nation",
+        "axs",
+        "eventbrite"
+      ],
+      "cat": "Entertainment",
+      "icon": "🎟️",
+      "recs": [
+        {
+          "card": "Capital One Savor",
+          "earn": "4% entertainment",
+          "why": "4% on entertainment & live events"
+        },
+        {
+          "card": "Amex Platinum",
+          "earn": "access + perks",
+          "why": "Amex presale access + concierge"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x or dining-coded",
+          "why": "Some events code as dining"
+        }
+      ]
+    },
+    {
+      "names": [
+        "planet fitness",
+        "la fitness",
+        "equinox",
+        "orangetheory",
+        "crunch",
+        "ymca"
+      ],
+      "cat": "Entertainment",
+      "icon": "🏋️",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% gym/fitness",
+          "why": "Choose 'gyms & fitness clubs' category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Flat-rate fallback"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% cash back",
+          "why": "General fallback"
+        }
+      ]
+    },
+    {
+      "names": [
+        "costco gas",
+        "bj's wholesale",
+        "bj's gas",
+        "sam's club gas"
+      ],
+      "cat": "Gas",
+      "icon": "⛽",
+      "recs": [
+        {
+          "card": "Citi Costco Visa",
+          "earn": "4% on gas",
+          "why": "Best gas card for warehouse club gas"
+        },
+        {
+          "card": "Sam's Club MC",
+          "earn": "5% gas (Sam's)",
+          "why": "5% at Sam's Club gas for members"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if chosen",
+          "why": "5% if gas is your top category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "amazon web services",
+        "aws",
+        "google cloud",
+        "microsoft azure",
+        "digitalocean",
+        "godaddy",
+        "squarespace",
+        "shopify",
+        "wix"
+      ],
+      "cat": "Shopping",
+      "icon": "☁️",
+      "recs": [
+        {
+          "card": "BofA Customized Cash",
+          "earn": "3-5.25% online shopping",
+          "why": "AWS/cloud bills often code as online shopping"
+        },
+        {
+          "card": "Chase Ink Business Cash",
+          "earn": "5% internet/tech",
+          "why": "Some tech services code as internet/cable"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% cash back",
+          "why": "Reliable flat-rate for SaaS/cloud spend"
+        }
+      ]
+    }
   ]
 }

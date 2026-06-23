@@ -1,18 +1,19 @@
 {
   "name": "SwipeRight — Card Optimizer",
   "short_name": "SwipeRight",
-  "description": "Best credit card from your wallet for every purchase. 94 cards. Works offline.",
-  "start_url": "/index.html",
+  "description": "Find the best credit card from your wallet for every purchase. 94 cards. Works offline.",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#0F1117",
-  "theme_color": "#0F1117",
+  "background_color": "#0A0D14",
+  "theme_color": "#0A0D14",
   "orientation": "portrait-primary",
   "categories": ["finance","utilities"],
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Search Vendor", "url": "/index.html", "description": "Find best card for a store" }
+    { "name": "Search Vendor", "url": "/", "description": "Find best card for a store" }
   ]
 }

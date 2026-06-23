@@ -6,12 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="SwipeRight">
-<meta name="theme-color" content="#0F1117">
+<meta name="theme-color" content="#0A0D14">
+<meta name="description" content="Find the best credit card from your wallet for every purchase. 94 cards, fuzzy vendor search, offline-capable PWA.">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>SwipeRight — Card Optimizer</title>
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
+<noscript><div style="text-align:center;padding:3rem 1rem;font-family:sans-serif;color:#333"><h2>JavaScript required</h2><p>Please enable JavaScript to use SwipeRight.</p></div></noscript>
 <div class="app">
 
   <header>
@@ -95,13 +98,13 @@
   </div>
 
   <nav class="bottom-nav" aria-label="Main navigation">
-    <button class="nav-item active" onclick="switchTab('search')" id="nav-search" aria-label="Search">
+    <button class="nav-item active" onclick="switchTab('search')" id="nav-search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search
     </button>
-    <button class="nav-item" onclick="switchTab('gps')" id="nav-gps" aria-label="Nearby stores">
+    <button class="nav-item" onclick="switchTab('gps')" id="nav-gps">
       <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nearby
     </button>
-    <button class="nav-item" onclick="switchTab('wallet')" id="nav-wallet" aria-label="My wallet">
+    <button class="nav-item" onclick="switchTab('wallet')" id="nav-wallet">
       <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h.01"/><path d="M2 10h20"/></svg>Wallet
       <span class="nav-badge" id="wallet-badge" style="display:none" aria-label="card count">0</span>
     </button>

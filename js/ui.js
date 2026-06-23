@@ -2,7 +2,7 @@ import { state } from './state.js';
 import { renderWallet } from './wallet.js';
 
 export function escHtml(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-export function escAttr(s) { return String(s || '').replace(/'/g, '\''); }
+export function escAttr(s) { return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
 export function showToast(msg, type = '') {
   const t = document.getElementById('toast');

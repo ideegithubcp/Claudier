@@ -1,7 +1,8 @@
 import { GOOGLE_PLACES_API_KEY } from './config.js';
-import { showToast, escAttr, escHtml } from './ui.js';
-import { findBestVendor } from './search.js';
+import { showToast, escAttr, escHtml, switchTab } from './ui.js';
+import { findBestVendor, renderResults } from './search.js';
 import { state } from './state.js';
+import { allWalletCards } from './cards.js';
 
 const NEARBY_FALLBACK = [
   { name: 'Publix', cat: 'Grocery', dist: '0.4', best: 'Amex Gold — 4x MR', vendor: 'publix' },
@@ -22,11 +23,13 @@ const CAT_ICONS = {
   'pharmacy': '💊', 'restaurant': '🍽️', 'cafe': '☕', 'department_store': '🏬',
 };
 
+// Maps Google Places types to vendor DB keys
 const PLACE_TYPE_MAP = {
   'supermarket': 'grocery store', 'grocery_or_supermarket': 'grocery store',
   'gas_station': 'shell', 'convenience_store': 'circle k',
   'pharmacy': 'cvs', 'drugstore': 'cvs',
-  'restaurant': 'restaurant', 'food': 'restaurant',
+  // Restaurant-type places → use mcdonald's as generic dining proxy (has broad Dining recs)
+  'restaurant': "mcdonald's", 'food': "mcdonald's",
   'cafe': 'starbucks', 'bakery': 'starbucks',
   'department_store': 'target', 'clothing_store': 'target',
   'home_goods_store': 'home depot', 'hardware_store': 'home depot',
@@ -38,7 +41,7 @@ function loadMapsApi() {
   return new Promise((resolve, reject) => {
     if (window.google?.maps?.places) { resolve(); return; }
 
-    // Set global auth failure handler BEFORE appending script
+    // Register auth failure handler BEFORE injecting script to avoid race
     window.gm_authFailure = function () {
       const err = new Error('Maps API key not authorized — enable Maps JavaScript API + billing in Google Cloud Console, and whitelist your Netlify domain under HTTP referrers.');
       console.error('[SwipeRight]', err.message);
@@ -92,7 +95,13 @@ function calcDist(lat1, lng1, lat2, lng2) {
   return (R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))).toFixed(1);
 }
 
+function setSectionLabel(text) {
+  const lbl = document.getElementById('nearby-section-lbl');
+  if (lbl) lbl.textContent = text;
+}
+
 function showNearbyLoading() {
+  setSectionLabel('Finding stores…');
   document.getElementById('nearby-grid').innerHTML = Array(6).fill(
     `<div class="nearby-card" style="pointer-events:none">
       <div class="nearby-icon skeleton" style="width:32px;height:32px;border-radius:8px;margin-bottom:8px;"></div>
@@ -103,7 +112,7 @@ function showNearbyLoading() {
   ).join('');
 }
 
-function nearbyCardHTML(name, cat, dist, best, vendor, isExample) {
+function nearbyCardHTML(name, cat, dist, best, vendor) {
   const icon = CAT_ICONS[cat] || '🏪';
   return `<div class="nearby-card" onclick="nearbyPick('${escAttr(vendor)}','${escAttr(name)}')">
     <div class="nearby-icon">${icon}</div>
@@ -115,8 +124,9 @@ function nearbyCardHTML(name, cat, dist, best, vendor, isExample) {
 }
 
 export function renderNearbyFallback(isExample = true) {
+  setSectionLabel(isExample ? 'Example stores' : 'Nearby stores');
   document.getElementById('nearby-grid').innerHTML = NEARBY_FALLBACK.map(s =>
-    nearbyCardHTML(s.name, s.cat, isExample ? s.dist : null, s.best, s.vendor, isExample)
+    nearbyCardHTML(s.name, s.cat, isExample ? s.dist : null, s.best, s.vendor)
   ).join('');
   if (isExample) {
     document.getElementById('gps-sub').textContent = 'Examples below — tap GPS button for live stores near you';
@@ -127,16 +137,21 @@ export function renderNearbyFallback(isExample = true) {
 
 function renderNearbyFromPlaces(places) {
   if (!places.length) { renderNearbyFallback(false); return; }
+  setSectionLabel('Nearby stores');
+  const walletCards = allWalletCards();
+  const walletNames = new Set(walletCards.map(c => c.name));
+
   document.getElementById('nearby-grid').innerHTML = places.map(p => {
     const rawType = p.types[0] || '';
     const catLabel = rawType.replace(/_/g, ' ');
     const icon = CAT_ICONS[rawType] || CAT_ICONS[catLabel] || '🏪';
     const vendorKey = p.types.map(t => PLACE_TYPE_MAP[t]).find(Boolean) || p.name.toLowerCase().split(' ')[0];
     const bestEntry = findBestVendor(vendorKey) || findBestVendor(p.name);
-    const bestRec = bestEntry?.recs[0];
-    const walletCards = [...state.CARD_CATALOG.filter(c => state.myCardIds.includes(c.id)), ...state.customCards];
-    const owned = bestRec ? walletCards.find(c => c.name === bestRec.card) : null;
-    const bestCard = owned ? bestRec.card : (bestRec?.card || 'Check your wallet');
+    const recs = bestEntry?.recs || [];
+    // Prefer a card the user owns; fall back to catalog's top pick
+    const ownedRec = recs.find(r => walletNames.has(r.card));
+    const bestRec = ownedRec || recs[0];
+    const bestCard = bestRec?.card || 'Check your wallet';
     const bestEarn = bestRec?.earn || '';
     return `<div class="nearby-card" onclick="nearbyPick('${escAttr(vendorKey)}','${escAttr(p.name)}')">
       <div class="nearby-icon">${icon}</div>
@@ -153,7 +168,6 @@ const FETCH_TIMEOUT = 10000;
 export async function fetchNearbyPlaces(lat, lng) {
   showNearbyLoading();
   try {
-    // Race Maps API load against 10s timeout
     await Promise.race([
       loadMapsApi(),
       new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), FETCH_TIMEOUT)),
@@ -164,7 +178,6 @@ export async function fetchNearbyPlaces(lat, lng) {
     const types = ['supermarket', 'gas_station', 'pharmacy', 'restaurant', 'department_store'];
     const results = [];
 
-    // Race the full nearbySearch against timeout too
     await Promise.race([
       Promise.all(types.map(type => new Promise(res => {
         svc.nearbySearch({ location: { lat, lng }, radius: 4800, type }, (places, status) => {
@@ -206,11 +219,9 @@ export async function fetchNearbyPlaces(lat, lng) {
 export function initNearbyTab() {
   const grid = document.getElementById('nearby-grid');
   if (!grid) return;
-  // Only show fallback if the grid is empty (don't replace live results)
   if (!grid.children.length || grid.querySelector('[style*="pointer-events:none"]')) {
     renderNearbyFallback(true);
   }
-  document.getElementById('places-manual-row').style.display = 'flex';
 }
 
 export function startGPS() {
@@ -270,7 +281,7 @@ export function searchPlacesByText() {
 }
 
 export function nearbyPick(v, n) {
-  import('./ui.js').then(({ switchTab }) => switchTab('search'));
+  switchTab('search');
   document.getElementById('vendorInput').value = n;
-  import('./search.js').then(({ renderResults, findBestVendor: fbv }) => renderResults(n, fbv(v)));
+  renderResults(n, findBestVendor(v));
 }

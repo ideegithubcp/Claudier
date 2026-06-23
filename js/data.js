@@ -44,16 +44,14 @@ export async function loadData(forceNetwork = false) {
     if (discDate) discDate.textContent = state.DATA_META.lastUpdated || 'Unknown';
     setDataStatus('ok', state.DATA_META.lastUpdated);
     buildQuick();
-    populateCardSelect();
     if (document.getElementById('panel-wallet').classList.contains('active')) {
       const { renderWallet } = await import('./wallet.js');
       renderWallet();
     }
     return true;
   } catch (e) {
+    // Don't wipe already-loaded data — cached state is better than empty
     setDataStatus('error');
-    state.CARD_CATALOG = [];
-    state.VENDOR_DB = [];
     return false;
   }
 }
@@ -76,5 +74,3 @@ export function checkAutoRefresh() {
     if (Date.now() - last > REFRESH_INTERVAL_MS * 0.95) setDataStatus('stale');
   }
 }
-
-function populateCardSelect() {}

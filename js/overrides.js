@@ -2,8 +2,7 @@ import { state } from './state.js';
 import { saveS } from './storage.js';
 import { showToast } from './ui.js';
 import { renderWallet } from './wallet.js';
-
-const CC_CATS_EDIT = ['Dining', 'Grocery', 'Gas', 'Travel', 'Streaming', 'Utilities', 'Wireless', 'Shopping', 'Drugstore', 'Entertainment', 'Rent', 'Catch-all', 'Balance Transfer', 'Other'];
+import { CC_CATS } from './cards.js';
 
 export function openEditModal(cardId) {
   const c = state.CARD_CATALOG.find(x => x.id === cardId); if (!c) return;
@@ -29,7 +28,7 @@ export function closeEditModal() {
 export function editOverlayClick(e) { if (e.target === document.getElementById('edit-overlay')) closeEditModal(); }
 
 export function buildEditCatToggles() {
-  document.getElementById('edit-cats').innerHTML = CC_CATS_EDIT.map(c => `
+  document.getElementById('edit-cats').innerHTML = CC_CATS.map(c => `
     <div class="cat-toggle ${state.editCatSelection.has(c) ? 'on' : ''}" onclick="toggleEditCat('${c}')" id="ecat-${c}">${c}</div>`).join('');
 }
 
