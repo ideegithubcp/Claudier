@@ -25,6 +25,29 @@ export function openDisclaimer() { document.getElementById('disc-overlay').class
 export function closeDisclaimer() { document.getElementById('disc-overlay').classList.remove('show'); }
 export function closeBanner() { document.getElementById('install-banner').classList.remove('show'); }
 
+const MASCOT_MOODS = [
+  '😊','😉','👍','🤑','💪','😎','🤩','🎯',
+  '✨','🏆','💡','🎉','🚀','💰','🤝','😄',
+];
+
+export function startMascot() {
+  const el = document.getElementById('mascot-emoji');
+  if (!el) return;
+  let idx = Math.floor(Math.random() * MASCOT_MOODS.length);
+
+  function setMood() {
+    el.classList.remove('pop');
+    void el.offsetWidth; // force reflow to restart animation
+    el.textContent = MASCOT_MOODS[idx];
+    el.classList.add('pop');
+    idx = (idx + 1) % MASCOT_MOODS.length;
+  }
+
+  setMood(); // set on open
+  setInterval(setMood, 5 * 60 * 1000); // rotate every 5 minutes
+  el.addEventListener('click', setMood); // tap to change immediately
+}
+
 export function startClock() {
   const timeEl = document.getElementById('clock-time');
   const dateEl = document.getElementById('clock-date');

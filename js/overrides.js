@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { saveS } from './storage.js';
-import { showToast } from './ui.js';
+import { showToast, escHtml, escAttr } from './ui.js';
 import { renderWallet } from './wallet.js';
 import { CC_CATS } from './cards.js';
 
@@ -29,7 +29,7 @@ export function editOverlayClick(e) { if (e.target === document.getElementById('
 
 export function buildEditCatToggles() {
   document.getElementById('edit-cats').innerHTML = CC_CATS.map(c => `
-    <div class="cat-toggle ${state.editCatSelection.has(c) ? 'on' : ''}" onclick="toggleEditCat('${c}')" id="ecat-${c}">${c}</div>`).join('');
+    <div class="cat-toggle ${state.editCatSelection.has(c) ? 'on' : ''}" onclick="toggleEditCat('${escAttr(c)}')" id="ecat-${escAttr(c)}">${escHtml(c)}</div>`).join('');
 }
 
 export function toggleEditCat(c) {

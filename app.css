@@ -37,10 +37,28 @@ header {
 .logo-name { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(90deg, #4AE5A2, #7B6EF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .logo-sub { font-size: 10px; color: var(--muted); margin-top: 1px; letter-spacing: 0.3px; }
 
-/* LIVE CLOCK */
-.live-clock { text-align: right; flex-shrink: 0; }
+/* LIVE CLOCK + MASCOT */
+.header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.live-clock { text-align: right; }
 .clock-time { font-size: 17px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
 .clock-date { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.2px; }
+
+.mascot-emoji {
+  font-size: 26px; line-height: 1; cursor: pointer;
+  -webkit-user-select: none; user-select: none;
+  display: block; transition: transform .15s;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,.35));
+}
+.mascot-emoji:hover { transform: scale(1.18); }
+.mascot-emoji:active { transform: scale(.88); }
+.mascot-emoji.pop { animation: mascot-pop .4s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes mascot-pop {
+  0%   { transform: scale(1)    rotate(0deg); }
+  25%  { transform: scale(1.45) rotate(-10deg); }
+  55%  { transform: scale(1.25) rotate(6deg); }
+  80%  { transform: scale(1.08) rotate(-2deg); }
+  100% { transform: scale(1)    rotate(0deg); }
+}
 
 /* DATA STATUS BAR */
 .data-bar { display: flex; align-items: center; gap: 8px; padding: 7px 20px; background: var(--surface); border-bottom: 1px solid var(--border); font-size: 11px; color: var(--muted); }
