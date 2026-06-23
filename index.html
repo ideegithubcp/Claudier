@@ -68,15 +68,6 @@
       <div id="results"></div>
     </div>
 
-    <!-- QUICK TAP -->
-    <div class="panel" id="panel-quick">
-      <div class="panel-title">At checkout right now?</div>
-      <div class="sec-lbl">Common stores</div>
-      <div class="qt-grid" id="qt-grid"></div>
-      <div class="sec-lbl">Bills &amp; subscriptions</div>
-      <div class="qt-grid" id="qt-grid2"></div>
-    </div>
-
     <!-- GPS / NEARBY -->
     <div class="panel" id="panel-gps">
       <div class="gps-hero">
@@ -84,12 +75,14 @@
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 2"/></svg>
         </div>
         <div class="gps-lbl" id="gps-lbl">Find stores near me</div>
-        <div class="gps-sub" id="gps-sub">Tap to detect your location via Google Places</div>
+        <div class="gps-sub" id="gps-sub">Tap to detect your location — searches within 3 miles</div>
       </div>
-      <div class="places-input-row" id="places-manual-row" style="display:none;">
-        <input type="text" id="places-loc-input" placeholder="Or enter a location (e.g. 32832 or Orlando FL)"/>
+      <div class="gps-divider">or enter a location</div>
+      <div class="places-input-row" id="places-manual-row">
+        <input type="text" id="places-loc-input" placeholder="ZIP code or city (e.g. 32832 or Orlando FL)"/>
         <button onclick="searchPlacesByText()">Search</button>
       </div>
+      <div class="nearby-section-lbl" id="nearby-section-lbl">Nearby stores</div>
       <div id="nearby-grid" class="nearby-grid"></div>
     </div>
 

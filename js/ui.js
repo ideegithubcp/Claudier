@@ -18,6 +18,7 @@ export function switchTab(t) {
   document.getElementById('nav-' + t).classList.add('active');
   document.getElementById('panel-' + t).classList.add('active');
   if (t === 'wallet') renderWallet();
+  if (t === 'gps') import('./places.js').then(({ initNearbyTab }) => initNearbyTab());
 }
 
 export function openDisclaimer() { document.getElementById('disc-overlay').classList.add('show'); }
