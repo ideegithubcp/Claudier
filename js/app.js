@@ -1,8 +1,8 @@
 import { checkAutoRefresh, refreshData } from './data.js';
 import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount } from './ui.js';
-import { lookup, clearSearch, onInput, selectSug, quickPick, showMatrix } from './search.js';
+import { lookup, clearSearch, onInput, selectSug, quickPick, showMatrix, logCardTap } from './search.js';
 import { startGPS, searchPlacesByText, nearbyPick } from './places.js';
-import { renderWallet, setWalletFilter, removeCard, openModal, closeModal, modalOverlayClick, filterCardOptions, toggleCardSelect, saveModalCards, openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard, exportWallet, importWallet } from './wallet.js';
+import { renderWallet, setWalletFilter, removeCard, openModal, closeModal, modalOverlayClick, filterCardOptions, toggleCardSelect, saveModalCards, openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard, exportWallet, importWallet, clearTaps } from './wallet.js';
 import { openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCardEdit, clearCardEdit } from './overrides.js';
 
 // Expose all functions called from HTML onclick attributes
@@ -14,7 +14,7 @@ Object.assign(window, {
   renderWallet, setWalletFilter, removeCard,
   openModal, closeModal, modalOverlayClick, filterCardOptions, toggleCardSelect, saveModalCards,
   openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard,
-  exportWallet, importWallet,
+  exportWallet, importWallet, clearTaps,
   openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCardEdit, clearCardEdit,
 });
 
@@ -37,3 +37,15 @@ initPWAInstall();
 showOnboardingIfNew();
 checkAutoRefresh();
 initVisitorCount();
+
+// Card-tap event delegation — single listener covers dynamically rendered results
+document.getElementById('results').addEventListener('click', e => {
+  const el = e.target.closest('.card-result[data-card]');
+  if (el) logCardTap(el, el.dataset.card, el.dataset.cat, el.dataset.vendor);
+});
+document.getElementById('results').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const el = e.target.closest('.card-result[data-card]');
+    if (el) { e.preventDefault(); logCardTap(el, el.dataset.card, el.dataset.cat, el.dataset.vendor); }
+  }
+});

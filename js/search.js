@@ -70,19 +70,33 @@ export function findBestVendor(query) {
   return results.length > 0 ? results[0].entry : null;
 }
 
-function recHTML(rank, r, isBest, inWallet, walletNames) {
+function recHTML(rank, r, isBest, inWallet, walletNames, cat = '', vendor = '') {
   const owned = walletNames === null || walletNames.has(r.card);
   const notOwned = walletNames !== null && !owned;
   const rankClass = rank === 1 ? 'r1' : rank === 2 ? 'r2' : rank === 3 ? 'r3' : 'rX';
-  return `<div class="card-result ${isBest && inWallet ? 'best' : ''} ${notOwned ? 'dimmed' : ''}" role="option" aria-selected="${isBest ? 'true' : 'false'}">
+  return `<div class="card-result ${isBest && inWallet ? 'best' : ''} ${notOwned ? 'dimmed' : ''}"
+    role="button" tabindex="0" aria-label="Log ${escAttr(r.card)}"
+    data-card="${escAttr(r.card)}" data-cat="${escAttr(cat)}" data-vendor="${escAttr(vendor)}">
     <div class="rank-c ${rankClass}">${rank || '—'}</div>
-    <div>
+    <div style="flex:1;min-width:0;">
       <div class="res-name">${escHtml(r.card)}${isBest && inWallet ? '<span class="best-badge">Best pick</span>' : ''}</div>
       <div class="res-earn">→ ${escHtml(r.earn)}</div>
       <div class="res-why">${escHtml(r.why)}</div>
       ${notOwned ? '<div class="not-owned">⚠ Not in your wallet</div>' : ''}
     </div>
+    <div class="tap-hint">Tap to log →</div>
   </div>`;
+}
+
+export function logCardTap(el, card, cat, vendor) {
+  haptic(15);
+  el.classList.add('card-tapped');
+  setTimeout(() => el.classList.remove('card-tapped'), 1800);
+  let taps = loadS('sr_taps', []);
+  taps.unshift({ card, cat, vendor, ts: Date.now() });
+  saveS('sr_taps', taps.slice(0, 500));
+  // Import showToast lazily to avoid circular at module init
+  import('./ui.js').then(({ showToast }) => showToast(`✓ ${card} logged for ${cat || vendor}`, 'success'));
 }
 
 // ── Recent searches ────────────────────────────────────────────────────────
@@ -304,11 +318,11 @@ export function renderResults(vendor, entry) {
     if (hasWallet) {
       for (const r of catRecs) {
         if (!walletNames.has(r.card)) continue;
-        rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames);
+        rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames, catName, vendor);
       }
-      for (const r of catRecs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames); }
+      for (const r of catRecs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames, catName, vendor); }
     } else {
-      for (const r of catRecs) { rank++; h += recHTML(rank, r, rank === 1, true, null); }
+      for (const r of catRecs) { rank++; h += recHTML(rank, r, rank === 1, true, null, catName, vendor); }
     }
 
     h += `<div class="tip-box">💡 ${escHtml(catTip)}</div>`;
@@ -326,22 +340,23 @@ export function renderResults(vendor, entry) {
   let h = `<div class="results-hdr">Best cards for <strong>${escHtml(entry.names[0])}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
   if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
 
+  const eCat = entry.cat, eVendor = entry.names[0];
   const shown = new Set(); let rank = 0;
   for (const r of entry.recs) {
     if (walletNames && !walletNames.has(r.card)) continue;
-    rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames);
+    rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames, eCat, eVendor);
   }
   for (const cc of state.customCards) {
     if (shown.has(cc.name)) continue;
     if (cc.cats.some(c => c.toLowerCase() === entry.cat.toLowerCase())) {
       rank++; shown.add(cc.name);
-      h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true, walletNames);
+      h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true, walletNames, eCat, eVendor);
     }
   }
   if (hasWallet) {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames); }
+    for (const r of entry.recs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames, eCat, eVendor); }
   } else {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; rank++; h += recHTML(rank, r, rank === 1, true, null); }
+    for (const r of entry.recs) { if (shown.has(r.card)) continue; rank++; h += recHTML(rank, r, rank === 1, true, null, eCat, eVendor); }
   }
   h += `<div class="tip-box">💡 Verify category coding on your first statement — some merchants code unexpectedly. <button onclick="openDisclaimer()" style="background:none;border:none;color:var(--gold);text-decoration:underline;cursor:pointer;font-size:12px;padding:0;">Full disclaimer →</button></div>`;
   res.innerHTML = h;
