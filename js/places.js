@@ -1,5 +1,5 @@
 import { GOOGLE_PLACES_API_KEY } from './config.js';
-import { showToast, escAttr, escHtml, escJs, switchTab } from './ui.js';
+import { showToast, escAttr, escHtml, escJs, switchTab, haptic } from './ui.js';
 import { findBestVendor, renderResults } from './search.js';
 import { state } from './state.js';
 import { allWalletCards } from './cards.js';
@@ -281,6 +281,7 @@ export function searchPlacesByText() {
 }
 
 export function nearbyPick(v, n) {
+  haptic();
   switchTab('search');
   document.getElementById('vendorInput').value = n;
   renderResults(n, findBestVendor(v));

@@ -144,6 +144,29 @@ header {
 .qt-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 .qt-earn { font-size: 11px; color: var(--accent); margin-top: 6px; font-weight: 500; }
 
+/* Recent searches */
+.recent-row { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.recent-row::-webkit-scrollbar { display: none; }
+.recent-chip { flex-shrink: 0; background: var(--surface); border: 1px solid var(--border2); border-radius: 99px; padding: 5px 13px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; transition: all .15s; }
+.recent-chip:hover { color: var(--accent); border-color: rgba(74,229,162,.4); }
+.recent-chip:active { transform: scale(.95); }
+
+/* Matrix toggle button */
+.matrix-toggle-btn { width: 100%; margin: 4px 0 6px; background: rgba(74,229,162,.05); border: 1px solid rgba(74,229,162,.18); border-radius: 12px; padding: 11px 16px; color: var(--accent); font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; letter-spacing: .2px; transition: background .15s, border-color .15s; }
+.matrix-toggle-btn:hover { background: rgba(74,229,162,.1); border-color: rgba(74,229,162,.35); }
+.matrix-toggle-btn:active { transform: scale(.98); }
+
+/* Best-per-category matrix */
+.matrix-grid { display: flex; flex-direction: column; gap: 7px; margin-bottom: 8px; }
+.matrix-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; transition: border-color .15s; }
+.matrix-row:hover { border-color: var(--border2); }
+.matrix-dimmed { opacity: .38; }
+.matrix-cat { display: flex; align-items: center; gap: 7px; min-width: 130px; font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
+.matrix-info { flex: 1; min-width: 0; }
+.matrix-card-name { font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.matrix-earn { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.matrix-no-match { font-size: 10px; color: var(--muted2); background: rgba(255,255,255,.05); border-radius: 99px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
+
 /* GPS / NEARBY */
 .gps-hero { text-align: center; padding: 22px 0 16px; }
 .gps-ring { width: 76px; height: 76px; border-radius: 50%; background: rgba(74,229,162,.07); border: 2px solid rgba(74,229,162,.25); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; cursor: pointer; position: relative; transition: all .2s; }

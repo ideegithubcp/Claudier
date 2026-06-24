@@ -7,6 +7,7 @@ export function escAttr(s) { return String(s || '').replace(/&/g, '&amp;').repla
 // Uses backslash escaping (not HTML entities) so the browser's HTML-entity-decoder
 // cannot turn &#x27; back into a raw ' that breaks the JS string delimiter.
 export function escJs(s) { return String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/</g, '\\x3c').replace(/>/g, '\\x3e'); }
+export function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
 
 export function showToast(msg, type = '') {
   const t = document.getElementById('toast');

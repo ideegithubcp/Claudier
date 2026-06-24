@@ -1,5 +1,6 @@
 import { state } from './state.js';
-import { escHtml, escAttr, escJs, switchTab } from './ui.js';
+import { escHtml, escAttr, escJs, switchTab, haptic } from './ui.js';
+import { loadS, saveS } from './storage.js';
 import { allWalletCards } from './cards.js';
 
 export function norm(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim(); }
@@ -82,6 +83,81 @@ function recHTML(rank, r, isBest, inWallet, walletNames) {
       ${notOwned ? '<div class="not-owned">⚠ Not in your wallet</div>' : ''}
     </div>
   </div>`;
+}
+
+// ── Recent searches ────────────────────────────────────────────────────────
+
+const MAX_RECENT = 8;
+
+function addRecent(display, key) {
+  let recent = loadS('sr_recent', []);
+  recent = recent.filter(r => r.key !== key);
+  recent.unshift({ display, key });
+  saveS('sr_recent', recent.slice(0, MAX_RECENT));
+  renderRecent();
+}
+
+export function renderRecent() {
+  const recent = loadS('sr_recent', []);
+  const section = document.getElementById('recent-section');
+  const row = document.getElementById('recent-row');
+  if (!section || !row) return;
+  if (!recent.length) { section.style.display = 'none'; return; }
+  row.innerHTML = recent.map(r =>
+    `<button class="recent-chip" onclick="quickPick('${escJs(r.key)}','${escJs(r.display)}')">${escHtml(r.display)}</button>`
+  ).join('');
+  section.style.display = '';
+}
+
+// ── Best-per-category matrix ───────────────────────────────────────────────
+
+const MATRIX_CATS = [
+  { cat: 'Dining',         icon: '🍽️', vendor: 'mcdonalds'   },
+  { cat: 'Grocery',        icon: '🛒', vendor: 'publix'       },
+  { cat: 'Gas',            icon: '⛽', vendor: 'shell'        },
+  { cat: 'Travel',         icon: '✈️', vendor: 'delta'        },
+  { cat: 'Streaming',      icon: '📺', vendor: 'netflix'      },
+  { cat: 'Online Shopping',icon: '📦', vendor: 'amazon'       },
+  { cat: 'Drugstore',      icon: '💊', vendor: 'cvs'          },
+  { cat: 'Rideshare',      icon: '🚕', vendor: 'uber'         },
+  { cat: 'Coffee',         icon: '☕', vendor: 'starbucks'    },
+  { cat: 'Phone / Wireless',icon: '📱',vendor: 'att'          },
+  { cat: 'Utilities',      icon: '⚡', vendor: 'duke energy'  },
+  { cat: 'Entertainment',  icon: '🎬', vendor: 'amc'          },
+];
+
+export function showMatrix() {
+  haptic();
+  const hasWallet = state.myCardIds.length > 0 || state.customCards.length > 0;
+  const wallet = hasWallet ? allWalletCards() : [];
+  const walletNames = hasWallet ? new Set(wallet.map(c => c.name)) : null;
+
+  let h = `<div class="results-hdr">📊 Best card per spend category`;
+  if (hasWallet) h += `<div class="wallet-note" style="margin-top:8px;">★ Showing your best owned card — dimmed rows mean no wallet match</div>`;
+  h += `</div><div class="matrix-grid">`;
+
+  for (const { cat, icon, vendor } of MATRIX_CATS) {
+    const entry = findBestVendor(vendor);
+    if (!entry?.recs?.length) continue;
+    const ownedRec = walletNames ? entry.recs.find(r => walletNames.has(r.card)) : null;
+    const topRec = ownedRec || entry.recs[0];
+    if (!topRec) continue;
+    const owned = !!ownedRec || !hasWallet;
+    h += `<div class="matrix-row${owned ? '' : ' matrix-dimmed'}">
+      <div class="matrix-cat">${icon}<span>${escHtml(cat)}</span></div>
+      <div class="matrix-info">
+        <div class="matrix-card-name">${escHtml(topRec.card)}</div>
+        <div class="matrix-earn">${escHtml(topRec.earn)}</div>
+      </div>
+      ${!owned ? '<div class="matrix-no-match">Not in wallet</div>' : ''}
+    </div>`;
+  }
+
+  h += `</div><div style="text-align:center;padding:10px 0 4px;font-size:12px;color:var(--muted2);">Tap any category name in Search to see full rankings</div>`;
+
+  document.getElementById('results').innerHTML = h;
+  document.getElementById('back-search').classList.add('show');
+  document.getElementById('search-wrap').style.display = 'none';
 }
 
 // ── Generic-category fallback ──────────────────────────────────────────────
@@ -271,6 +347,9 @@ export function renderResults(vendor, entry) {
   res.innerHTML = h;
   document.getElementById('back-search').classList.add('show');
   document.getElementById('search-wrap').style.display = 'none';
+  // Save to recent searches using canonical vendor name
+  const canonical = entry.names[0].charAt(0).toUpperCase() + entry.names[0].slice(1);
+  addRecent(canonical, entry.names[0]);
 }
 
 export function lookup() {
@@ -286,6 +365,7 @@ export function clearSearch() {
   document.getElementById('back-search').classList.remove('show');
   document.getElementById('search-wrap').style.display = '';
   document.getElementById('suggestions').style.display = 'none';
+  renderRecent();
   document.getElementById('vendorInput').focus();
 }
 
@@ -311,6 +391,7 @@ export function onInput() {
 }
 
 export function selectSug(name) {
+  haptic();
   document.getElementById('vendorInput').value = name.charAt(0).toUpperCase() + name.slice(1);
   document.getElementById('suggestions').style.display = 'none';
   lookup();
@@ -356,9 +437,11 @@ export function buildQuick() {
       <span class="qt-icon">${s.icon}</span><div class="qt-name">${escHtml(s.name)}</div>
       <div class="qt-sub">${escHtml(s.sub)}</div><div class="qt-earn">${escHtml(bestEarn(s.vendor))}</div>
     </button>`).join('');
+  renderRecent();
 }
 
 export function quickPick(v, d) {
+  haptic();
   switchTab('search');
   document.getElementById('vendorInput').value = d;
   renderResults(d, findBestVendor(v));

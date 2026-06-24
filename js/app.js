@@ -1,6 +1,6 @@
 import { checkAutoRefresh, refreshData } from './data.js';
 import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount } from './ui.js';
-import { lookup, clearSearch, onInput, selectSug, quickPick } from './search.js';
+import { lookup, clearSearch, onInput, selectSug, quickPick, showMatrix } from './search.js';
 import { startGPS, searchPlacesByText, nearbyPick } from './places.js';
 import { renderWallet, setWalletFilter, removeCard, openModal, closeModal, modalOverlayClick, filterCardOptions, toggleCardSelect, saveModalCards, openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard, exportWallet, importWallet } from './wallet.js';
 import { openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCardEdit, clearCardEdit } from './overrides.js';
@@ -8,7 +8,7 @@ import { openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCar
 // Expose all functions called from HTML onclick attributes
 Object.assign(window, {
   switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner,
-  lookup, clearSearch, onInput, selectSug, quickPick,
+  lookup, clearSearch, onInput, selectSug, quickPick, showMatrix,
   startGPS, searchPlacesByText, nearbyPick,
   refreshData,
   renderWallet, setWalletFilter, removeCard,
