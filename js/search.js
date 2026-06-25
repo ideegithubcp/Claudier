@@ -123,57 +123,6 @@ export function renderRecent() {
   section.style.display = '';
 }
 
-// ── Best-per-category matrix ───────────────────────────────────────────────
-
-const MATRIX_CATS = [
-  { cat: 'Dining',         icon: '🍽️', vendor: 'mcdonalds'   },
-  { cat: 'Grocery',        icon: '🛒', vendor: 'publix'       },
-  { cat: 'Gas',            icon: '⛽', vendor: 'shell'        },
-  { cat: 'Travel',         icon: '✈️', vendor: 'delta'        },
-  { cat: 'Streaming',      icon: '📺', vendor: 'netflix'      },
-  { cat: 'Online Shopping',icon: '📦', vendor: 'amazon'       },
-  { cat: 'Drugstore',      icon: '💊', vendor: 'cvs'          },
-  { cat: 'Rideshare',      icon: '🚕', vendor: 'uber'         },
-  { cat: 'Coffee',         icon: '☕', vendor: 'starbucks'    },
-  { cat: 'Phone / Wireless',icon: '📱',vendor: 'att'          },
-  { cat: 'Utilities',      icon: '⚡', vendor: 'duke energy'  },
-  { cat: 'Entertainment',  icon: '🎬', vendor: 'amc'          },
-];
-
-export function showMatrix() {
-  haptic();
-  const hasWallet = state.myCardIds.length > 0 || state.customCards.length > 0;
-  const wallet = hasWallet ? allWalletCards() : [];
-  const walletNames = hasWallet ? new Set(wallet.map(c => c.name)) : null;
-
-  let h = `<div class="results-hdr">📊 Best card per spend category`;
-  if (hasWallet) h += `<div class="wallet-note" style="margin-top:8px;">★ Showing your best owned card — dimmed rows mean no wallet match</div>`;
-  h += `</div><div class="matrix-grid">`;
-
-  for (const { cat, icon, vendor } of MATRIX_CATS) {
-    const entry = findBestVendor(vendor);
-    if (!entry?.recs?.length) continue;
-    const ownedRec = walletNames ? entry.recs.find(r => walletNames.has(r.card)) : null;
-    const topRec = ownedRec || entry.recs[0];
-    if (!topRec) continue;
-    const owned = !!ownedRec || !hasWallet;
-    h += `<div class="matrix-row${owned ? '' : ' matrix-dimmed'}">
-      <div class="matrix-cat">${icon}<span>${escHtml(cat)}</span></div>
-      <div class="matrix-info">
-        <div class="matrix-card-name">${escHtml(topRec.card)}</div>
-        <div class="matrix-earn">${escHtml(topRec.earn)}</div>
-      </div>
-      ${!owned ? '<div class="matrix-no-match">Not in wallet</div>' : ''}
-    </div>`;
-  }
-
-  h += `</div><div style="text-align:center;padding:10px 0 4px;font-size:12px;color:var(--muted2);">Tap any category name in Search to see full rankings</div>`;
-
-  document.getElementById('results').innerHTML = h;
-  document.getElementById('back-search').classList.add('show');
-  document.getElementById('search-wrap').style.display = 'none';
-}
-
 // ── Generic-category fallback ──────────────────────────────────────────────
 
 const CATCH_ALL_RECS = [

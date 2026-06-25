@@ -163,7 +163,12 @@ function renderNearbyFromPlaces(places) {
   }).join('');
 }
 
-const FETCH_TIMEOUT = 10000;
+const FETCH_TIMEOUT = 12000;
+const TYPES = ['supermarket', 'gas_station', 'restaurant', 'pharmacy', 'department_store'];
+
+function sortedByDist(arr) {
+  return [...arr].sort((a, b) => (parseFloat(a.dist) || 99) - (parseFloat(b.dist) || 99));
+}
 
 export async function fetchNearbyPlaces(lat, lng) {
   showNearbyLoading();
@@ -175,19 +180,33 @@ export async function fetchNearbyPlaces(lat, lng) {
 
     const map = new google.maps.Map(getHiddenMapDiv(), { center: { lat, lng }, zoom: 14 });
     const svc = new google.maps.places.PlacesService(map);
-    const types = ['supermarket', 'gas_station', 'pharmacy', 'restaurant', 'department_store'];
     const results = [];
+    let renderTimer = null;
+
+    function scheduleRender() {
+      clearTimeout(renderTimer);
+      renderTimer = setTimeout(() => {
+        const sorted = sortedByDist(results);
+        if (sorted.length) {
+          renderNearbyFromPlaces(sorted.slice(0, 8));
+          document.getElementById('gps-sub').textContent = `${sorted.length} stores found — loading more…`;
+        }
+      }, 80);
+    }
 
     await Promise.race([
-      Promise.all(types.map(type => new Promise(res => {
+      Promise.all(TYPES.map(type => new Promise(res => {
         svc.nearbySearch({ location: { lat, lng }, radius: 16093, type }, (places, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK && places) {
             results.push(...places.slice(0, 3).map(p => ({
               name: p.name,
               types: p.types || [],
-              dist: p.geometry?.location ? calcDist(lat, lng, p.geometry.location.lat(), p.geometry.location.lng()) : null,
+              dist: p.geometry?.location
+                ? calcDist(lat, lng, p.geometry.location.lat(), p.geometry.location.lng())
+                : null,
               rating: p.rating,
             })));
+            scheduleRender();
           }
           res();
         });
@@ -195,9 +214,10 @@ export async function fetchNearbyPlaces(lat, lng) {
       new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), FETCH_TIMEOUT)),
     ]);
 
+    clearTimeout(renderTimer);
     if (results.length) {
-      results.sort((a, b) => (parseFloat(a.dist) || 99) - (parseFloat(b.dist) || 99));
-      renderNearbyFromPlaces(results.slice(0, 8));
+      const sorted = sortedByDist(results);
+      renderNearbyFromPlaces(sorted.slice(0, 8));
       document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
     } else {
       renderNearbyFallback(false);

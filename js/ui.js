@@ -24,6 +24,7 @@ export function switchTab(t) {
   document.getElementById('panel-' + t).classList.add('active');
   if (t === 'wallet') renderWallet();
   if (t === 'gps') import('./places.js').then(({ initNearbyTab }) => initNearbyTab());
+  if (t === 'stats') import('./stats.js').then(({ renderStatsPanel }) => renderStatsPanel());
   // Track tab switch as virtual page view (GoatCounter)
   if (window.goatcounter?.count) {
     window.goatcounter.count({ path: '/tab/' + t, title: 'Tab: ' + t });

@@ -75,8 +75,8 @@ header {
 .visit-count { font-size: 11px; color: var(--muted2); white-space: nowrap; margin-right: auto; }
 
 /* BOTTOM NAV — 3 tabs */
-.bottom-nav { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom, 8px); position: sticky; bottom: 0; z-index: 100; }
-.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 4px 6px; cursor: pointer; color: var(--muted); font-size: 10px; font-weight: 500; border: none; background: none; transition: color .15s; position: relative; }
+.bottom-nav { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom, 8px); position: sticky; bottom: 0; z-index: 100; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 2px 6px; cursor: pointer; color: var(--muted); font-size: 9.5px; font-weight: 500; border: none; background: none; transition: color .15s; position: relative; }
 .nav-item svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.7; }
 .nav-item.active { color: var(--accent); }
 .nav-item.active svg { filter: drop-shadow(0 0 6px rgba(74,229,162,.4)); }
@@ -134,6 +134,13 @@ header {
 .usage-cat-td { color: var(--text); font-weight: 500; position: sticky; left: 0; background: var(--bg); z-index: 1; }
 .usage-cell { text-align: center; color: var(--muted2); }
 .usage-cell.hit { color: var(--accent); font-weight: 700; font-size: 13px; }
+
+/* Stats / Insights panel */
+.stats-section { margin-bottom: 28px; }
+.stats-section-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.stats-section-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+.stats-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+.stats-empty { font-size: 13px; color: var(--muted2); line-height: 1.6; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
 .rank-c { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
 .r1 { background: rgba(74,229,162,.18); color: var(--accent); box-shadow: 0 0 0 1px rgba(74,229,162,.3); }
 .r2 { background: rgba(123,110,246,.18); color: var(--accent2); }

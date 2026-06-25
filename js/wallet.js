@@ -84,7 +84,6 @@ export function renderWallet() {
     </div>`;
   });
   html += `</div>`;
-  html += renderTapMatrix();
   body.innerHTML = html;
   updateWalletBadge();
 }
@@ -236,51 +235,8 @@ export function saveCustomCard() {
 export function clearTaps() {
   if (!confirm('Clear all card usage logs?')) return;
   saveS('sr_taps', []);
-  renderWallet();
+  import('./stats.js').then(({ renderStatsPanel }) => renderStatsPanel());
   showToast('Usage log cleared');
-}
-
-function renderTapMatrix() {
-  const taps = loadS('sr_taps', []);
-  if (!taps.length) return '';
-
-  // Build {cat: {card: count}} map
-  const map = {};
-  for (const t of taps) {
-    if (!t.cat || !t.card) continue;
-    if (!map[t.cat]) map[t.cat] = {};
-    map[t.cat][t.card] = (map[t.cat][t.card] || 0) + 1;
-  }
-  const cats  = Object.keys(map);
-  const cards = [...new Set(taps.map(t => t.card).filter(Boolean))];
-  if (!cats.length) return '';
-
-  let h = `<div class="usage-section">
-    <div class="usage-hdr">
-      <span>📊 My Card Usage <span class="usage-count">${taps.length} tap${taps.length !== 1 ? 's' : ''}</span></span>
-      <button class="usage-clear-btn" onclick="clearTaps()">Clear</button>
-    </div>
-    <div class="usage-scroll">
-    <table class="usage-table">
-      <thead><tr>
-        <th class="usage-cat-th">Category</th>
-        ${cards.map(c => `<th class="usage-card-th">${escHtml(c)}</th>`).join('')}
-      </tr></thead>
-      <tbody>`;
-
-  for (const cat of cats) {
-    h += `<tr><td class="usage-cat-td">${escHtml(cat)}</td>`;
-    for (const card of cards) {
-      const count = map[cat][card] || 0;
-      h += count
-        ? `<td class="usage-cell hit">${count}×</td>`
-        : `<td class="usage-cell">—</td>`;
-    }
-    h += `</tr>`;
-  }
-
-  h += `</tbody></table></div></div>`;
-  return h;
 }
 
 export function exportWallet() {
