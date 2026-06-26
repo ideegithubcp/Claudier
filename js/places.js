@@ -148,9 +148,13 @@ function renderNearbyFromPlaces(places) {
     const vendorKey = p.types.map(t => PLACE_TYPE_MAP[t]).find(Boolean) || p.name.toLowerCase().split(' ')[0];
     const bestEntry = findBestVendor(vendorKey) || findBestVendor(p.name);
     const recs = bestEntry?.recs || [];
-    // Prefer a card the user owns; fall back to catalog's top pick
-    const ownedRec = recs.find(r => walletNames.has(r.card));
-    const bestRec = ownedRec || recs[0];
+    // Prefer a wallet card with a vendor-specific bonus; fall back to best wallet card (base rate); then catalog top pick
+    let bestRec = recs.find(r => walletNames.has(r.card)) || null;
+    if (!bestRec && walletCards.length) {
+      const baseCard = walletCards[0];
+      bestRec = { card: baseCard.name, earn: 'base rate' };
+    }
+    if (!bestRec) bestRec = recs[0];
     const bestCard = bestRec?.card || 'Check your wallet';
     const bestEarn = bestRec?.earn || '';
     return `<div class="nearby-card" onclick="nearbyPick('${escJs(vendorKey)}','${escJs(p.name)}')">

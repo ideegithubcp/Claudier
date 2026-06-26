@@ -273,15 +273,31 @@ export function renderResults(vendor, entry) {
       <div style="font-size:12px;color:var(--muted);margin-bottom:5px;">No exact match for "<strong style="color:var(--text);">${escHtml(vendor)}</strong>"</div>
       <div>${catIcon} Best cards for <strong>${escHtml(catName)}</strong></div>
     </div>`;
-    if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
+    if (hasWallet) h += `<div class="wallet-note">★ Your wallet first — better options you don't own shown below</div>`;
 
     const shown = new Set(); let rank = 0;
     if (hasWallet) {
+      // ① Wallet cards already in catRecs (flat-rate cards the user owns)
       for (const r of catRecs) {
         if (!walletNames.has(r.card)) continue;
-        rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames, catName, vendor);
+        rank++; shown.add(r.card);
+        h += recHTML(rank, r, rank === 1, true, walletNames, catName, vendor);
       }
-      for (const r of catRecs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames, catName, vendor); }
+      // ② Other wallet cards — earn their base rate for this purchase type
+      const baseCardsG = wallet.filter(c => !shown.has(c.name));
+      if (baseCardsG.length) {
+        h += `<div class="sec-divider">${rank > 0 ? 'Also in your wallet' : 'Your wallet'} — base earn rate for this purchase type</div>`;
+        for (const c of baseCardsG) {
+          shown.add(c.name);
+          h += recHTML(null, { card: c.name, earn: c.earn || '1× on all purchases', why: 'Earns base rate — no specific bonus for this purchase type' }, false, true, walletNames, catName, vendor);
+        }
+      }
+      // ③ Flat-rate catalog options the user doesn't own
+      const unownedG = catRecs.filter(r => !shown.has(r.card));
+      if (unownedG.length) {
+        h += `<div class="sec-divider">Top flat-rate options — not in your wallet</div>`;
+        for (const r of unownedG) h += recHTML(null, r, false, false, walletNames, catName, vendor);
+      }
     } else {
       for (const r of catRecs) { rank++; h += recHTML(rank, r, rank === 1, true, null, catName, vendor); }
     }
@@ -307,23 +323,46 @@ export function renderResults(vendor, entry) {
 
   let h = heroRec ? quickHeroHTML(heroRec.card, heroRec.earn, eCat, eVendor) : '';
   h += `<div class="results-hdr">Best cards for <strong>${escHtml(entry.names[0])}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
-  if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
+  if (hasWallet) h += `<div class="wallet-note">★ Your wallet first — better options you don't own shown below</div>`;
+
   const shown = new Set(); let rank = 0;
-  for (const r of entry.recs) {
-    if (walletNames && !walletNames.has(r.card)) continue;
-    rank++; shown.add(r.card); h += recHTML(rank, r, rank === 1, true, walletNames, eCat, eVendor);
-  }
-  for (const cc of state.customCards) {
-    if (shown.has(cc.name)) continue;
-    if (cc.cats.some(c => c.toLowerCase() === entry.cat.toLowerCase())) {
-      rank++; shown.add(cc.name);
-      h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true, walletNames, eCat, eVendor);
-    }
-  }
   if (hasWallet) {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; h += recHTML(null, r, false, false, walletNames, eCat, eVendor); }
+    // ① Wallet cards WITH a vendor-specific bonus (from entry.recs — best rates first)
+    for (const r of entry.recs) {
+      if (!walletNames.has(r.card)) continue;
+      rank++; shown.add(r.card);
+      h += recHTML(rank, r, rank === 1, true, walletNames, eCat, eVendor);
+    }
+    // ① Custom cards that match this category
+    for (const cc of state.customCards) {
+      if (shown.has(cc.name)) continue;
+      if (cc.cats.some(c => c.toLowerCase() === eCat.toLowerCase())) {
+        rank++; shown.add(cc.name);
+        h += recHTML(rank, { card: cc.name, earn: cc.earn, why: 'Your custom card' }, rank === 1, true, walletNames, eCat, eVendor);
+      }
+    }
+
+    // ② Wallet cards NOT in vendor recs — still earn their base rate here
+    const baseCards = wallet.filter(c => !shown.has(c.name));
+    if (baseCards.length) {
+      h += `<div class="sec-divider">${rank > 0 ? 'Also in your wallet' : 'Your wallet'} — base earn rate at this merchant</div>`;
+      for (const c of baseCards) {
+        shown.add(c.name);
+        h += recHTML(null, { card: c.name, earn: c.earn || '1× on all purchases', why: 'No bonus category for this merchant — earns base rate' }, false, true, walletNames, eCat, eVendor);
+      }
+    }
+
+    // ③ Non-wallet cards from entry.recs — better rates available
+    const unowned = entry.recs.filter(r => !shown.has(r.card));
+    if (unowned.length) {
+      h += `<div class="sec-divider">Better rates — not in your wallet</div>`;
+      for (const r of unowned) h += recHTML(null, r, false, false, walletNames, eCat, eVendor);
+    }
   } else {
-    for (const r of entry.recs) { if (shown.has(r.card)) continue; rank++; h += recHTML(rank, r, rank === 1, true, null, eCat, eVendor); }
+    for (const r of entry.recs) {
+      if (shown.has(r.card)) continue;
+      rank++; h += recHTML(rank, r, rank === 1, true, null, eCat, eVendor);
+    }
   }
   h += `<div class="tip-box">💡 Verify category coding on your first statement — some merchants code unexpectedly. <button onclick="openDisclaimer()" style="background:none;border:none;color:var(--gold);text-decoration:underline;cursor:pointer;font-size:12px;padding:0;">Full disclaimer →</button></div>`;
   res.innerHTML = h;

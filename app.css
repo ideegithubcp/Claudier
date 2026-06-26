@@ -137,6 +137,7 @@ header {
 .qh-foot { font-size: 11px; color: var(--muted2); }
 .results-divider { font-size: 10px; font-weight: 700; color: var(--muted2); letter-spacing: .8px; text-transform: uppercase; margin: 12px 0 10px; display: flex; align-items: center; gap: 8px; }
 .results-divider::before, .results-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sec-divider { font-size: 10px; font-weight: 700; color: var(--muted2); letter-spacing: .7px; text-transform: uppercase; margin: 16px 0 8px 2px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
 
 /* CARD RESULTS */
 .card-result { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 13px 14px; margin-bottom: 9px; display: flex; gap: 12px; align-items: flex-start; cursor: pointer; transition: border-color .15s, transform .1s; }
@@ -239,10 +240,12 @@ header {
 .matrix-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; transition: border-color .15s; }
 .matrix-row:hover { border-color: var(--border2); }
 .matrix-dimmed { opacity: .38; }
+.matrix-base { opacity: .72; }
 .matrix-cat { display: flex; align-items: center; gap: 7px; min-width: 130px; font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; }
 .matrix-info { flex: 1; min-width: 0; }
 .matrix-card-name { font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .matrix-earn { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.matrix-base-tag { font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted2); background: rgba(255,255,255,.06); border-radius: 4px; padding: 1px 4px; vertical-align: middle; }
 .matrix-no-match { font-size: 10px; color: var(--muted2); background: rgba(255,255,255,.05); border-radius: 99px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
 
 /* GPS / NEARBY */

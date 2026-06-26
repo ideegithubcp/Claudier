@@ -32,15 +32,27 @@ function buildBestCatHTML() {
   for (const { cat, icon, vendor } of MATRIX_CATS) {
     const entry = findBestVendor(vendor);
     if (!entry?.recs?.length) continue;
-    const ownedRec = walletNames ? entry.recs.find(r => walletNames.has(r.card)) : null;
+
+    let ownedRec = null;
+    let isBase = false;
+    if (walletNames) {
+      // Best wallet card with a vendor-specific bonus for this category
+      ownedRec = entry.recs.find(r => walletNames.has(r.card)) || null;
+      if (!ownedRec && wallet.length) {
+        // No bonus card — show best wallet card at base earn rate
+        const baseCard = wallet[0];
+        ownedRec = { card: baseCard.name, earn: 'Base earn rate' };
+        isBase = true;
+      }
+    }
     const topRec = ownedRec || entry.recs[0];
     if (!topRec) continue;
     const owned = !!ownedRec || !hasWallet;
-    h += `<div class="matrix-row${owned ? '' : ' matrix-dimmed'}">
+    h += `<div class="matrix-row${owned && !isBase ? '' : isBase ? ' matrix-base' : ' matrix-dimmed'}">
       <div class="matrix-cat">${icon}<span>${escHtml(cat)}</span></div>
       <div class="matrix-info">
         <div class="matrix-card-name">${escHtml(topRec.card)}</div>
-        <div class="matrix-earn">${escHtml(topRec.earn)}</div>
+        <div class="matrix-earn">${escHtml(topRec.earn)}${isBase ? ' <span class="matrix-base-tag">base</span>' : ''}</div>
       </div>
       ${!owned ? '<div class="matrix-no-match">Not in wallet</div>' : ''}
     </div>`;
@@ -146,15 +158,25 @@ function buildSpendingProfileHTML() {
     const bestCatalogRate = bestCatalogRec ? parseEarnRate(bestCatalogRec.earn) : 0;
 
     let ownedRec = null;
-    if (hasWallet && entry?.recs) {
-      ownedRec = entry.recs.find(r => walletNames.has(r.card));
-      if (!ownedRec) {
-        const cc = wallet.find(c => c.custom && c.cats.some(x => x.toLowerCase() === (entry.cat || '').toLowerCase()));
-        if (cc) ownedRec = { card: cc.name, earn: cc.earn };
+    if (hasWallet) {
+      if (entry?.recs) {
+        // Best wallet card with a vendor-specific bonus
+        ownedRec = entry.recs.find(r => walletNames.has(r.card)) || null;
+        if (!ownedRec) {
+          // Custom card matching this category
+          const cc = wallet.find(c => c.custom && c.cats.some(x => x.toLowerCase() === (entry.cat || '').toLowerCase()));
+          if (cc) ownedRec = { card: cc.name, earn: cc.earn };
+        }
+      }
+      if (!ownedRec && wallet.length) {
+        // No vendor-specific match — wallet card still earns base rate here
+        const baseCard = wallet[0];
+        ownedRec = { card: baseCard.name, earn: baseCard.earn || '1× base rate', isBase: true };
       }
     }
 
-    const ownedRate = ownedRec ? parseEarnRate(ownedRec.earn) : 0;
+    // Base-rate fallback cards are always treated as 1× for gap analysis
+    const ownedRate = ownedRec ? (ownedRec.isBase ? 1 : parseEarnRate(ownedRec.earn)) : 0;
 
     let badge, badgeClass, gapTip = '';
     if (!hasWallet || !ownedRec) {
