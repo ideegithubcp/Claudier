@@ -123,6 +123,16 @@ export function renderRecent() {
   section.style.display = '';
 }
 
+function quickHeroHTML(card, earn, cat, vendor) {
+  return `<div class="quick-hero" data-card="${escAttr(card)}" data-cat="${escAttr(cat)}" data-vendor="${escAttr(vendor)}" role="button" tabindex="0" aria-label="Log ${escAttr(card)}">
+    <div class="qh-eyebrow">✅ Use this card</div>
+    <div class="qh-card">${escHtml(card)}</div>
+    <div class="qh-earn">${escHtml(earn)}</div>
+    <div class="qh-foot">Tap to log this card →</div>
+  </div>
+  <div class="results-divider">All options</div>`;
+}
+
 // ── Generic-category fallback ──────────────────────────────────────────────
 
 const CATCH_ALL_RECS = [
@@ -257,7 +267,9 @@ export function renderResults(vendor, entry) {
     const wallet     = hasWallet ? allWalletCards() : [];
     const walletNames = hasWallet ? new Set(wallet.map(c => c.name)) : null;
 
-    let h = `<div class="results-hdr">
+    const heroRec = hasWallet ? catRecs.find(r => walletNames.has(r.card)) : null;
+    let h = heroRec ? quickHeroHTML(heroRec.card, heroRec.earn, catName, vendor) : '';
+    h += `<div class="results-hdr">
       <div style="font-size:12px;color:var(--muted);margin-bottom:5px;">No exact match for "<strong style="color:var(--text);">${escHtml(vendor)}</strong>"</div>
       <div>${catIcon} Best cards for <strong>${escHtml(catName)}</strong></div>
     </div>`;
@@ -282,14 +294,20 @@ export function renderResults(vendor, entry) {
     return;
   }
   const hasWallet = state.myCardIds.length > 0 || state.customCards.length > 0;
-  // Pre-compute owned card names once — avoids O(n²) repeated allWalletCards() calls
   const wallet = hasWallet ? allWalletCards() : [];
   const walletNames = hasWallet ? new Set(wallet.map(c => c.name)) : null;
-
-  let h = `<div class="results-hdr">Best cards for <strong>${escHtml(entry.names[0])}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
-  if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
-
   const eCat = entry.cat, eVendor = entry.names[0];
+
+  // Find best owned card for the quick-answer hero
+  let heroRec = hasWallet ? entry.recs.find(r => walletNames.has(r.card)) : null;
+  if (!heroRec && hasWallet) {
+    const cc = state.customCards.find(c => c.cats.some(x => x.toLowerCase() === eCat.toLowerCase()));
+    if (cc) heroRec = { card: cc.name, earn: cc.earn };
+  }
+
+  let h = heroRec ? quickHeroHTML(heroRec.card, heroRec.earn, eCat, eVendor) : '';
+  h += `<div class="results-hdr">Best cards for <strong>${escHtml(entry.names[0])}</strong> <span style="font-size:11px;color:var(--muted)">(${entry.cat})</span></div>`;
+  if (hasWallet) h += `<div class="wallet-note">★ Ranked for your wallet — unowned cards shown dimmed below</div>`;
   const shown = new Set(); let rank = 0;
   for (const r of entry.recs) {
     if (walletNames && !walletNames.has(r.card)) continue;

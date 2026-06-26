@@ -39,14 +39,14 @@ showOnboardingIfNew();
 checkAutoRefresh();
 initVisitorCount();
 
-// Card-tap event delegation — single listener covers dynamically rendered results
+// Event delegation covers .quick-hero and .card-result — both carry data-card attrs
 document.getElementById('results').addEventListener('click', e => {
-  const el = e.target.closest('.card-result[data-card]');
+  const el = e.target.closest('[data-card]');
   if (el) logCardTap(el, el.dataset.card, el.dataset.cat, el.dataset.vendor);
 });
 document.getElementById('results').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') {
-    const el = e.target.closest('.card-result[data-card]');
+    const el = e.target.closest('[data-card]');
     if (el) { e.preventDefault(); logCardTap(el, el.dataset.card, el.dataset.cat, el.dataset.vendor); }
   }
 });

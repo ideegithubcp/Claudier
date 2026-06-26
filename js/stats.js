@@ -100,8 +100,108 @@ function buildUsageHTML() {
   return h;
 }
 
+// ── Spending profile ─────────────────────────────────────────────────────────
+
+function parseEarnRate(earn) {
+  const m = String(earn || '').match(/(\d+(?:\.\d+)?)/);
+  return m ? parseFloat(m[1]) : 0;
+}
+
+function buildSpendingProfileHTML() {
+  const taps = loadS('sr_taps', []);
+  if (taps.length < 3) return '';
+
+  // Count taps per category; track most-used vendor per category
+  const catMap = {};
+  for (const t of taps) {
+    if (!t.cat) continue;
+    if (!catMap[t.cat]) catMap[t.cat] = { count: 0, vendors: {} };
+    catMap[t.cat].count++;
+    if (t.vendor) catMap[t.cat].vendors[t.vendor] = (catMap[t.cat].vendors[t.vendor] || 0) + 1;
+  }
+
+  const topCats = Object.entries(catMap)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 6);
+
+  if (!topCats.length) return '';
+
+  const hasWallet = state.myCardIds.length > 0 || state.customCards.length > 0;
+  const wallet = hasWallet ? allWalletCards() : [];
+  const walletNames = new Set(wallet.map(c => c.name));
+
+  let rows = '';
+  let rowCount = 0;
+
+  for (const [cat, data] of topCats) {
+    // Use most-tapped vendor to look up catalog recs for this category
+    const topVendorKey = Object.entries(data.vendors)
+      .sort((a, b) => b[1] - a[1])[0]?.[0];
+    const entry = topVendorKey ? findBestVendor(topVendorKey) : null;
+
+    const mcMeta = MATRIX_CATS.find(m => m.cat.toLowerCase() === cat.toLowerCase());
+    const icon = mcMeta?.icon || '💳';
+
+    const bestCatalogRec = entry?.recs?.[0] || null;
+    const bestCatalogRate = bestCatalogRec ? parseEarnRate(bestCatalogRec.earn) : 0;
+
+    let ownedRec = null;
+    if (hasWallet && entry?.recs) {
+      ownedRec = entry.recs.find(r => walletNames.has(r.card));
+      if (!ownedRec) {
+        const cc = wallet.find(c => c.custom && c.cats.some(x => x.toLowerCase() === (entry.cat || '').toLowerCase()));
+        if (cc) ownedRec = { card: cc.name, earn: cc.earn };
+      }
+    }
+
+    const ownedRate = ownedRec ? parseEarnRate(ownedRec.earn) : 0;
+
+    let badge, badgeClass, gapTip = '';
+    if (!hasWallet || !ownedRec) {
+      if (!bestCatalogRec) continue;
+      badge = '➕ No card yet'; badgeClass = 'neutral';
+      gapTip = `Best available: ${bestCatalogRec.card} — ${bestCatalogRec.earn}`;
+    } else if (ownedRate >= bestCatalogRate * 0.85) {
+      badge = '✅ Optimized'; badgeClass = 'good';
+    } else if (ownedRate >= 2) {
+      badge = '🟡 Decent'; badgeClass = 'ok';
+      if (bestCatalogRec && bestCatalogRate > ownedRate + 0.9) {
+        gapTip = `${bestCatalogRec.card} earns ${bestCatalogRec.earn}`;
+      }
+    } else {
+      badge = '⚠️ Gap'; badgeClass = 'warn';
+      if (bestCatalogRec) gapTip = `Consider: ${bestCatalogRec.card} — ${bestCatalogRec.earn}`;
+    }
+
+    rowCount++;
+    rows += `<div class="profile-row">
+      <div class="profile-row-top">
+        <div class="profile-cat-label">
+          <span class="profile-icon">${icon}</span>
+          <span class="profile-cat-name">${escHtml(cat)}</span>
+          <span class="profile-taps">${data.count}×</span>
+        </div>
+        <span class="profile-badge ${badgeClass}">${badge}</span>
+      </div>
+      ${ownedRec ? `<div class="profile-card-line">
+        <span class="profile-card-name">${escHtml(ownedRec.card)}</span>
+        <span class="profile-card-earn">${escHtml(ownedRec.earn)}</span>
+      </div>` : ''}
+      ${gapTip ? `<div class="profile-gap-tip">→ ${escHtml(gapTip)}</div>` : ''}
+    </div>`;
+  }
+
+  if (!rowCount) return '';
+
+  return `<div class="stats-section">
+    <div class="stats-section-title">🏆 Your Spending Profile</div>
+    <div class="stats-sub">Your most-searched categories and how well your wallet covers them</div>
+    <div class="profile-list">${rows}</div>
+  </div>`;
+}
+
 export function renderStatsPanel() {
   const body = document.getElementById('stats-body');
   if (!body) return;
-  body.innerHTML = buildBestCatHTML() + buildUsageHTML();
+  body.innerHTML = buildBestCatHTML() + buildSpendingProfileHTML() + buildUsageHTML();
 }
