@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Write build info
+        run: echo "{\"built\":\"$(date -u '+%b %d %H:%M UTC')\"}" > build-info.json
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3
         with:

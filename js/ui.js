@@ -69,6 +69,16 @@ export function startMascot() {
   el.addEventListener('click', setMood); // tap to change immediately
 }
 
+export function loadBuildInfo() {
+  fetch('/build-info.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const el = document.getElementById('build-label');
+      if (el && data?.built) el.textContent = `Built ${data.built}`;
+    })
+    .catch(() => {});
+}
+
 export function startClock() {
   const timeEl = document.getElementById('clock-time');
   const dateEl = document.getElementById('clock-date');

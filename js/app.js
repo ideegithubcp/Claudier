@@ -1,5 +1,5 @@
 import { checkAutoRefresh, refreshData } from './data.js';
-import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount } from './ui.js';
+import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount, loadBuildInfo } from './ui.js';
 import { lookup, clearSearch, onInput, selectSug, quickPick, logCardTap } from './search.js';
 import { renderStatsPanel } from './stats.js';
 import { startGPS, searchPlacesByText, nearbyPick } from './places.js';
@@ -32,6 +32,7 @@ if ('serviceWorker' in navigator) {
 }
 
 startClock();
+loadBuildInfo();
 startMascot();
 initKeyboardHandlers();
 initPWAInstall();

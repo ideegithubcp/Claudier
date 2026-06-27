@@ -42,6 +42,7 @@ header {
 .live-clock { text-align: right; }
 .clock-time { font-size: 17px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
 .clock-date { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.2px; }
+.build-label { font-size: 9px; color: var(--muted2); margin-top: 2px; letter-spacing: 0.3px; }
 
 .mascot-emoji {
   font-size: 26px; line-height: 1; cursor: pointer;
