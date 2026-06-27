@@ -176,28 +176,43 @@ function sortedByDist(arr) {
 
 export async function fetchNearbyPlaces(lat, lng) {
   showNearbyLoading();
+
+  // Phase 1: load Maps JS API — failure here is an API key / auth issue
   try {
     await Promise.race([
       loadMapsApi(),
-      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), FETCH_TIMEOUT)),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('api-timeout')), FETCH_TIMEOUT)),
     ]);
+  } catch (e) {
+    console.error('[SwipeRight] Maps API load failed:', e.message);
+    renderNearbyFallback(true);
+    showToast(
+      e.message === 'api-timeout'
+        ? 'Timed out loading Maps — check API key in Google Cloud Console'
+        : 'Maps API error — check browser console',
+      'error'
+    );
+    return;
+  }
 
-    const map = new google.maps.Map(getHiddenMapDiv(), { center: { lat, lng }, zoom: 14 });
-    const svc = new google.maps.places.PlacesService(map);
-    const results = [];
-    let renderTimer = null;
+  // Phase 2: fetch nearby places — timeout here just means slow network/quota
+  const map = new google.maps.Map(getHiddenMapDiv(), { center: { lat, lng }, zoom: 14 });
+  const svc = new google.maps.places.PlacesService(map);
+  const results = [];
+  let renderTimer = null;
 
-    function scheduleRender() {
-      clearTimeout(renderTimer);
-      renderTimer = setTimeout(() => {
-        const sorted = sortedByDist(results);
-        if (sorted.length) {
-          renderNearbyFromPlaces(sorted.slice(0, 8));
-          document.getElementById('gps-sub').textContent = `${sorted.length} stores found — loading more…`;
-        }
-      }, 80);
-    }
+  function scheduleRender() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(() => {
+      const sorted = sortedByDist(results);
+      if (sorted.length) {
+        renderNearbyFromPlaces(sorted.slice(0, 8));
+        document.getElementById('gps-sub').textContent = `${sorted.length} stores found — loading more…`;
+      }
+    }, 80);
+  }
 
+  try {
     await Promise.race([
       Promise.all(TYPES.map(type => new Promise(res => {
         svc.nearbySearch({ location: { lat, lng }, radius: 16093, type }, (places, status) => {
@@ -215,28 +230,30 @@ export async function fetchNearbyPlaces(lat, lng) {
           res();
         });
       }))),
-      new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), FETCH_TIMEOUT)),
+      new Promise((_, rej) => setTimeout(() => rej(new Error('search-timeout')), FETCH_TIMEOUT)),
     ]);
-
+  } catch (e) {
     clearTimeout(renderTimer);
+    // If we already have partial results from progressive rendering, just finalise with those
     if (results.length) {
       const sorted = sortedByDist(results);
       renderNearbyFromPlaces(sorted.slice(0, 8));
-      document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
+      document.getElementById('gps-sub').textContent = `${results.length} stores found`;
     } else {
       renderNearbyFallback(false);
-      showToast('No stores found within 10 miles', 'error');
+      showToast('Search timed out — try again', 'error');
     }
-  } catch (e) {
-    console.error('[SwipeRight] fetchNearbyPlaces:', e.message);
-    renderNearbyFallback(true);
-    const isTimeout = e.message === 'timeout';
-    showToast(
-      isTimeout
-        ? 'Timed out — check Maps API key in Google Cloud Console'
-        : 'Places API error — check browser console',
-      'error'
-    );
+    return;
+  }
+
+  clearTimeout(renderTimer);
+  if (results.length) {
+    const sorted = sortedByDist(results);
+    renderNearbyFromPlaces(sorted.slice(0, 8));
+    document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
+  } else {
+    renderNearbyFallback(false);
+    showToast('No stores found within 10 miles', 'error');
   }
 }
 
