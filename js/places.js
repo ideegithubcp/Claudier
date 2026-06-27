@@ -174,87 +174,147 @@ function sortedByDist(arr) {
   return [...arr].sort((a, b) => (parseFloat(a.dist) || 99) - (parseFloat(b.dist) || 99));
 }
 
+// ── OpenStreetMap / Overpass fallback (free, no API key) ─────────────────────
+const OSM_TO_PLACE_TYPE = {
+  restaurant: 'restaurant', fast_food: 'restaurant', bar: 'restaurant', pub: 'restaurant',
+  cafe: 'cafe', bakery: 'cafe', coffee: 'cafe',
+  pharmacy: 'pharmacy', chemist: 'pharmacy',
+  supermarket: 'supermarket', grocery: 'supermarket',
+  convenience: 'convenience_store',
+  department_store: 'department_store',
+};
+
+async function fetchOverpass(lat, lng) {
+  const amenities = Object.keys(OSM_TO_PLACE_TYPE).join('|');
+  const query = `[out:json][timeout:10];(node(around:800,${lat},${lng})[amenity~"^(${amenities})$"];);out body 25;`;
+  const res = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`);
+  if (!res.ok) throw new Error('overpass-fail');
+  const { elements } = await res.json();
+  return elements
+    .filter(el => el.tags?.name && el.lat != null && el.lon != null)
+    .map(el => ({
+      name: el.tags.name,
+      types: [OSM_TO_PLACE_TYPE[el.tags.amenity] || 'restaurant'],
+      dist: calcDist(lat, lng, el.lat, el.lon),
+      rating: null,
+    }));
+}
+
+// Category grid — shown when all APIs fail but GPS position is known
+const CATEGORY_STUBS = [
+  { name: 'Restaurant nearby',    types: ['restaurant'],        icon: '🍽️' },
+  { name: 'Coffee shop nearby',   types: ['cafe'],              icon: '☕' },
+  { name: 'Gas station nearby',   types: ['gas_station'],       icon: '⛽' },
+  { name: 'Pharmacy nearby',      types: ['pharmacy'],          icon: '💊' },
+  { name: 'Grocery store nearby', types: ['supermarket'],       icon: '🛒' },
+  { name: 'Fast food nearby',     types: ['restaurant'],        icon: '🍔' },
+  { name: 'Convenience store',    types: ['convenience_store'], icon: '🏪' },
+  { name: 'Department store',     types: ['department_store'],  icon: '🏬' },
+];
+
+function renderCategoryFallback() {
+  setSectionLabel('Nearby categories');
+  document.getElementById('gps-sub').textContent = 'Tap a category to see your best card for that type of store';
+  const walletCards = allWalletCards();
+  const walletNames = new Set(walletCards.map(c => c.name));
+  document.getElementById('nearby-grid').innerHTML = CATEGORY_STUBS.map(s => {
+    const rawType = s.types[0];
+    const vendorKey = PLACE_TYPE_MAP[rawType] || rawType;
+    const bestEntry = findBestVendor(vendorKey);
+    const recs = bestEntry?.recs || [];
+    const bestRec = recs.find(r => walletNames.has(r.card))
+      || (walletCards.length ? { card: walletCards[0].name, earn: 'base rate' } : null)
+      || recs[0];
+    const bestCard = bestRec?.card || 'Check your wallet';
+    const bestEarn = bestRec?.earn || '';
+    return `<div class="nearby-card" onclick="nearbyPick('${escJs(vendorKey)}','${escJs(s.name)}')">
+      <div class="nearby-icon">${s.icon}</div>
+      <div class="nearby-name">${escHtml(s.name)}</div>
+      <div class="nearby-cat">${rawType.replace(/_/g, ' ')}</div>
+      <div class="nearby-best">${escHtml(bestCard)}${bestEarn ? ' — ' + bestEarn : ''}</div>
+    </div>`;
+  }).join('');
+}
+
 export async function fetchNearbyPlaces(lat, lng) {
   showNearbyLoading();
 
-  // Phase 1: load Maps JS API — failure here is an API key / auth issue
+  // Start Overpass immediately in parallel — it'll be ready by the time Google fails
+  const overpassPromise = fetchOverpass(lat, lng).catch(() => []);
+
+  // Phase 1: Load Maps JS API
+  let mapsOk = false;
   try {
     await Promise.race([
-      loadMapsApi(),
+      loadMapsApi().then(() => { mapsOk = true; }),
       new Promise((_, rej) => setTimeout(() => rej(new Error('api-timeout')), FETCH_TIMEOUT)),
     ]);
   } catch (e) {
-    console.error('[SwipeRight] Maps API load failed:', e.message);
-    renderNearbyFallback(true);
-    showToast(
-      e.message === 'api-timeout'
-        ? 'Timed out loading Maps — check API key in Google Cloud Console'
-        : 'Maps API error — check browser console',
-      'error'
-    );
-    return;
+    console.warn('[SwipeRight] Maps API:', e.message);
+    // Fall through — Overpass is our backup
   }
 
-  // Phase 2: fetch nearby places — timeout here just means slow network/quota
-  const map = new google.maps.Map(getHiddenMapDiv(), { center: { lat, lng }, zoom: 14 });
-  const svc = new google.maps.places.PlacesService(map);
   const results = [];
-  let renderTimer = null;
 
-  function scheduleRender() {
+  // Phase 2: Google Places (only if Maps loaded)
+  if (mapsOk) {
+    let renderTimer = null;
+    function scheduleRender() {
+      clearTimeout(renderTimer);
+      renderTimer = setTimeout(() => {
+        const sorted = sortedByDist(results);
+        if (sorted.length) {
+          renderNearbyFromPlaces(sorted.slice(0, 8));
+          document.getElementById('gps-sub').textContent = `${sorted.length} stores found — loading more…`;
+        }
+      }, 80);
+    }
+
+    const map = new google.maps.Map(getHiddenMapDiv(), { center: { lat, lng }, zoom: 14 });
+    const svc = new google.maps.places.PlacesService(map);
+
+    try {
+      await Promise.race([
+        Promise.all(TYPES.map(type => new Promise(res => {
+          svc.nearbySearch({ location: { lat, lng }, radius: 16093, type }, (places, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK && places) {
+              results.push(...places.slice(0, 3).map(p => ({
+                name: p.name,
+                types: p.types || [],
+                dist: p.geometry?.location
+                  ? calcDist(lat, lng, p.geometry.location.lat(), p.geometry.location.lng())
+                  : null,
+                rating: p.rating,
+              })));
+              scheduleRender();
+            }
+            res();
+          });
+        }))),
+        new Promise((_, rej) => setTimeout(() => rej(new Error('search-timeout')), FETCH_TIMEOUT)),
+      ]);
+    } catch (_) {}
     clearTimeout(renderTimer);
-    renderTimer = setTimeout(() => {
-      const sorted = sortedByDist(results);
-      if (sorted.length) {
-        renderNearbyFromPlaces(sorted.slice(0, 8));
-        document.getElementById('gps-sub').textContent = `${sorted.length} stores found — loading more…`;
-      }
-    }, 80);
   }
 
-  try {
-    await Promise.race([
-      Promise.all(TYPES.map(type => new Promise(res => {
-        svc.nearbySearch({ location: { lat, lng }, radius: 16093, type }, (places, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && places) {
-            results.push(...places.slice(0, 3).map(p => ({
-              name: p.name,
-              types: p.types || [],
-              dist: p.geometry?.location
-                ? calcDist(lat, lng, p.geometry.location.lat(), p.geometry.location.lng())
-                : null,
-              rating: p.rating,
-            })));
-            scheduleRender();
-          }
-          res();
-        });
-      }))),
-      new Promise((_, rej) => setTimeout(() => rej(new Error('search-timeout')), FETCH_TIMEOUT)),
-    ]);
-  } catch (e) {
-    clearTimeout(renderTimer);
-    // If we already have partial results from progressive rendering, just finalise with those
-    if (results.length) {
-      const sorted = sortedByDist(results);
-      renderNearbyFromPlaces(sorted.slice(0, 8));
-      document.getElementById('gps-sub').textContent = `${results.length} stores found`;
-    } else {
-      renderNearbyFallback(false);
-      showToast('Search timed out — try again', 'error');
-    }
+  // Google Places worked — done
+  if (results.length) {
+    renderNearbyFromPlaces(sortedByDist(results).slice(0, 8));
+    document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
     return;
   }
 
-  clearTimeout(renderTimer);
-  if (results.length) {
-    const sorted = sortedByDist(results);
-    renderNearbyFromPlaces(sorted.slice(0, 8));
-    document.getElementById('gps-sub').textContent = `${results.length} stores found within 10 miles`;
-  } else {
-    renderNearbyFallback(false);
-    showToast('No stores found within 10 miles', 'error');
+  // Phase 3: Overpass (OpenStreetMap) — was running in parallel, likely already done
+  document.getElementById('gps-sub').textContent = 'Checking OpenStreetMap…';
+  const osmResults = await overpassPromise;
+  if (osmResults.length) {
+    renderNearbyFromPlaces(sortedByDist(osmResults).slice(0, 8));
+    document.getElementById('gps-sub').textContent = `${osmResults.length} stores found nearby`;
+    return;
   }
+
+  // Phase 4: Category grid — always useful even without specific store names
+  renderCategoryFallback();
 }
 
 export function initNearbyTab() {
@@ -284,8 +344,17 @@ export function startGPS() {
       if (GOOGLE_PLACES_API_KEY) {
         fetchNearbyPlaces(lat, lng);
       } else {
-        sub.textContent += ' — Add a Places API key for live results';
-        renderNearbyFallback(true);
+        // No Google key — try Overpass directly
+        sub.textContent = `${lat.toFixed(4)}, ${lng.toFixed(4)} · searching via OpenStreetMap…`;
+        showNearbyLoading();
+        fetchOverpass(lat, lng).then(osm => {
+          if (osm.length) {
+            renderNearbyFromPlaces(sortedByDist(osm).slice(0, 8));
+            sub.textContent = `${osm.length} stores found nearby`;
+          } else {
+            renderCategoryFallback();
+          }
+        }).catch(() => renderCategoryFallback());
       }
     },
     err => {
