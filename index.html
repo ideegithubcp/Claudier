@@ -18,7 +18,7 @@
 <div class="app">
 
   <header>
-    <div class="logo">
+    <div class="logo" onclick="openAbout()" role="button" tabindex="0" aria-label="About SwipeRight" title="About SwipeRight">
       <img class="logo-img" src="icon-192.png" alt="SwipeRight logo" width="44" height="44">
       <div>
         <div class="logo-name">SwipeRight</div>
@@ -247,6 +247,33 @@
     </div>
     <div class="modal-footer">
       <button class="modal-save" onclick="closeDisclaimer()">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div class="modal-overlay" id="about-overlay" onclick="if(event.target===this)closeAbout()" role="dialog" aria-modal="true" aria-label="About SwipeRight">
+  <div class="modal about-modal">
+    <div class="modal-handle"></div>
+    <div class="about-logo-row">
+      <img src="icon-192.png" width="56" height="56" alt="SwipeRight" style="border-radius:16px;filter:drop-shadow(0 2px 14px rgba(74,229,162,0.35));flex-shrink:0;">
+      <div>
+        <div class="about-name">SwipeRight</div>
+        <div class="about-tagline">Card Optimizer</div>
+      </div>
+    </div>
+    <p class="about-desc">SwipeRight helps you find the best credit card from your wallet for every purchase — in seconds. Search any store by name, browse nearby merchants via GPS, or explore what your wallet earns across spending categories.</p>
+    <div class="about-stats">
+      <div class="about-stat"><span class="about-stat-val">94</span><span class="about-stat-lbl">Cards</span></div>
+      <div class="about-stat"><span class="about-stat-val">500+</span><span class="about-stat-lbl">Vendors</span></div>
+      <div class="about-stat"><span class="about-stat-val">PWA</span><span class="about-stat-lbl">Offline</span></div>
+    </div>
+    <div class="about-version-row">
+      <span class="about-version-badge" id="about-version">v4.1</span>
+      <span class="about-built" id="about-built"></span>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-save" onclick="closeAbout()">Done</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { checkAutoRefresh, refreshData } from './data.js';
-import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount, loadBuildInfo } from './ui.js';
+import { switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, startClock, startMascot, initKeyboardHandlers, initPWAInstall, showOnboardingIfNew, initVisitorCount, loadBuildInfo, openAbout, closeAbout } from './ui.js';
 import { lookup, clearSearch, onInput, selectSug, quickPick, logCardTap } from './search.js';
 import { renderStatsPanel } from './stats.js';
 import { startGPS, searchPlacesByText, nearbyPick } from './places.js';
@@ -8,7 +8,7 @@ import { openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCar
 
 // Expose all functions called from HTML onclick attributes
 Object.assign(window, {
-  switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner,
+  switchTab, showToast, openDisclaimer, closeDisclaimer, closeBanner, openAbout, closeAbout,
   lookup, clearSearch, onInput, selectSug, quickPick, renderStatsPanel,
   startGPS, searchPlacesByText, nearbyPick,
   refreshData,
@@ -39,6 +39,11 @@ initPWAInstall();
 showOnboardingIfNew();
 checkAutoRefresh();
 initVisitorCount();
+
+// Logo keyboard handler (role=button, tabindex=0)
+document.querySelector('.logo')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAbout(); }
+});
 
 // Event delegation covers .quick-hero and .card-result — both carry data-card attrs
 document.getElementById('results').addEventListener('click', e => {

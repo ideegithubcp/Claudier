@@ -69,14 +69,32 @@ export function startMascot() {
   el.addEventListener('click', setMood); // tap to change immediately
 }
 
+let _buildInfo = null;
+
 export function loadBuildInfo() {
   fetch('/build-info.json', { cache: 'no-store' })
     .then(r => r.ok ? r.json() : null)
     .then(data => {
+      if (!data) return;
+      _buildInfo = data;
       const el = document.getElementById('build-label');
-      if (el && data?.built) el.textContent = `Built ${data.built}`;
+      if (el && data.built) el.textContent = `Built ${data.built}`;
     })
     .catch(() => {});
+}
+
+export function openAbout() {
+  const overlay = document.getElementById('about-overlay');
+  if (!overlay) return;
+  const vEl = document.getElementById('about-version');
+  const bEl = document.getElementById('about-built');
+  if (vEl) vEl.textContent = _buildInfo?.version ? `v${_buildInfo.version}` : 'v4.1';
+  if (bEl) bEl.textContent = _buildInfo?.built ? `Released ${_buildInfo.built}` : '';
+  overlay.classList.add('show');
+}
+
+export function closeAbout() {
+  document.getElementById('about-overlay')?.classList.remove('show');
 }
 
 export function startClock() {
