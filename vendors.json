@@ -10,7 +10,7 @@
         "publix super market"
       ],
       "cat": "Grocery",
-      "icon": "🛒",
+      "icon": "\ud83d\uded2",
       "recs": [
         {
           "card": "Amex Gold",
@@ -25,7 +25,7 @@
         {
           "card": "Amex Blue Cash Everyday",
           "earn": "3% cash back",
-          "why": "Backup — no annual fee"
+          "why": "Backup \u2014 no annual fee"
         }
       ]
     },
@@ -35,7 +35,7 @@
         "whole foods market"
       ],
       "cat": "Grocery",
-      "icon": "🥦",
+      "icon": "\ud83e\udd66",
       "recs": [
         {
           "card": "Amazon Prime Visa",
@@ -61,7 +61,7 @@
         "walmart neighborhood market"
       ],
       "cat": "Grocery",
-      "icon": "🛒",
+      "icon": "\ud83d\uded2",
       "recs": [
         {
           "card": "Amex Gold",
@@ -86,7 +86,7 @@
         "trader joes"
       ],
       "cat": "Grocery",
-      "icon": "🛍️",
+      "icon": "\ud83d\udecd\ufe0f",
       "recs": [
         {
           "card": "Amex Gold",
@@ -115,12 +115,12 @@
         "fry's food"
       ],
       "cat": "Grocery",
-      "icon": "🛒",
+      "icon": "\ud83d\uded2",
       "recs": [
         {
           "card": "Kroger Rewards World MC",
           "earn": "5% fuel points",
-          "why": "Kroger's own card — best for loyalty"
+          "why": "Kroger's own card \u2014 best for loyalty"
         },
         {
           "card": "Amex Blue Cash Preferred",
@@ -143,7 +143,7 @@
         "hy-vee"
       ],
       "cat": "Grocery",
-      "icon": "🛒",
+      "icon": "\ud83d\uded2",
       "recs": [
         {
           "card": "Amex Blue Cash Preferred",
@@ -167,12 +167,12 @@
         "target"
       ],
       "cat": "Shopping",
-      "icon": "🎯",
+      "icon": "\ud83c\udfaf",
       "recs": [
         {
           "card": "Target RedCard",
           "earn": "5% off all Target",
-          "why": "Target's own card — best return"
+          "why": "Target's own card \u2014 best return"
         },
         {
           "card": "Citi Custom Cash",
@@ -192,12 +192,12 @@
         "costco wholesale"
       ],
       "cat": "Shopping",
-      "icon": "🏪",
+      "icon": "\ud83c\udfea",
       "recs": [
         {
           "card": "Citi Costco Visa",
           "earn": "2% cash back",
-          "why": "Required card — earns 2% annual reward cert"
+          "why": "Required card \u2014 earns 2% annual reward cert"
         },
         {
           "card": "Wells Fargo Active Cash",
@@ -217,7 +217,7 @@
         "sams club"
       ],
       "cat": "Shopping",
-      "icon": "🏬",
+      "icon": "\ud83c\udfec",
       "recs": [
         {
           "card": "Sam's Club MC",
@@ -243,12 +243,12 @@
         "amazon fresh"
       ],
       "cat": "Shopping",
-      "icon": "📦",
+      "icon": "\ud83d\udce6",
       "recs": [
         {
           "card": "Amazon Prime Visa",
           "earn": "5% cash back",
-          "why": "#1 for Amazon — highest possible"
+          "why": "#1 for Amazon \u2014 highest possible"
         },
         {
           "card": "Amazon Store Card",
@@ -269,7 +269,7 @@
         "cvs health"
       ],
       "cat": "Drugstore",
-      "icon": "💊",
+      "icon": "\ud83d\udc8a",
       "recs": [
         {
           "card": "Chase Freedom Unlimited",
@@ -294,7 +294,7 @@
         "walgreen"
       ],
       "cat": "Drugstore",
-      "icon": "💊",
+      "icon": "\ud83d\udc8a",
       "recs": [
         {
           "card": "Apple Card",
@@ -318,7 +318,7 @@
         "rite aid"
       ],
       "cat": "Drugstore",
-      "icon": "💊",
+      "icon": "\ud83d\udc8a",
       "recs": [
         {
           "card": "Chase Freedom Unlimited",
@@ -343,7 +343,7 @@
         "homedepot"
       ],
       "cat": "Shopping",
-      "icon": "🔨",
+      "icon": "\ud83d\udd28",
       "recs": [
         {
           "card": "Home Depot Consumer Card",
@@ -369,7 +369,7 @@
         "lowe's home improvement"
       ],
       "cat": "Shopping",
-      "icon": "🔧",
+      "icon": "\ud83d\udd27",
       "recs": [
         {
           "card": "Lowe's Advantage Card",
@@ -394,12 +394,12 @@
         "bestbuy"
       ],
       "cat": "Shopping",
-      "icon": "🖥️",
+      "icon": "\ud83d\udda5\ufe0f",
       "recs": [
         {
           "card": "Best Buy Visa Card",
           "earn": "5% back in rewards",
-          "why": "Best Buy's own card — 5% back"
+          "why": "Best Buy's own card \u2014 5% back"
         },
         {
           "card": "Citi Custom Cash",
@@ -434,12 +434,12 @@
         "casey's"
       ],
       "cat": "Gas",
-      "icon": "⛽",
+      "icon": "\u26fd",
       "recs": [
         {
           "card": "Citi Costco Visa",
           "earn": "4% on gas",
-          "why": "Best gas card — 4% up to $7K/yr"
+          "why": "Best gas card \u2014 4% up to $7K/yr"
         },
         {
           "card": "Sam's Club MC",
@@ -478,7 +478,7 @@
         "raising cane's"
       ],
       "cat": "Dining",
-      "icon": "🍔",
+      "icon": "\ud83c\udf54",
       "recs": [
         {
           "card": "Amex Gold",
@@ -489,6 +489,11 @@
           "card": "Capital One Savor",
           "earn": "4% dining",
           "why": "4% on all dining & entertainment"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
         },
         {
           "card": "US Bank Cash+",
@@ -506,7 +511,7 @@
         "tim hortons"
       ],
       "cat": "Dining",
-      "icon": "☕",
+      "icon": "\u2615",
       "recs": [
         {
           "card": "Amex Gold",
@@ -517,6 +522,11 @@
           "card": "Capital One Savor",
           "earn": "4% dining",
           "why": "4% on all dining"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
         },
         {
           "card": "Chase Sapphire Reserve",
@@ -531,7 +541,7 @@
         "panera bread"
       ],
       "cat": "Dining",
-      "icon": "🥖",
+      "icon": "\ud83e\udd56",
       "recs": [
         {
           "card": "Apple Card",
@@ -547,6 +557,11 @@
           "card": "Capital One Savor",
           "earn": "4% dining",
           "why": "4% on dining"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
         }
       ]
     },
@@ -571,12 +586,12 @@
         "bj's restaurant"
       ],
       "cat": "Dining",
-      "icon": "🍽️",
+      "icon": "\ud83c\udf7d\ufe0f",
       "recs": [
         {
           "card": "Amex Gold",
           "earn": "4x MR",
-          "why": "Undisputed best dining card — 4x"
+          "why": "Undisputed best dining card \u2014 4x"
         },
         {
           "card": "Capital One Savor",
@@ -584,9 +599,14 @@
           "why": "4% on dining & entertainment"
         },
         {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
+        },
+        {
           "card": "Chase Sapphire Reserve",
           "earn": "3x dining",
-          "why": "3x dining, 1.5¢/pt via CSR portal"
+          "why": "3x dining, 1.5\u00a2/pt via CSR portal"
         }
       ]
     },
@@ -597,7 +617,7 @@
         "ubereats"
       ],
       "cat": "Dining",
-      "icon": "🚕",
+      "icon": "\ud83d\ude95",
       "recs": [
         {
           "card": "Apple Card",
@@ -608,6 +628,11 @@
           "card": "Amex Gold",
           "earn": "$10/mo Uber Cash",
           "why": "$120/yr Uber Cash = free rides"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
         },
         {
           "card": "Chase Sapphire Reserve",
@@ -621,7 +646,7 @@
         "lyft"
       ],
       "cat": "Travel",
-      "icon": "🚗",
+      "icon": "\ud83d\ude97",
       "recs": [
         {
           "card": "Chase Sapphire Reserve",
@@ -652,7 +677,7 @@
         "caviar"
       ],
       "cat": "Dining",
-      "icon": "🥡",
+      "icon": "\ud83e\udd61",
       "recs": [
         {
           "card": "Amex Gold",
@@ -663,6 +688,11 @@
           "card": "Capital One Savor",
           "earn": "4% dining",
           "why": "4% on dining deliveries"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x dining when dining is your annual Bilt category pick"
         },
         {
           "card": "Chase Sapphire Reserve",
@@ -693,12 +723,12 @@
         "starz"
       ],
       "cat": "Streaming",
-      "icon": "📺",
+      "icon": "\ud83d\udcfa",
       "recs": [
         {
           "card": "US Bank Cash+",
           "earn": "5% streaming",
-          "why": "Choose TV/streaming — best card"
+          "why": "Choose TV/streaming \u2014 best card"
         },
         {
           "card": "Amex Blue Cash Preferred",
@@ -718,7 +748,7 @@
         "att"
       ],
       "cat": "Wireless",
-      "icon": "📱",
+      "icon": "\ud83d\udcf1",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -745,7 +775,7 @@
         "metro pcs"
       ],
       "cat": "Wireless",
-      "icon": "📱",
+      "icon": "\ud83d\udcf1",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -770,7 +800,7 @@
         "verizon wireless"
       ],
       "cat": "Wireless",
-      "icon": "📱",
+      "icon": "\ud83d\udcf1",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -798,7 +828,7 @@
         "mint mobile"
       ],
       "cat": "Wireless",
-      "icon": "📱",
+      "icon": "\ud83d\udcf1",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -837,12 +867,12 @@
         "we energies"
       ],
       "cat": "Utilities",
-      "icon": "⚡",
+      "icon": "\u26a1",
       "recs": [
         {
           "card": "US Bank Cash+",
           "earn": "5% home utilities",
-          "why": "BEST utility card — 5% on electric/water/gas bills"
+          "why": "BEST utility card \u2014 5% on electric/water/gas bills"
         },
         {
           "card": "Wells Fargo Active Cash",
@@ -874,7 +904,7 @@
         "directv"
       ],
       "cat": "Utilities",
-      "icon": "📡",
+      "icon": "\ud83d\udce1",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -900,12 +930,12 @@
         "apple.com"
       ],
       "cat": "Shopping",
-      "icon": "🍎",
+      "icon": "\ud83c\udf4e",
       "recs": [
         {
           "card": "Apple Card",
           "earn": "3% cash back",
-          "why": "3% on ALL Apple purchases — only card with this rate"
+          "why": "3% on ALL Apple purchases \u2014 only card with this rate"
         },
         {
           "card": "Wells Fargo Active Cash",
@@ -927,7 +957,7 @@
         "ashley store"
       ],
       "cat": "Shopping",
-      "icon": "🛋️",
+      "icon": "\ud83d\udecb\ufe0f",
       "recs": [
         {
           "card": "Ashley Store Card",
@@ -951,7 +981,7 @@
         "ikea"
       ],
       "cat": "Shopping",
-      "icon": "🪑",
+      "icon": "\ud83e\ude91",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -980,7 +1010,7 @@
         "nordstrom rack"
       ],
       "cat": "Shopping",
-      "icon": "🛍️",
+      "icon": "\ud83d\udecd\ufe0f",
       "recs": [
         {
           "card": "Capital One Savor",
@@ -1005,12 +1035,12 @@
         "nordstrom.com"
       ],
       "cat": "Shopping",
-      "icon": "👗",
+      "icon": "\ud83d\udc57",
       "recs": [
         {
           "card": "Nordstrom Visa Card",
           "earn": "3x Nordy points",
-          "why": "Nordstrom card gives 3x — best return"
+          "why": "Nordstrom card gives 3x \u2014 best return"
         },
         {
           "card": "Capital One Savor",
@@ -1030,12 +1060,12 @@
         "macys"
       ],
       "cat": "Shopping",
-      "icon": "🏬",
+      "icon": "\ud83c\udfec",
       "recs": [
         {
           "card": "Macy's Credit Card",
           "earn": "5% Star Rewards",
-          "why": "Macy's card gives 5% — best return"
+          "why": "Macy's card gives 5% \u2014 best return"
         },
         {
           "card": "Wells Fargo Active Cash",
@@ -1069,17 +1099,27 @@
         "loews"
       ],
       "cat": "Travel",
-      "icon": "🏨",
+      "icon": "\ud83c\udfe8",
       "recs": [
         {
           "card": "Chase Sapphire Reserve",
-          "earn": "3x travel + 1.5¢/pt",
+          "earn": "3x travel + 1.5\u00a2/pt",
           "why": "Best overall hotel redemptions"
         },
         {
           "card": "Bilt Rewards",
           "earn": "3x + Hyatt transfer",
-          "why": "Transfer 1:1 to Hyatt — outstanding value"
+          "why": "Transfer 1:1 to Hyatt \u2014 outstanding value"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "2x travel + Hyatt transfer",
+          "why": "Transfer 1:1 to Hyatt; up to 4x if booking via Bilt Travel portal"
+        },
+        {
+          "card": "Bilt Palladium",
+          "earn": "2x + Hyatt transfer",
+          "why": "2x everywhere + Hyatt transfer; best Bilt card for total spend"
         },
         {
           "card": "Wells Fargo Autograph",
@@ -1106,7 +1146,7 @@
         "hawaiian airlines"
       ],
       "cat": "Travel",
-      "icon": "✈️",
+      "icon": "\u2708\ufe0f",
       "recs": [
         {
           "card": "Amex Gold",
@@ -1138,7 +1178,7 @@
         "zipcar"
       ],
       "cat": "Travel",
-      "icon": "🚗",
+      "icon": "\ud83d\ude97",
       "recs": [
         {
           "card": "Chase Sapphire Reserve",
@@ -1168,7 +1208,7 @@
         "kayak"
       ],
       "cat": "Travel",
-      "icon": "🏠",
+      "icon": "\ud83c\udfe0",
       "recs": [
         {
           "card": "Chase Sapphire Reserve",
@@ -1179,6 +1219,16 @@
           "card": "Bilt Rewards",
           "earn": "3x on travel",
           "why": "3x + transfer to Hyatt/United"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "2x on travel",
+          "why": "2x travel + 1:1 Hyatt/United transfer"
+        },
+        {
+          "card": "Bilt Palladium",
+          "earn": "2x on travel",
+          "why": "2x everywhere; premium Bilt tier with $200 cash credit"
         },
         {
           "card": "Capital One Venture X",
@@ -1203,7 +1253,7 @@
         "amtrak"
       ],
       "cat": "Travel",
-      "icon": "🚇",
+      "icon": "\ud83d\ude87",
       "recs": [
         {
           "card": "Wells Fargo Autograph",
@@ -1214,6 +1264,11 @@
           "card": "Bilt Rewards",
           "earn": "2x on Rent Day",
           "why": "1st of month: 2x on all transit"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "2x on travel/transit",
+          "why": "2x on travel category covers transit spending"
         },
         {
           "card": "Chase Sapphire Reserve",
@@ -1239,7 +1294,7 @@
         "peloton"
       ],
       "cat": "Entertainment",
-      "icon": "🏋️",
+      "icon": "\ud83c\udfcb\ufe0f",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -1269,7 +1324,7 @@
         "fandango"
       ],
       "cat": "Entertainment",
-      "icon": "🎬",
+      "icon": "\ud83c\udfac",
       "recs": [
         {
           "card": "Capital One Savor",
@@ -1299,7 +1354,7 @@
         "eventbrite"
       ],
       "cat": "Entertainment",
-      "icon": "🎟️",
+      "icon": "\ud83c\udf9f\ufe0f",
       "recs": [
         {
           "card": "Capital One Savor",
@@ -1328,7 +1383,7 @@
         "ymca"
       ],
       "cat": "Entertainment",
-      "icon": "🏋️",
+      "icon": "\ud83c\udfcb\ufe0f",
       "recs": [
         {
           "card": "US Bank Cash+",
@@ -1355,7 +1410,7 @@
         "sam's club gas"
       ],
       "cat": "Gas",
-      "icon": "⛽",
+      "icon": "\u26fd",
       "recs": [
         {
           "card": "Citi Costco Visa",
@@ -1387,7 +1442,7 @@
         "wix"
       ],
       "cat": "Shopping",
-      "icon": "☁️",
+      "icon": "\u2601\ufe0f",
       "recs": [
         {
           "card": "BofA Customized Cash",

@@ -1,105 +1,1205 @@
 {
   "meta": {
     "version": "2.0.0",
-    "lastUpdated": "2026-06-18",
+    "lastUpdated": "2026-06-29",
     "disclaimer": "Card benefits, earn rates, and annual fees are subject to change by issuers. Always verify current terms at the issuer's website before making financial decisions. SwipeRight is not a financial advisor.",
-    "sources": ["americanexpress.com", "chase.com", "citi.com", "capitalone.com", "wellsfargo.com", "usbank.com", "thepointsguy.com", "nerdwallet.com", "cnbc.com/select"]
+    "sources": [
+      "americanexpress.com",
+      "chase.com",
+      "citi.com",
+      "capitalone.com",
+      "wellsfargo.com",
+      "usbank.com",
+      "thepointsguy.com",
+      "nerdwallet.com",
+      "cnbc.com/select"
+    ]
   },
   "cards": [
-    {"id":"amex_plat","name":"Amex Platinum","issuer":"American Express","af":895,"color":"#A8A9AD","cats":["Travel","Dining"],"tip":"5x on flights booked directly & Amex Travel (up to $500K/yr). $200 airline fee credit, $200 Uber Cash, $200 hotel credit, $189 CLEAR Plus, $100 Saks, $300 Equinox, $300 Resy dining. Centurion Lounge + Priority Pass. Fee raised to $895 in Jan 2026 refresh."},
-    {"id":"amex_gold","name":"Amex Gold","issuer":"American Express","af":325,"color":"#C8960C","cats":["Dining","Grocery","Travel"],"tip":"4x at restaurants worldwide (up to $50K/yr, then 1x) & U.S. supermarkets (up to $25K/yr). 3x flights. $120 dining credit (Grubhub, Cheesecake Factory, Five Guys, Buffalo Wild Wings). $120 Uber Cash. Hertz Five Star status. AF raised from $250 to $325 in Oct 2024."},
-    {"id":"amex_green","name":"Amex Green","issuer":"American Express","af":150,"color":"#228B22","cats":["Travel","Dining"],"tip":"3x on travel, transit & restaurants. $189 CLEAR Plus credit + $100 LoungeBuddy. Good mid-tier travel card."},
-    {"id":"amex_bce","name":"Amex Blue Cash Everyday","issuer":"American Express","af":0,"color":"#0078CC","cats":["Grocery","Gas","Shopping"],"tip":"3% at U.S. supermarkets, gas stations, and online retail (each up to $6K/yr). No annual fee. $84 Disney Bundle credit."},
-    {"id":"amex_bcp","name":"Amex Blue Cash Preferred","issuer":"American Express","af":95,"color":"#0055A0","cats":["Grocery","Streaming","Gas"],"tip":"6% at U.S. supermarkets (up to $6K/yr), 6% on select streaming services, 3% gas & transit, 1% elsewhere. Best grocery card in the market."},
-    {"id":"amex_delta_blue","name":"Delta Blue Amex","issuer":"American Express","af":0,"color":"#003A70","cats":["Travel","Dining","Grocery"],"tip":"2x Delta purchases & restaurants, 2x U.S. supermarkets. First checked bag free. No annual fee Delta card."},
-    {"id":"amex_delta_gold","name":"Delta Gold Amex","issuer":"American Express","af":150,"color":"#003A70","cats":["Travel","Dining"],"tip":"2x Delta purchases & restaurants, 2x U.S. supermarkets. First checked bag free. Good entry Delta card."},
-    {"id":"amex_delta_plat","name":"Delta Platinum Amex","issuer":"American Express","af":350,"color":"#003A70","cats":["Travel"],"tip":"3x Delta, 2x restaurants & U.S. supermarkets. Companion certificate annually, MQD boost."},
-    {"id":"amex_delta_reserve","name":"Delta Reserve Amex","issuer":"American Express","af":650,"color":"#003A70","cats":["Travel"],"tip":"3x Delta miles. Delta Sky Club access (10 visits/yr when flying Delta), companion certificate, Medallion status boost."},
-    {"id":"amex_hilton","name":"Amex Hilton Honors","issuer":"American Express","af":0,"color":"#002147","cats":["Travel","Dining","Grocery"],"tip":"7x at Hilton, 5x restaurants, U.S. supermarkets & gas. No annual fee Hilton co-brand."},
-    {"id":"amex_hilton_surpass","name":"Amex Hilton Surpass","issuer":"American Express","af":150,"color":"#002147","cats":["Travel","Dining"],"tip":"12x at Hilton, 6x restaurants, U.S. supermarkets & gas. Free weekend night annually, Priority Pass (10 visits/yr)."},
-    {"id":"amex_hilton_aspire","name":"Amex Hilton Aspire","issuer":"American Express","af":550,"color":"#002147","cats":["Travel"],"tip":"14x at Hilton. Automatic Hilton Diamond status. $400 resort credit, $200 airline fee credit, free weekend night certificate. Best hotel card for Hilton loyalists."},
-    {"id":"amex_marriott","name":"Amex Marriott Bonvoy","issuer":"American Express","af":250,"color":"#8B0000","cats":["Travel"],"tip":"6x at Marriott, 4x restaurants & U.S. supermarkets, 2x elsewhere. Free night certificate annually (up to 35K pts)."},
-    {"id":"amex_biz_gold","name":"Amex Business Gold","issuer":"American Express","af":375,"color":"#C8960C","cats":["Dining","Grocery","Shopping","Travel"],"tip":"4x on the two categories where you spend the most each month (from 6 eligible). Up to $240 in annual credits."},
-    {"id":"amex_biz_plat","name":"Amex Business Platinum","issuer":"American Express","af":695,"color":"#A8A9AD","cats":["Travel"],"tip":"5x on flights & prepaid hotels via Amex Travel. $400 Dell credit, $360 Indeed credit, lounge access, 35% airline bonus on points redemptions."},
-    {"id":"amex_biz_cash","name":"Amex Blue Business Cash","issuer":"American Express","af":0,"color":"#0078CC","cats":["Catch-all"],"tip":"2% cash back on all purchases up to $50K/yr, 1% after. No annual fee business card."},
-    {"id":"amex_biz_plus","name":"Amex Blue Business Plus","issuer":"American Express","af":0,"color":"#0078CC","cats":["Catch-all"],"tip":"2x Membership Rewards on all purchases up to $50K/yr. No annual fee. Best no-fee MR earner for business."},
-    {"id":"chase_csr","name":"Chase Sapphire Reserve","issuer":"Chase","af":795,"color":"#1A1A1A","cats":["Dining","Travel"],"tip":"4x hotels & flights booked direct, 3x dining. $300 travel credit, $500 The Edit hotel credit (2x $250), $300 Sapphire Reserve Exclusive Tables dining credit, Apple TV+/Apple Music complimentary. Lounge access. AF raised from $550 to $795 in June 2025."},
-    {"id":"chase_csp","name":"Chase Sapphire Preferred","issuer":"Chase","af":95,"color":"#1A5276","cats":["Dining","Travel","Streaming"],"tip":"3x dining, 2x travel, 2x streaming, 2x grocery (online). Points worth 1.25¢ via Chase Travel. Best entry travel card. Transfers to Hyatt, United, Southwest."},
-    {"id":"cfu","name":"Chase Freedom Unlimited","issuer":"Chase","af":0,"color":"#005EB8","cats":["Dining","Drugstore","Catch-all"],"tip":"1.5% on everything, 3% dining & drugstores, 5% Chase Travel. Best catch-all card. Pairs with Sapphire to unlock transfer partners."},
-    {"id":"chase_flex","name":"Chase Freedom Flex","issuer":"Chase","af":0,"color":"#005EB8","cats":["Dining","Drugstore","Rotating 5%"],"tip":"5% rotating quarterly categories (up to $1,500/qtr, activation required), 3% dining & drugstores, 1.5% elsewhere. No annual fee."},
-    {"id":"chase_ink_cash","name":"Chase Ink Business Cash","issuer":"Chase","af":0,"color":"#005EB8","cats":["Utilities","Dining","Shopping"],"tip":"5% on office supplies & internet/phone/cable (up to $25K/yr), 2% gas & dining, 1% elsewhere. No annual fee business card."},
-    {"id":"chase_ink_pref","name":"Chase Ink Business Preferred","issuer":"Chase","af":95,"color":"#1A5276","cats":["Travel","Shopping","Wireless"],"tip":"3x travel, shipping, advertising, internet/phone (up to $150K/yr). Points transfer to Hyatt, United, Marriott, Southwest."},
-    {"id":"chase_ink_unl","name":"Chase Ink Business Unlimited","issuer":"Chase","af":0,"color":"#005EB8","cats":["Catch-all"],"tip":"1.5% unlimited cash back on all business purchases. Simple flat-rate, no annual fee."},
-    {"id":"chase_united","name":"United Explorer Card","issuer":"Chase","af":95,"color":"#0032A0","cats":["Travel","Dining"],"tip":"2x United, restaurants & hotel stays. First checked bag free. 2 United Club passes annually. 25% back on United in-flight purchases."},
-    {"id":"chase_united_gateway","name":"United Gateway Card","issuer":"Chase","af":0,"color":"#0032A0","cats":["Travel","Dining","Gas"],"tip":"2x United, restaurants & gas stations. No annual fee United card. Good starter for MileagePlus members."},
-    {"id":"chase_ihg","name":"Chase IHG Premier","issuer":"Chase","af":99,"color":"#C41230","cats":["Travel"],"tip":"26x IHG points at IHG hotels, 5x dining, gas, grocery. Anniversary free night (up to 40K pts). IHG Platinum Elite status."},
-    {"id":"chase_ihg_traveler","name":"IHG One Rewards Traveler","issuer":"Chase","af":0,"color":"#C41230","cats":["Travel","Dining","Grocery"],"tip":"3x IHG purchases, 2x restaurants & gas, 1x elsewhere. No annual fee IHG card."},
-    {"id":"chase_marriott","name":"Chase Marriott Bonvoy Boundless","issuer":"Chase","af":95,"color":"#8B0000","cats":["Travel","Dining","Grocery"],"tip":"6x at Marriott, 3x gas, dining & grocery. Free night certificate annually (up to 35K pts). Marriott Silver Elite status."},
-    {"id":"chase_hyatt","name":"Chase World of Hyatt","issuer":"Chase","af":95,"color":"#1A3A5C","cats":["Travel","Dining"],"tip":"4x Hyatt, 2x fitness, dining, airline tickets, local transit. Free night certificate annually (up to Cat 4). Discoverist status."},
-    {"id":"chase_sw_plus","name":"Southwest Rapid Rewards Plus","issuer":"Chase","af":69,"color":"#304CB2","cats":["Travel"],"tip":"2x Southwest purchases. 3,000 anniversary bonus points. Counts toward Companion Pass qualification."},
-    {"id":"chase_sw_prem","name":"Southwest Rapid Rewards Premier","issuer":"Chase","af":99,"color":"#304CB2","cats":["Travel"],"tip":"3x Southwest purchases. 6,000 anniversary bonus points. Better earn for frequent SW flyers."},
-    {"id":"chase_sw_priority","name":"Southwest Priority Card","issuer":"Chase","af":149,"color":"#304CB2","cats":["Travel"],"tip":"3x Southwest purchases. 7,500 anniversary bonus points, $75 annual SW travel credit, 4 upgraded boardings/yr. Best SW card."},
-    {"id":"chase_amazon","name":"Amazon Prime Visa","issuer":"Chase","af":0,"color":"#FF9900","cats":["Shopping","Grocery"],"tip":"5% at Amazon.com & Whole Foods (with Prime). 2% restaurants, gas, drugstores. No annual fee (Prime membership required)."},
-    {"id":"citi_cc","name":"Citi Custom Cash","issuer":"Citi","af":0,"color":"#D50032","cats":["Flex 5%"],"tip":"5% on your #1 eligible spend category each month (up to $500/mo, then 1%). Eligible: gas, groceries, dining, streaming, home improvement, drugstores, live entertainment, fitness, Amazon, phone plans."},
-    {"id":"citi_dc","name":"Citi Double Cash","issuer":"Citi","af":0,"color":"#D50032","cats":["Catch-all"],"tip":"2% on everything (1% when you buy + 1% when you pay). Best simple flat-rate. Can convert to ThankYou points if you hold Citi Strata Premier."},
-    {"id":"citi_premier","name":"Citi Strata Premier","issuer":"Citi","af":95,"color":"#D50032","cats":["Travel","Dining","Grocery","Gas"],"tip":"3x restaurants, supermarkets, gas stations, air travel & hotels. 1x elsewhere. Transfer to Turkish Miles&Smiles, Avianca, Cathay Pacific and more."},
-    {"id":"citi_rewards","name":"Citi Rewards+","issuer":"Citi","af":0,"color":"#D50032","cats":["Grocery","Gas"],"tip":"2x at supermarkets & gas (up to $6K/yr). Rounds up to nearest 10 points on every purchase. 10% points back on redemptions (up to 100K pts/yr)."},
-    {"id":"citi_costco","name":"Citi Costco Visa","issuer":"Citi","af":0,"color":"#E31837","cats":["Gas","Dining","Travel","Costco"],"tip":"4% on gas & EV charging (up to $7K/yr, then 1%), 3% restaurants & eligible travel, 2% Costco/Costco.com, 1% elsewhere. Costco membership required."},
-    {"id":"citi_att","name":"Citi AT&T Points Plus","issuer":"Citi","af":0,"color":"#00A8E0","cats":["Wireless"],"tip":"3 ThankYou points per $1 on AT&T purchases + bill credit. 2x grocery & gas. Set AT&T autopay here for maximum value."},
-    {"id":"citi_simp","name":"Citi Simplicity","issuer":"Citi","af":0,"color":"#AA0022","cats":["Balance Transfer"],"tip":"Not a rewards card. Use only for 0% intro APR on balance transfers (21 months, one of the longest offers available). No late fees, no penalty APR."},
-    {"id":"citi_aa","name":"Citi AA Platinum Select","issuer":"Citi","af":99,"color":"#0078D4","cats":["Travel","Dining","Gas"],"tip":"2x American Airlines miles, restaurants & gas stations. First checked bag free, preferred boarding, 25% in-flight discount."},
-    {"id":"c1_vx","name":"Capital One Venture X","issuer":"Capital One","af":395,"color":"#D03027","cats":["Travel"],"tip":"10x hotels & rental cars via C1 Travel, 5x flights, 2x everywhere. $300 annual C1 Travel credit, 10K anniversary miles ($100 value), Priority Pass (lounge only — guest access removed Feb 2026), Capital One Lounge access."},
-    {"id":"c1_venture","name":"Capital One Venture","issuer":"Capital One","af":95,"color":"#D03027","cats":["Travel","Catch-all"],"tip":"2x miles on all purchases. Transfer to 15+ airline & hotel partners. $100 Global Entry/TSA PreCheck credit every 4 years."},
-    {"id":"c1_savor","name":"Capital One Savor","issuer":"Capital One","af":95,"color":"#D03027","cats":["Dining","Entertainment","Grocery"],"tip":"4% dining, entertainment & streaming. 3% grocery stores. 1% elsewhere. Excellent dining & entertainment card. No FTF."},
-    {"id":"c1_savorone","name":"Capital One SavorOne","issuer":"Capital One","af":0,"color":"#D03027","cats":["Dining","Entertainment","Grocery"],"tip":"3% dining, entertainment, streaming & grocery. 1% elsewhere. No annual fee version of Savor. No FTF."},
-    {"id":"c1_qs","name":"Capital One QuickSilver","issuer":"Capital One","af":0,"color":"#D03027","cats":["Catch-all"],"tip":"1.5% cash back on all purchases. No foreign transaction fee. Best use: simple flat-rate for international spending where no FTF matters."},
-    {"id":"c1_spark_cash","name":"Capital One Spark Cash Plus","issuer":"Capital One","af":150,"color":"#D03027","cats":["Catch-all"],"tip":"2% unlimited cash back on all business purchases. No preset spending limit. Annual fee rebated if you spend $150K+/yr."},
-    {"id":"c1_spark_miles","name":"Capital One Spark Miles","issuer":"Capital One","af":95,"color":"#D03027","cats":["Travel","Catch-all"],"tip":"2x miles on all business purchases. Transfer to 15+ airline partners. $100 Global Entry credit. Simple flat-rate travel card."},
-    {"id":"c1_plat","name":"Capital One Platinum","issuer":"Capital One","af":0,"color":"#D03027","cats":["Credit Building"],"tip":"No rewards — credit building card. Use to establish or rebuild credit. No annual fee. Upgrade path to QuickSilver after 6+ months of on-time payments."},
-    {"id":"discover","name":"Discover IT","issuer":"Discover","af":0,"color":"#F76800","cats":["Rotating 5%"],"tip":"5% on rotating quarterly categories (up to $1,500/qtr, activation required). 1% everywhere else. Cashback Match™ doubles all earnings year 1 — effectively 10%/2%."},
-    {"id":"discover_chrome","name":"Discover IT Chrome","issuer":"Discover","af":0,"color":"#F76800","cats":["Gas","Dining"],"tip":"2% at gas stations & restaurants (combined up to $1,000/qtr). 1% elsewhere. Cashback Match year 1. Good simple card for gas & dining."},
-    {"id":"discover_miles","name":"Discover IT Miles","issuer":"Discover","af":0,"color":"#F76800","cats":["Travel","Catch-all"],"tip":"1.5x miles on all purchases, doubled first year (= 3x). No blackout dates, redeem against any travel purchase. No annual fee, no FTF."},
-    {"id":"discover_student","name":"Discover IT Student","issuer":"Discover","af":0,"color":"#F76800","cats":["Rotating 5%"],"tip":"Same 5% rotating categories as IT. Cashback Match year 1. Good credit-building starter card for students."},
-    {"id":"bofa_custom","name":"BofA Customized Cash","issuer":"Bank of America","af":0,"color":"#E31837","cats":["Shopping","Chosen Category"],"tip":"3% on chosen category (gas, online shopping, dining, travel, drugstores, or home improvement). 2% grocery & wholesale. Preferred Rewards members earn up to 5.25% on chosen category at Platinum Honors tier."},
-    {"id":"bofa_travel","name":"BofA Travel Rewards","issuer":"Bank of America","af":0,"color":"#E31837","cats":["Travel","Catch-all"],"tip":"1.5x points on all purchases, no FTF. Preferred Rewards Platinum Honors members earn 2.62x on everything. No annual fee."},
-    {"id":"bofa_premium","name":"BofA Premium Rewards","issuer":"Bank of America","af":95,"color":"#E31837","cats":["Travel","Dining"],"tip":"2x travel & dining, 1.5x everything else. $100 airline incidental credit, $100 Global Entry credit. Preferred Rewards bonus stacks on top."},
-    {"id":"bofa_alaska","name":"Alaska Airlines Visa","issuer":"Bank of America","af":95,"color":"#00629B","cats":["Travel"],"tip":"3x Alaska miles on Alaska purchases. Annual companion fare from $122 + taxes. 3,000 bonus miles at renewal. 20% back on in-flight purchases."},
-    {"id":"wf_active","name":"Wells Fargo Active Cash","issuer":"Wells Fargo","af":0,"color":"#CF202E","cats":["Catch-all"],"tip":"Unlimited 2% cash rewards on all purchases, no categories, no caps. Cell phone protection up to $600. Best no-fee flat-rate card — use for everything that doesn't earn 3%+ elsewhere."},
-    {"id":"wf_auto","name":"Wells Fargo Autograph","issuer":"Wells Fargo","af":0,"color":"#CF202E","cats":["Dining","Travel","Gas","Streaming","Transit","Wireless"],"tip":"3x points on 6 categories: restaurants, travel, gas stations, streaming, transit & phone plans. 1x elsewhere. No annual fee, no FTF. One of the best no-fee multi-category cards available."},
-    {"id":"wf_autograph_j","name":"Wells Fargo Autograph Journey","issuer":"Wells Fargo","af":95,"color":"#CF202E","cats":["Travel","Dining","Grocery"],"tip":"5x hotels, 4x airlines, 3x restaurants & grocery. Transfer to 6 airline partners (Avianca, Air France/KLM, British Airways, Iberia, Aer Lingus, Icelandair)."},
-    {"id":"wf_reflect","name":"Wells Fargo Reflect","issuer":"Wells Fargo","af":0,"color":"#CF202E","cats":["Balance Transfer"],"tip":"0% intro APR up to 21 months on balance transfers and qualifying purchases. No rewards — use only for interest-free financing. Longest 0% offer currently available."},
-    {"id":"bilt","name":"Bilt Rewards","issuer":"Wells Fargo / Bilt","af":0,"color":"#4A4AFF","cats":["Rent","Dining","Travel"],"tip":"Only card to earn points on rent with no processing fee. 3x travel, 2x dining, 1x rent (up to $50K/yr). Must make 5 transactions/month. Transfer 1:1 to World of Hyatt, United, Alaska, American, Air Canada and more. Rent Day (1st of month) earns 6x/4x/2x."},
-    {"id":"usb_cash","name":"US Bank Cash+","issuer":"US Bank","af":0,"color":"#B80A17","cats":["Utilities","Streaming","Dining","Entertainment","Wireless"],"tip":"5% on first $2K/qtr in two chosen 5% categories + 2% on one everyday category. Best 5% categories: home utilities, cell phone providers, TV/streaming, fast food, movie theaters, gyms, furniture stores, sporting goods, department stores. Most underutilized card in any wallet."},
-    {"id":"usb_altitude_r","name":"US Bank Altitude Reserve","issuer":"US Bank","af":400,"color":"#B80A17","cats":["Travel","Dining"],"tip":"5x prepaid hotels & car rentals via Altitude Rewards Center, 3x mobile wallet & travel (effective 4.5% on Apple Pay). $325 travel/dining credit, TSA PreCheck/Global Entry credit, Priority Pass (12 visits/yr)."},
-    {"id":"usb_altitude_go","name":"US Bank Altitude Go","issuer":"US Bank","af":0,"color":"#B80A17","cats":["Dining","Streaming","Grocery","Gas"],"tip":"4x dining, 2x grocery & gas stations, 2x streaming services. $15 annual streaming credit. No annual fee. Strongest no-fee dining card for US Bank customers."},
-    {"id":"usb_altitude_con","name":"US Bank Altitude Connect","issuer":"US Bank","af":95,"color":"#B80A17","cats":["Travel","Gas","Grocery","Streaming"],"tip":"4x travel & gas stations, 2x grocery, dining & streaming. $30 streaming credit, Priority Pass (4 lounge visits/yr), TSA PreCheck/Global Entry credit."},
-    {"id":"usb_shield","name":"US Bank Shield Visa","issuer":"US Bank","af":0,"color":"#B80A17","cats":["Catch-all"],"tip":"Rewards on contactless/mobile wallet payments. Verify your specific card's earn rates — terms vary. Good for tap-to-pay heavy users."},
-    {"id":"barclays_jetblue","name":"JetBlue Plus Card","issuer":"Barclays","af":99,"color":"#0033A0","cats":["Travel","Dining","Grocery"],"tip":"6x JetBlue purchases, 2x restaurants & grocery. 5,000 bonus points annually at card anniversary. 10% points back on JetBlue redemptions."},
-    {"id":"barclays_jetblue_biz","name":"JetBlue Business Card","issuer":"Barclays","af":99,"color":"#0033A0","cats":["Travel","Dining"],"tip":"6x JetBlue, 2x restaurants & office supply. 5,000 anniversary bonus points. Good for JetBlue-heavy business travelers."},
-    {"id":"barclays_hawaiian","name":"Hawaiian Airlines World Elite MC","issuer":"Barclays","af":99,"color":"#8B0000","cats":["Travel","Dining"],"tip":"3x Hawaiian Airlines miles, 2x dining. Annual companion discount ($100 off). One-time 50% off companion fare after first purchase."},
-    {"id":"barclays_wyndham","name":"Wyndham Rewards Earner+","issuer":"Barclays","af":75,"color":"#005EB8","cats":["Travel","Gas","Dining"],"tip":"6x Wyndham & gas stations, 4x dining & grocery. 7,500 anniversary bonus points. Automatic Wyndham Gold status."},
-    {"id":"barclays_aadvantage","name":"AAdvantage Aviator Red","issuer":"Barclays","af":99,"color":"#0078D4","cats":["Travel"],"tip":"2x American Airlines miles on AA purchases, 1x elsewhere. First checked bag free. Companion certificate at $20K annual spend."},
-    {"id":"barclays_frontier","name":"Frontier Airlines Card","issuer":"Barclays","af":89,"color":"#61A534","cats":["Travel"],"tip":"5x Frontier miles on Frontier purchases, 3x restaurants. $100 off companion airfare at $2,500 annual spend. Good for frequent Frontier flyers."},
-    {"id":"amazon_store","name":"Amazon Store Card","issuer":"Synchrony","af":0,"color":"#FF9900","cats":["Shopping"],"tip":"5% at Amazon.com with Prime OR 0% deferred interest financing (6-24 month promos). Use for large purchases needing financing. Cannot use at physical stores."},
-    {"id":"sams","name":"Sam's Club Mastercard","issuer":"Synchrony","af":0,"color":"#0067A0","cats":["Gas","Shopping"],"tip":"5% at Sam's Club fuel centers & gas stations (up to $6K/yr), 3% dining & takeout, 1% Sam's Club purchases. Sam's Club Plus members earn 5% on Sam's Club purchases."},
-    {"id":"apple","name":"Apple Card","issuer":"Goldman Sachs","af":0,"color":"#888888","cats":["Shopping","Dining","Wireless"],"tip":"3% Daily Cash at Apple, Uber/Uber Eats, Nike, Walgreens, Panera Bread, T-Mobile, Duane Reade, Exxon/Mobil. 2% via Apple Pay anywhere. 1% physical card. Instant cashback, titanium card."},
-    {"id":"ashley","name":"Ashley Store Card","issuer":"Synchrony","af":0,"color":"#8B4513","cats":["Shopping"],"tip":"No rewards — use ONLY for 0% deferred interest financing promos (6-60 months) on Ashley purchases. Warning: deferred interest charges full interest if not paid by promo end."},
-    {"id":"sync_paypal","name":"PayPal Cashback Mastercard","issuer":"Synchrony","af":0,"color":"#003087","cats":["Catch-all","Shopping"],"tip":"3% cash back via PayPal checkout, 1.5% everywhere else. Deposited to your PayPal balance. Best for frequent PayPal users and online shoppers."},
-    {"id":"sync_venmo","name":"Venmo Credit Card","issuer":"Synchrony","af":0,"color":"#3D95CE","cats":["Catch-all"],"tip":"3% on your top eligible spend category, 2% on second category, 1% on rest. Auto-adjusts monthly based on spending. Cash back deposited to Venmo balance. No annual fee."},
-    {"id":"target_red","name":"Target RedCard","issuer":"TD Bank","af":0,"color":"#CC0000","cats":["Shopping"],"tip":"5% off all Target in-store & online purchases. Extended returns (30 extra days). Free 2-day shipping on Target.com. Closed loop — use only at Target."},
-    {"id":"nordstrom","name":"Nordstrom Visa Card","issuer":"TD Bank","af":0,"color":"#1A1A1A","cats":["Shopping"],"tip":"3x Nordy Club points at Nordstrom & Nordstrom Rack, 2x restaurants, 1x everywhere. Nordy Club benefits include alterations, beauty services, and early sale access."},
-    {"id":"bestbuy_visa","name":"Best Buy Visa Card","issuer":"Citibank","af":0,"color":"#003087","cats":["Shopping","Dining","Gas"],"tip":"5% back in Best Buy rewards, 3% gas & EV charging, 2% dining & grocery, 1% everywhere else. 24-month financing on major purchases."},
-    {"id":"lowes_adv","name":"Lowe's Advantage Card","issuer":"Synchrony","af":0,"color":"#004990","cats":["Shopping"],"tip":"5% off every Lowe's purchase OR special financing. Closed-loop card for Lowe's regulars. No rewards elsewhere."},
-    {"id":"home_depot_cc","name":"Home Depot Consumer Card","issuer":"Citibank","af":0,"color":"#F96302","cats":["Shopping"],"tip":"0% promotional financing on Home Depot purchases (6-24 months). No rewards — use for large project financing only. Deferred interest applies if not paid in full."},
-    {"id":"macys","name":"Macy's Credit Card","issuer":"DSNB","af":0,"color":"#E31837","cats":["Shopping"],"tip":"5% back in Macy's Star Rewards on Macy's purchases. Closed-loop store card. Bonus events for Star Rewards members."},
-    {"id":"td_double","name":"TD Double Up Card","issuer":"TD Bank","af":0,"color":"#34A853","cats":["Catch-all"],"tip":"2% cash back on all purchases when redeemed to a TD Bank account. Simple flat-rate for TD Bank customers."},
-    {"id":"td_cash","name":"TD Cash Credit Card","issuer":"TD Bank","af":0,"color":"#34A853","cats":["Dining","Grocery","Catch-all"],"tip":"3% dining, 2% grocery, 1% everywhere else. No annual fee. Good for TD Bank customers who dine out frequently."},
-    {"id":"pnc_cash","name":"PNC Cash Unlimited","issuer":"PNC","af":0,"color":"#FF6600","cats":["Catch-all"],"tip":"1.75% unlimited cash back on all purchases — higher flat-rate than most no-fee cards. No categories, no caps. Good for PNC customers."},
-    {"id":"dcu","name":"DCU Visa Platinum","issuer":"DCU","af":0,"color":"#003087","cats":["Balance Transfer"],"tip":"Not for rewards — use for consistently low APR balance carry. DCU historically offers one of the lowest ongoing APRs available. Keep open for credit history health."},
-    {"id":"alliant_cash","name":"Alliant Cashback Visa","issuer":"Alliant CU","af":0,"color":"#0057B7","cats":["Catch-all"],"tip":"2.5% cash back on all purchases (up to $10K/month spending). Highest flat-rate cash back card on the market. Requires Alliant Credit Union membership (easy to join)."},
-    {"id":"penfed_gold","name":"PenFed Gold Visa","issuer":"PenFed CU","af":0,"color":"#003087","cats":["Gas","Grocery"],"tip":"5% at gas stations (pump only), 3% at supermarkets, 1% elsewhere. Great no-fee gas card for PenFed Credit Union members."},
-    {"id":"nfcu_more_rewards","name":"Navy Federal More Rewards","issuer":"Navy Federal CU","af":0,"color":"#003087","cats":["Dining","Grocery","Gas","Transit"],"tip":"3x dining, supermarkets, gas & transit purchases. No annual fee, no FTF. Must be Navy Federal CU member (military, DoD, or family of member)."},
-    {"id":"kroger_rewards","name":"Kroger Rewards World MC","issuer":"US Bank","af":0,"color":"#003A70","cats":["Grocery","Gas"],"tip":"5% fuel points at Kroger-family stores, 2x on all other purchases. Redemptions for fuel savings at Kroger/Shell. Best for Kroger loyalty shoppers."},
-    {"id":"sams_mc","name":"Sam's Club MC","issuer":"Synchrony","af":0,"color":"#003087","cats":["Gas","Dining","Travel","Shopping"],"tip":"5% on gas & EV charging (up to $6K/yr, then 1%), 3% dining & travel, 1% everywhere else. Sam's Club Plus members earn 5% cash back on Sam's Club purchases (up to $6K/yr). Requires Sam's Club membership. No annual fee for the card itself."}
+    {
+      "id": "amex_plat",
+      "name": "Amex Platinum",
+      "issuer": "American Express",
+      "af": 895,
+      "color": "#A8A9AD",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "5x on flights booked directly & Amex Travel (up to $500K/yr). $200 airline fee credit, $200 Uber Cash, $200 hotel credit, $189 CLEAR Plus, $100 Saks, $300 Equinox, $300 Resy dining. Centurion Lounge + Priority Pass. Fee raised to $895 in Jan 2026 refresh."
+    },
+    {
+      "id": "amex_gold",
+      "name": "Amex Gold",
+      "issuer": "American Express",
+      "af": 325,
+      "color": "#C8960C",
+      "cats": [
+        "Dining",
+        "Grocery",
+        "Travel"
+      ],
+      "tip": "4x at restaurants worldwide (up to $50K/yr, then 1x) & U.S. supermarkets (up to $25K/yr). 3x flights. $120 dining credit (Grubhub, Cheesecake Factory, Five Guys, Buffalo Wild Wings). $120 Uber Cash. Hertz Five Star status. AF raised from $250 to $325 in Oct 2024."
+    },
+    {
+      "id": "amex_green",
+      "name": "Amex Green",
+      "issuer": "American Express",
+      "af": 150,
+      "color": "#228B22",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "3x on travel, transit & restaurants. $189 CLEAR Plus credit + $100 LoungeBuddy. Good mid-tier travel card."
+    },
+    {
+      "id": "amex_bce",
+      "name": "Amex Blue Cash Everyday",
+      "issuer": "American Express",
+      "af": 0,
+      "color": "#0078CC",
+      "cats": [
+        "Grocery",
+        "Gas",
+        "Shopping"
+      ],
+      "tip": "3% at U.S. supermarkets, gas stations, and online retail (each up to $6K/yr). No annual fee. $84 Disney Bundle credit."
+    },
+    {
+      "id": "amex_bcp",
+      "name": "Amex Blue Cash Preferred",
+      "issuer": "American Express",
+      "af": 95,
+      "color": "#0055A0",
+      "cats": [
+        "Grocery",
+        "Streaming",
+        "Gas"
+      ],
+      "tip": "6% at U.S. supermarkets (up to $6K/yr), 6% on select streaming services, 3% gas & transit, 1% elsewhere. Best grocery card in the market."
+    },
+    {
+      "id": "amex_delta_blue",
+      "name": "Delta Blue Amex",
+      "issuer": "American Express",
+      "af": 0,
+      "color": "#003A70",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "2x Delta purchases & restaurants, 2x U.S. supermarkets. First checked bag free. No annual fee Delta card."
+    },
+    {
+      "id": "amex_delta_gold",
+      "name": "Delta Gold Amex",
+      "issuer": "American Express",
+      "af": 150,
+      "color": "#003A70",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "2x Delta purchases & restaurants, 2x U.S. supermarkets. First checked bag free. Good entry Delta card."
+    },
+    {
+      "id": "amex_delta_plat",
+      "name": "Delta Platinum Amex",
+      "issuer": "American Express",
+      "af": 350,
+      "color": "#003A70",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "3x Delta, 2x restaurants & U.S. supermarkets. Companion certificate annually, MQD boost."
+    },
+    {
+      "id": "amex_delta_reserve",
+      "name": "Delta Reserve Amex",
+      "issuer": "American Express",
+      "af": 650,
+      "color": "#003A70",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "3x Delta miles. Delta Sky Club access (10 visits/yr when flying Delta), companion certificate, Medallion status boost."
+    },
+    {
+      "id": "amex_hilton",
+      "name": "Amex Hilton Honors",
+      "issuer": "American Express",
+      "af": 0,
+      "color": "#002147",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "7x at Hilton, 5x restaurants, U.S. supermarkets & gas. No annual fee Hilton co-brand."
+    },
+    {
+      "id": "amex_hilton_surpass",
+      "name": "Amex Hilton Surpass",
+      "issuer": "American Express",
+      "af": 150,
+      "color": "#002147",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "12x at Hilton, 6x restaurants, U.S. supermarkets & gas. Free weekend night annually, Priority Pass (10 visits/yr)."
+    },
+    {
+      "id": "amex_hilton_aspire",
+      "name": "Amex Hilton Aspire",
+      "issuer": "American Express",
+      "af": 550,
+      "color": "#002147",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "14x at Hilton. Automatic Hilton Diamond status. $400 resort credit, $200 airline fee credit, free weekend night certificate. Best hotel card for Hilton loyalists."
+    },
+    {
+      "id": "amex_marriott",
+      "name": "Amex Marriott Bonvoy",
+      "issuer": "American Express",
+      "af": 250,
+      "color": "#8B0000",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "6x at Marriott, 4x restaurants & U.S. supermarkets, 2x elsewhere. Free night certificate annually (up to 35K pts)."
+    },
+    {
+      "id": "amex_biz_gold",
+      "name": "Amex Business Gold",
+      "issuer": "American Express",
+      "af": 375,
+      "color": "#C8960C",
+      "cats": [
+        "Dining",
+        "Grocery",
+        "Shopping",
+        "Travel"
+      ],
+      "tip": "4x on the two categories where you spend the most each month (from 6 eligible). Up to $240 in annual credits."
+    },
+    {
+      "id": "amex_biz_plat",
+      "name": "Amex Business Platinum",
+      "issuer": "American Express",
+      "af": 695,
+      "color": "#A8A9AD",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "5x on flights & prepaid hotels via Amex Travel. $400 Dell credit, $360 Indeed credit, lounge access, 35% airline bonus on points redemptions."
+    },
+    {
+      "id": "amex_biz_cash",
+      "name": "Amex Blue Business Cash",
+      "issuer": "American Express",
+      "af": 0,
+      "color": "#0078CC",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2% cash back on all purchases up to $50K/yr, 1% after. No annual fee business card."
+    },
+    {
+      "id": "amex_biz_plus",
+      "name": "Amex Blue Business Plus",
+      "issuer": "American Express",
+      "af": 0,
+      "color": "#0078CC",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2x Membership Rewards on all purchases up to $50K/yr. No annual fee. Best no-fee MR earner for business."
+    },
+    {
+      "id": "chase_csr",
+      "name": "Chase Sapphire Reserve",
+      "issuer": "Chase",
+      "af": 795,
+      "color": "#1A1A1A",
+      "cats": [
+        "Dining",
+        "Travel"
+      ],
+      "tip": "4x hotels & flights booked direct, 3x dining. $300 travel credit, $500 The Edit hotel credit (2x $250), $300 Sapphire Reserve Exclusive Tables dining credit, Apple TV+/Apple Music complimentary. Lounge access. AF raised from $550 to $795 in June 2025."
+    },
+    {
+      "id": "chase_csp",
+      "name": "Chase Sapphire Preferred",
+      "issuer": "Chase",
+      "af": 95,
+      "color": "#1A5276",
+      "cats": [
+        "Dining",
+        "Travel",
+        "Streaming"
+      ],
+      "tip": "3x dining, 2x travel, 2x streaming, 2x grocery (online). Points worth 1.25\u00a2 via Chase Travel. Best entry travel card. Transfers to Hyatt, United, Southwest."
+    },
+    {
+      "id": "cfu",
+      "name": "Chase Freedom Unlimited",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#005EB8",
+      "cats": [
+        "Dining",
+        "Drugstore",
+        "Catch-all"
+      ],
+      "tip": "1.5% on everything, 3% dining & drugstores, 5% Chase Travel. Best catch-all card. Pairs with Sapphire to unlock transfer partners."
+    },
+    {
+      "id": "chase_flex",
+      "name": "Chase Freedom Flex",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#005EB8",
+      "cats": [
+        "Dining",
+        "Drugstore",
+        "Rotating 5%"
+      ],
+      "tip": "5% rotating quarterly categories (up to $1,500/qtr, activation required), 3% dining & drugstores, 1.5% elsewhere. No annual fee."
+    },
+    {
+      "id": "chase_ink_cash",
+      "name": "Chase Ink Business Cash",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#005EB8",
+      "cats": [
+        "Utilities",
+        "Dining",
+        "Shopping"
+      ],
+      "tip": "5% on office supplies & internet/phone/cable (up to $25K/yr), 2% gas & dining, 1% elsewhere. No annual fee business card."
+    },
+    {
+      "id": "chase_ink_pref",
+      "name": "Chase Ink Business Preferred",
+      "issuer": "Chase",
+      "af": 95,
+      "color": "#1A5276",
+      "cats": [
+        "Travel",
+        "Shopping",
+        "Wireless"
+      ],
+      "tip": "3x travel, shipping, advertising, internet/phone (up to $150K/yr). Points transfer to Hyatt, United, Marriott, Southwest."
+    },
+    {
+      "id": "chase_ink_unl",
+      "name": "Chase Ink Business Unlimited",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#005EB8",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "1.5% unlimited cash back on all business purchases. Simple flat-rate, no annual fee."
+    },
+    {
+      "id": "chase_united",
+      "name": "United Explorer Card",
+      "issuer": "Chase",
+      "af": 95,
+      "color": "#0032A0",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "2x United, restaurants & hotel stays. First checked bag free. 2 United Club passes annually. 25% back on United in-flight purchases."
+    },
+    {
+      "id": "chase_united_gateway",
+      "name": "United Gateway Card",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#0032A0",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Gas"
+      ],
+      "tip": "2x United, restaurants & gas stations. No annual fee United card. Good starter for MileagePlus members."
+    },
+    {
+      "id": "chase_ihg",
+      "name": "Chase IHG Premier",
+      "issuer": "Chase",
+      "af": 99,
+      "color": "#C41230",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "26x IHG points at IHG hotels, 5x dining, gas, grocery. Anniversary free night (up to 40K pts). IHG Platinum Elite status."
+    },
+    {
+      "id": "chase_ihg_traveler",
+      "name": "IHG One Rewards Traveler",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#C41230",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "3x IHG purchases, 2x restaurants & gas, 1x elsewhere. No annual fee IHG card."
+    },
+    {
+      "id": "chase_marriott",
+      "name": "Chase Marriott Bonvoy Boundless",
+      "issuer": "Chase",
+      "af": 95,
+      "color": "#8B0000",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "6x at Marriott, 3x gas, dining & grocery. Free night certificate annually (up to 35K pts). Marriott Silver Elite status."
+    },
+    {
+      "id": "chase_hyatt",
+      "name": "Chase World of Hyatt",
+      "issuer": "Chase",
+      "af": 95,
+      "color": "#1A3A5C",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "4x Hyatt, 2x fitness, dining, airline tickets, local transit. Free night certificate annually (up to Cat 4). Discoverist status."
+    },
+    {
+      "id": "chase_sw_plus",
+      "name": "Southwest Rapid Rewards Plus",
+      "issuer": "Chase",
+      "af": 69,
+      "color": "#304CB2",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "2x Southwest purchases. 3,000 anniversary bonus points. Counts toward Companion Pass qualification."
+    },
+    {
+      "id": "chase_sw_prem",
+      "name": "Southwest Rapid Rewards Premier",
+      "issuer": "Chase",
+      "af": 99,
+      "color": "#304CB2",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "3x Southwest purchases. 6,000 anniversary bonus points. Better earn for frequent SW flyers."
+    },
+    {
+      "id": "chase_sw_priority",
+      "name": "Southwest Priority Card",
+      "issuer": "Chase",
+      "af": 149,
+      "color": "#304CB2",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "3x Southwest purchases. 7,500 anniversary bonus points, $75 annual SW travel credit, 4 upgraded boardings/yr. Best SW card."
+    },
+    {
+      "id": "chase_amazon",
+      "name": "Amazon Prime Visa",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#FF9900",
+      "cats": [
+        "Shopping",
+        "Grocery"
+      ],
+      "tip": "5% at Amazon.com & Whole Foods (with Prime). 2% restaurants, gas, drugstores. No annual fee (Prime membership required)."
+    },
+    {
+      "id": "citi_cc",
+      "name": "Citi Custom Cash",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#D50032",
+      "cats": [
+        "Flex 5%"
+      ],
+      "tip": "5% on your #1 eligible spend category each month (up to $500/mo, then 1%). Eligible: gas, groceries, dining, streaming, home improvement, drugstores, live entertainment, fitness, Amazon, phone plans."
+    },
+    {
+      "id": "citi_dc",
+      "name": "Citi Double Cash",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#D50032",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2% on everything (1% when you buy + 1% when you pay). Best simple flat-rate. Can convert to ThankYou points if you hold Citi Strata Premier."
+    },
+    {
+      "id": "citi_premier",
+      "name": "Citi Strata Premier",
+      "issuer": "Citi",
+      "af": 95,
+      "color": "#D50032",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery",
+        "Gas"
+      ],
+      "tip": "3x restaurants, supermarkets, gas stations, air travel & hotels. 1x elsewhere. Transfer to Turkish Miles&Smiles, Avianca, Cathay Pacific and more."
+    },
+    {
+      "id": "citi_rewards",
+      "name": "Citi Rewards+",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#D50032",
+      "cats": [
+        "Grocery",
+        "Gas"
+      ],
+      "tip": "2x at supermarkets & gas (up to $6K/yr). Rounds up to nearest 10 points on every purchase. 10% points back on redemptions (up to 100K pts/yr)."
+    },
+    {
+      "id": "citi_costco",
+      "name": "Citi Costco Visa",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#E31837",
+      "cats": [
+        "Gas",
+        "Dining",
+        "Travel",
+        "Costco"
+      ],
+      "tip": "4% on gas & EV charging (up to $7K/yr, then 1%), 3% restaurants & eligible travel, 2% Costco/Costco.com, 1% elsewhere. Costco membership required."
+    },
+    {
+      "id": "citi_att",
+      "name": "Citi AT&T Points Plus",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#00A8E0",
+      "cats": [
+        "Wireless"
+      ],
+      "tip": "3 ThankYou points per $1 on AT&T purchases + bill credit. 2x grocery & gas. Set AT&T autopay here for maximum value."
+    },
+    {
+      "id": "citi_simp",
+      "name": "Citi Simplicity",
+      "issuer": "Citi",
+      "af": 0,
+      "color": "#AA0022",
+      "cats": [
+        "Balance Transfer"
+      ],
+      "tip": "Not a rewards card. Use only for 0% intro APR on balance transfers (21 months, one of the longest offers available). No late fees, no penalty APR."
+    },
+    {
+      "id": "citi_aa",
+      "name": "Citi AA Platinum Select",
+      "issuer": "Citi",
+      "af": 99,
+      "color": "#0078D4",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Gas"
+      ],
+      "tip": "2x American Airlines miles, restaurants & gas stations. First checked bag free, preferred boarding, 25% in-flight discount."
+    },
+    {
+      "id": "c1_vx",
+      "name": "Capital One Venture X",
+      "issuer": "Capital One",
+      "af": 395,
+      "color": "#D03027",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "10x hotels & rental cars via C1 Travel, 5x flights, 2x everywhere. $300 annual C1 Travel credit, 10K anniversary miles ($100 value), Priority Pass (lounge only \u2014 guest access removed Feb 2026), Capital One Lounge access."
+    },
+    {
+      "id": "c1_venture",
+      "name": "Capital One Venture",
+      "issuer": "Capital One",
+      "af": 95,
+      "color": "#D03027",
+      "cats": [
+        "Travel",
+        "Catch-all"
+      ],
+      "tip": "2x miles on all purchases. Transfer to 15+ airline & hotel partners. $100 Global Entry/TSA PreCheck credit every 4 years."
+    },
+    {
+      "id": "c1_savor",
+      "name": "Capital One Savor",
+      "issuer": "Capital One",
+      "af": 95,
+      "color": "#D03027",
+      "cats": [
+        "Dining",
+        "Entertainment",
+        "Grocery"
+      ],
+      "tip": "4% dining, entertainment & streaming. 3% grocery stores. 1% elsewhere. Excellent dining & entertainment card. No FTF."
+    },
+    {
+      "id": "c1_savorone",
+      "name": "Capital One SavorOne",
+      "issuer": "Capital One",
+      "af": 0,
+      "color": "#D03027",
+      "cats": [
+        "Dining",
+        "Entertainment",
+        "Grocery"
+      ],
+      "tip": "3% dining, entertainment, streaming & grocery. 1% elsewhere. No annual fee version of Savor. No FTF."
+    },
+    {
+      "id": "c1_qs",
+      "name": "Capital One QuickSilver",
+      "issuer": "Capital One",
+      "af": 0,
+      "color": "#D03027",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "1.5% cash back on all purchases. No foreign transaction fee. Best use: simple flat-rate for international spending where no FTF matters."
+    },
+    {
+      "id": "c1_spark_cash",
+      "name": "Capital One Spark Cash Plus",
+      "issuer": "Capital One",
+      "af": 150,
+      "color": "#D03027",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2% unlimited cash back on all business purchases. No preset spending limit. Annual fee rebated if you spend $150K+/yr."
+    },
+    {
+      "id": "c1_spark_miles",
+      "name": "Capital One Spark Miles",
+      "issuer": "Capital One",
+      "af": 95,
+      "color": "#D03027",
+      "cats": [
+        "Travel",
+        "Catch-all"
+      ],
+      "tip": "2x miles on all business purchases. Transfer to 15+ airline partners. $100 Global Entry credit. Simple flat-rate travel card."
+    },
+    {
+      "id": "c1_plat",
+      "name": "Capital One Platinum",
+      "issuer": "Capital One",
+      "af": 0,
+      "color": "#D03027",
+      "cats": [
+        "Credit Building"
+      ],
+      "tip": "No rewards \u2014 credit building card. Use to establish or rebuild credit. No annual fee. Upgrade path to QuickSilver after 6+ months of on-time payments."
+    },
+    {
+      "id": "discover",
+      "name": "Discover IT",
+      "issuer": "Discover",
+      "af": 0,
+      "color": "#F76800",
+      "cats": [
+        "Rotating 5%"
+      ],
+      "tip": "5% on rotating quarterly categories (up to $1,500/qtr, activation required). 1% everywhere else. Cashback Match\u2122 doubles all earnings year 1 \u2014 effectively 10%/2%."
+    },
+    {
+      "id": "discover_chrome",
+      "name": "Discover IT Chrome",
+      "issuer": "Discover",
+      "af": 0,
+      "color": "#F76800",
+      "cats": [
+        "Gas",
+        "Dining"
+      ],
+      "tip": "2% at gas stations & restaurants (combined up to $1,000/qtr). 1% elsewhere. Cashback Match year 1. Good simple card for gas & dining."
+    },
+    {
+      "id": "discover_miles",
+      "name": "Discover IT Miles",
+      "issuer": "Discover",
+      "af": 0,
+      "color": "#F76800",
+      "cats": [
+        "Travel",
+        "Catch-all"
+      ],
+      "tip": "1.5x miles on all purchases, doubled first year (= 3x). No blackout dates, redeem against any travel purchase. No annual fee, no FTF."
+    },
+    {
+      "id": "discover_student",
+      "name": "Discover IT Student",
+      "issuer": "Discover",
+      "af": 0,
+      "color": "#F76800",
+      "cats": [
+        "Rotating 5%"
+      ],
+      "tip": "Same 5% rotating categories as IT. Cashback Match year 1. Good credit-building starter card for students."
+    },
+    {
+      "id": "bofa_custom",
+      "name": "BofA Customized Cash",
+      "issuer": "Bank of America",
+      "af": 0,
+      "color": "#E31837",
+      "cats": [
+        "Shopping",
+        "Chosen Category"
+      ],
+      "tip": "3% on chosen category (gas, online shopping, dining, travel, drugstores, or home improvement). 2% grocery & wholesale. Preferred Rewards members earn up to 5.25% on chosen category at Platinum Honors tier."
+    },
+    {
+      "id": "bofa_travel",
+      "name": "BofA Travel Rewards",
+      "issuer": "Bank of America",
+      "af": 0,
+      "color": "#E31837",
+      "cats": [
+        "Travel",
+        "Catch-all"
+      ],
+      "tip": "1.5x points on all purchases, no FTF. Preferred Rewards Platinum Honors members earn 2.62x on everything. No annual fee."
+    },
+    {
+      "id": "bofa_premium",
+      "name": "BofA Premium Rewards",
+      "issuer": "Bank of America",
+      "af": 95,
+      "color": "#E31837",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "2x travel & dining, 1.5x everything else. $100 airline incidental credit, $100 Global Entry credit. Preferred Rewards bonus stacks on top."
+    },
+    {
+      "id": "bofa_alaska",
+      "name": "Alaska Airlines Visa",
+      "issuer": "Bank of America",
+      "af": 95,
+      "color": "#00629B",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "3x Alaska miles on Alaska purchases. Annual companion fare from $122 + taxes. 3,000 bonus miles at renewal. 20% back on in-flight purchases."
+    },
+    {
+      "id": "wf_active",
+      "name": "Wells Fargo Active Cash",
+      "issuer": "Wells Fargo",
+      "af": 0,
+      "color": "#CF202E",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "Unlimited 2% cash rewards on all purchases, no categories, no caps. Cell phone protection up to $600. Best no-fee flat-rate card \u2014 use for everything that doesn't earn 3%+ elsewhere."
+    },
+    {
+      "id": "wf_auto",
+      "name": "Wells Fargo Autograph",
+      "issuer": "Wells Fargo",
+      "af": 0,
+      "color": "#CF202E",
+      "cats": [
+        "Dining",
+        "Travel",
+        "Gas",
+        "Streaming",
+        "Transit",
+        "Wireless"
+      ],
+      "tip": "3x points on 6 categories: restaurants, travel, gas stations, streaming, transit & phone plans. 1x elsewhere. No annual fee, no FTF. One of the best no-fee multi-category cards available."
+    },
+    {
+      "id": "wf_autograph_j",
+      "name": "Wells Fargo Autograph Journey",
+      "issuer": "Wells Fargo",
+      "af": 95,
+      "color": "#CF202E",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "5x hotels, 4x airlines, 3x restaurants & grocery. Transfer to 6 airline partners (Avianca, Air France/KLM, British Airways, Iberia, Aer Lingus, Icelandair)."
+    },
+    {
+      "id": "wf_reflect",
+      "name": "Wells Fargo Reflect",
+      "issuer": "Wells Fargo",
+      "af": 0,
+      "color": "#CF202E",
+      "cats": [
+        "Balance Transfer"
+      ],
+      "tip": "0% intro APR up to 21 months on balance transfers and qualifying purchases. No rewards \u2014 use only for interest-free financing. Longest 0% offer currently available."
+    },
+    {
+      "id": "bilt",
+      "name": "Bilt Rewards",
+      "issuer": "Wells Fargo / Bilt",
+      "af": 0,
+      "color": "#4A4AFF",
+      "cats": [
+        "Rent",
+        "Dining",
+        "Travel"
+      ],
+      "tip": "Legacy Wells Fargo-issued Bilt card (being replaced by Bilt 2.0 cards). 3x travel, 2x dining, 1x rent (up to $50K/yr). Must make 5 transactions/month. Transfer 1:1 to World of Hyatt, United, Alaska, American, Air Canada and more. Rent Day (1st of month) earns 6x/4x/2x."
+    },
+    {
+      "id": "bilt_blue",
+      "name": "Bilt Blue",
+      "issuer": "Bilt",
+      "af": 0,
+      "color": "#4A4AFF",
+      "earn": "1x on all purchases",
+      "cats": [
+        "Rent"
+      ],
+      "tip": "Entry-level Bilt 2.0 card with no annual fee. Earns 1x on all everyday purchases. Rent/mortgage: earns up to 1.25x based on monthly non-housing spend ($500+\u21921x, $1K+\u21921.1x, $2.5K+\u21921.25x), or 4% Bilt Cash flexible option. Transfer points 1:1 to Hyatt, United, American, Alaska, Air Canada and more."
+    },
+    {
+      "id": "bilt_obsidian",
+      "name": "Bilt Obsidian",
+      "issuer": "Bilt",
+      "af": 95,
+      "color": "#3D3D4F",
+      "earn": "3x dining or grocery, 2x travel, 1x elsewhere",
+      "cats": [
+        "Dining",
+        "Grocery",
+        "Travel",
+        "Rent"
+      ],
+      "tip": "Mid-tier Bilt 2.0 card ($95 AF). Choose 3x on dining OR grocery once per year (grocery capped $25K/yr). 2x on travel, 1x elsewhere. Up to 1.25x on rent based on non-housing spend. Bonus: up to 6x at Bilt dining partners, 4x hotels & 3x flights via Bilt Travel portal. $100/yr hotel credits ($50 semi-annually). Transfer 1:1 to Hyatt, United, American, Alaska, Air Canada."
+    },
+    {
+      "id": "bilt_palladium",
+      "name": "Bilt Palladium",
+      "issuer": "Bilt",
+      "af": 495,
+      "color": "#8E9BB5",
+      "earn": "2x on all purchases",
+      "cats": [
+        "Rent",
+        "Dining",
+        "Travel"
+      ],
+      "tip": "Premium Bilt 2.0 card ($495 AF). Earns 2x on all everyday purchases (non-housing). Up to 1.25x on rent/mortgage based on monthly non-housing spend tiers. $200 annual Bilt Cash credit, semi-annual hotel credits. Transfer 1:1 to Hyatt, United, American, Alaska, Air Canada. Best for renters who spend broadly and want premium perks."
+    },
+    {
+      "id": "usb_cash",
+      "name": "US Bank Cash+",
+      "issuer": "US Bank",
+      "af": 0,
+      "color": "#B80A17",
+      "cats": [
+        "Utilities",
+        "Streaming",
+        "Dining",
+        "Entertainment",
+        "Wireless"
+      ],
+      "tip": "5% on first $2K/qtr in two chosen 5% categories + 2% on one everyday category. Best 5% categories: home utilities, cell phone providers, TV/streaming, fast food, movie theaters, gyms, furniture stores, sporting goods, department stores. Most underutilized card in any wallet."
+    },
+    {
+      "id": "usb_altitude_r",
+      "name": "US Bank Altitude Reserve",
+      "issuer": "US Bank",
+      "af": 400,
+      "color": "#B80A17",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "5x prepaid hotels & car rentals via Altitude Rewards Center, 3x mobile wallet & travel (effective 4.5% on Apple Pay). $325 travel/dining credit, TSA PreCheck/Global Entry credit, Priority Pass (12 visits/yr)."
+    },
+    {
+      "id": "usb_altitude_go",
+      "name": "US Bank Altitude Go",
+      "issuer": "US Bank",
+      "af": 0,
+      "color": "#B80A17",
+      "cats": [
+        "Dining",
+        "Streaming",
+        "Grocery",
+        "Gas"
+      ],
+      "tip": "4x dining, 2x grocery & gas stations, 2x streaming services. $15 annual streaming credit. No annual fee. Strongest no-fee dining card for US Bank customers."
+    },
+    {
+      "id": "usb_altitude_con",
+      "name": "US Bank Altitude Connect",
+      "issuer": "US Bank",
+      "af": 95,
+      "color": "#B80A17",
+      "cats": [
+        "Travel",
+        "Gas",
+        "Grocery",
+        "Streaming"
+      ],
+      "tip": "4x travel & gas stations, 2x grocery, dining & streaming. $30 streaming credit, Priority Pass (4 lounge visits/yr), TSA PreCheck/Global Entry credit."
+    },
+    {
+      "id": "usb_shield",
+      "name": "US Bank Shield Visa",
+      "issuer": "US Bank",
+      "af": 0,
+      "color": "#B80A17",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "Rewards on contactless/mobile wallet payments. Verify your specific card's earn rates \u2014 terms vary. Good for tap-to-pay heavy users."
+    },
+    {
+      "id": "barclays_jetblue",
+      "name": "JetBlue Plus Card",
+      "issuer": "Barclays",
+      "af": 99,
+      "color": "#0033A0",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "6x JetBlue purchases, 2x restaurants & grocery. 5,000 bonus points annually at card anniversary. 10% points back on JetBlue redemptions."
+    },
+    {
+      "id": "barclays_jetblue_biz",
+      "name": "JetBlue Business Card",
+      "issuer": "Barclays",
+      "af": 99,
+      "color": "#0033A0",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "6x JetBlue, 2x restaurants & office supply. 5,000 anniversary bonus points. Good for JetBlue-heavy business travelers."
+    },
+    {
+      "id": "barclays_hawaiian",
+      "name": "Hawaiian Airlines World Elite MC",
+      "issuer": "Barclays",
+      "af": 99,
+      "color": "#8B0000",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "3x Hawaiian Airlines miles, 2x dining. Annual companion discount ($100 off). One-time 50% off companion fare after first purchase."
+    },
+    {
+      "id": "barclays_wyndham",
+      "name": "Wyndham Rewards Earner+",
+      "issuer": "Barclays",
+      "af": 75,
+      "color": "#005EB8",
+      "cats": [
+        "Travel",
+        "Gas",
+        "Dining"
+      ],
+      "tip": "6x Wyndham & gas stations, 4x dining & grocery. 7,500 anniversary bonus points. Automatic Wyndham Gold status."
+    },
+    {
+      "id": "barclays_aadvantage",
+      "name": "AAdvantage Aviator Red",
+      "issuer": "Barclays",
+      "af": 99,
+      "color": "#0078D4",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "2x American Airlines miles on AA purchases, 1x elsewhere. First checked bag free. Companion certificate at $20K annual spend."
+    },
+    {
+      "id": "barclays_frontier",
+      "name": "Frontier Airlines Card",
+      "issuer": "Barclays",
+      "af": 89,
+      "color": "#61A534",
+      "cats": [
+        "Travel"
+      ],
+      "tip": "5x Frontier miles on Frontier purchases, 3x restaurants. $100 off companion airfare at $2,500 annual spend. Good for frequent Frontier flyers."
+    },
+    {
+      "id": "amazon_store",
+      "name": "Amazon Store Card",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#FF9900",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "5% at Amazon.com with Prime OR 0% deferred interest financing (6-24 month promos). Use for large purchases needing financing. Cannot use at physical stores."
+    },
+    {
+      "id": "sams",
+      "name": "Sam's Club Mastercard",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#0067A0",
+      "cats": [
+        "Gas",
+        "Shopping"
+      ],
+      "tip": "5% at Sam's Club fuel centers & gas stations (up to $6K/yr), 3% dining & takeout, 1% Sam's Club purchases. Sam's Club Plus members earn 5% on Sam's Club purchases."
+    },
+    {
+      "id": "apple",
+      "name": "Apple Card",
+      "issuer": "Goldman Sachs",
+      "af": 0,
+      "color": "#888888",
+      "cats": [
+        "Shopping",
+        "Dining",
+        "Wireless"
+      ],
+      "tip": "3% Daily Cash at Apple, Uber/Uber Eats, Nike, Walgreens, Panera Bread, T-Mobile, Duane Reade, Exxon/Mobil. 2% via Apple Pay anywhere. 1% physical card. Instant cashback, titanium card."
+    },
+    {
+      "id": "ashley",
+      "name": "Ashley Store Card",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#8B4513",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "No rewards \u2014 use ONLY for 0% deferred interest financing promos (6-60 months) on Ashley purchases. Warning: deferred interest charges full interest if not paid by promo end."
+    },
+    {
+      "id": "sync_paypal",
+      "name": "PayPal Cashback Mastercard",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Catch-all",
+        "Shopping"
+      ],
+      "tip": "3% cash back via PayPal checkout, 1.5% everywhere else. Deposited to your PayPal balance. Best for frequent PayPal users and online shoppers."
+    },
+    {
+      "id": "sync_venmo",
+      "name": "Venmo Credit Card",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#3D95CE",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "3% on your top eligible spend category, 2% on second category, 1% on rest. Auto-adjusts monthly based on spending. Cash back deposited to Venmo balance. No annual fee."
+    },
+    {
+      "id": "target_red",
+      "name": "Target RedCard",
+      "issuer": "TD Bank",
+      "af": 0,
+      "color": "#CC0000",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "5% off all Target in-store & online purchases. Extended returns (30 extra days). Free 2-day shipping on Target.com. Closed loop \u2014 use only at Target."
+    },
+    {
+      "id": "nordstrom",
+      "name": "Nordstrom Visa Card",
+      "issuer": "TD Bank",
+      "af": 0,
+      "color": "#1A1A1A",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "3x Nordy Club points at Nordstrom & Nordstrom Rack, 2x restaurants, 1x everywhere. Nordy Club benefits include alterations, beauty services, and early sale access."
+    },
+    {
+      "id": "bestbuy_visa",
+      "name": "Best Buy Visa Card",
+      "issuer": "Citibank",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Shopping",
+        "Dining",
+        "Gas"
+      ],
+      "tip": "5% back in Best Buy rewards, 3% gas & EV charging, 2% dining & grocery, 1% everywhere else. 24-month financing on major purchases."
+    },
+    {
+      "id": "lowes_adv",
+      "name": "Lowe's Advantage Card",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#004990",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "5% off every Lowe's purchase OR special financing. Closed-loop card for Lowe's regulars. No rewards elsewhere."
+    },
+    {
+      "id": "home_depot_cc",
+      "name": "Home Depot Consumer Card",
+      "issuer": "Citibank",
+      "af": 0,
+      "color": "#F96302",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "0% promotional financing on Home Depot purchases (6-24 months). No rewards \u2014 use for large project financing only. Deferred interest applies if not paid in full."
+    },
+    {
+      "id": "macys",
+      "name": "Macy's Credit Card",
+      "issuer": "DSNB",
+      "af": 0,
+      "color": "#E31837",
+      "cats": [
+        "Shopping"
+      ],
+      "tip": "5% back in Macy's Star Rewards on Macy's purchases. Closed-loop store card. Bonus events for Star Rewards members."
+    },
+    {
+      "id": "td_double",
+      "name": "TD Double Up Card",
+      "issuer": "TD Bank",
+      "af": 0,
+      "color": "#34A853",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2% cash back on all purchases when redeemed to a TD Bank account. Simple flat-rate for TD Bank customers."
+    },
+    {
+      "id": "td_cash",
+      "name": "TD Cash Credit Card",
+      "issuer": "TD Bank",
+      "af": 0,
+      "color": "#34A853",
+      "cats": [
+        "Dining",
+        "Grocery",
+        "Catch-all"
+      ],
+      "tip": "3% dining, 2% grocery, 1% everywhere else. No annual fee. Good for TD Bank customers who dine out frequently."
+    },
+    {
+      "id": "pnc_cash",
+      "name": "PNC Cash Unlimited",
+      "issuer": "PNC",
+      "af": 0,
+      "color": "#FF6600",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "1.75% unlimited cash back on all purchases \u2014 higher flat-rate than most no-fee cards. No categories, no caps. Good for PNC customers."
+    },
+    {
+      "id": "dcu",
+      "name": "DCU Visa Platinum",
+      "issuer": "DCU",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Balance Transfer"
+      ],
+      "tip": "Not for rewards \u2014 use for consistently low APR balance carry. DCU historically offers one of the lowest ongoing APRs available. Keep open for credit history health."
+    },
+    {
+      "id": "alliant_cash",
+      "name": "Alliant Cashback Visa",
+      "issuer": "Alliant CU",
+      "af": 0,
+      "color": "#0057B7",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "2.5% cash back on all purchases (up to $10K/month spending). Highest flat-rate cash back card on the market. Requires Alliant Credit Union membership (easy to join)."
+    },
+    {
+      "id": "penfed_gold",
+      "name": "PenFed Gold Visa",
+      "issuer": "PenFed CU",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Gas",
+        "Grocery"
+      ],
+      "tip": "5% at gas stations (pump only), 3% at supermarkets, 1% elsewhere. Great no-fee gas card for PenFed Credit Union members."
+    },
+    {
+      "id": "nfcu_more_rewards",
+      "name": "Navy Federal More Rewards",
+      "issuer": "Navy Federal CU",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Dining",
+        "Grocery",
+        "Gas",
+        "Transit"
+      ],
+      "tip": "3x dining, supermarkets, gas & transit purchases. No annual fee, no FTF. Must be Navy Federal CU member (military, DoD, or family of member)."
+    },
+    {
+      "id": "kroger_rewards",
+      "name": "Kroger Rewards World MC",
+      "issuer": "US Bank",
+      "af": 0,
+      "color": "#003A70",
+      "cats": [
+        "Grocery",
+        "Gas"
+      ],
+      "tip": "5% fuel points at Kroger-family stores, 2x on all other purchases. Redemptions for fuel savings at Kroger/Shell. Best for Kroger loyalty shoppers."
+    },
+    {
+      "id": "sams_mc",
+      "name": "Sam's Club MC",
+      "issuer": "Synchrony",
+      "af": 0,
+      "color": "#003087",
+      "cats": [
+        "Gas",
+        "Dining",
+        "Travel",
+        "Shopping"
+      ],
+      "tip": "5% on gas & EV charging (up to $6K/yr, then 1%), 3% dining & travel, 1% everywhere else. Sam's Club Plus members earn 5% cash back on Sam's Club purchases (up to $6K/yr). Requires Sam's Club membership. No annual fee for the card itself."
+    }
   ]
 }
