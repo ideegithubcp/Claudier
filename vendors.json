@@ -64,6 +64,11 @@
       "icon": "\ud83d\uded2",
       "recs": [
         {
+          "card": "Capital One Walmart Rewards",
+          "earn": "5% online, 2% in-store",
+          "why": "5% back on Walmart.com orders including grocery pickup"
+        },
+        {
           "card": "Amex Gold",
           "earn": "4x MR",
           "why": "Walmart codes as supermarket"
@@ -180,6 +185,11 @@
           "why": "5% on first $500/mo"
         },
         {
+          "card": "Robinhood Gold Card",
+          "earn": "3% everywhere",
+          "why": "Flat 3% on all purchases beats most category cards for non-bonus spend"
+        },
+        {
           "card": "Wells Fargo Active Cash",
           "earn": "2% cash back",
           "why": "Best in-store flat-rate"
@@ -203,6 +213,11 @@
           "card": "Wells Fargo Active Cash",
           "earn": "2% cash back",
           "why": "Tie without Costco card"
+        },
+        {
+          "card": "Robinhood Gold Card",
+          "earn": "3% everywhere",
+          "why": "Flat 3% on all purchases beats most category cards for non-bonus spend"
         },
         {
           "card": "Chase Freedom Unlimited",
@@ -254,6 +269,11 @@
           "card": "Amazon Store Card",
           "earn": "5% or 0% financing",
           "why": "Use for large items needing 0% promo"
+        },
+        {
+          "card": "Robinhood Gold Card",
+          "earn": "3% everywhere",
+          "why": "Flat 3% on all purchases beats most category cards for non-bonus spend"
         },
         {
           "card": "Wells Fargo Active Cash",
@@ -706,21 +726,12 @@
         "netflix",
         "hulu",
         "disney+",
-        "disney plus",
-        "hbo max",
         "max",
-        "paramount+",
         "peacock",
+        "paramount+",
         "apple tv+",
-        "spotify",
         "youtube premium",
-        "sling",
-        "fubo",
-        "discovery+",
-        "espn+",
-        "crunchyroll",
-        "showtime",
-        "starz"
+        "espn+"
       ],
       "cat": "Streaming",
       "icon": "\ud83d\udcfa",
@@ -1102,6 +1113,16 @@
       "icon": "\ud83c\udfe8",
       "recs": [
         {
+          "card": "Amex Marriott Bonvoy Brilliant",
+          "earn": "6x at Marriott hotels",
+          "why": "Best Marriott card: 6x + $300 annual credit + Platinum Elite status"
+        },
+        {
+          "card": "Amex Marriott Bonvoy Bevy",
+          "earn": "6x at Marriott hotels",
+          "why": "Mid-tier Marriott: 6x + Gold Elite status + 15 Elite Night Credits"
+        },
+        {
           "card": "Chase Sapphire Reserve",
           "earn": "3x travel + 1.5\u00a2/pt",
           "why": "Best overall hotel redemptions"
@@ -1122,6 +1143,11 @@
           "why": "2x everywhere + Hyatt transfer; best Bilt card for total spend"
         },
         {
+          "card": "Chase Marriott Bonvoy Bold",
+          "earn": "3x at Marriott hotels",
+          "why": "No-AF Marriott card; earns 3x stays + Silver Elite status"
+        },
+        {
           "card": "Wells Fargo Autograph",
           "earn": "3x travel",
           "why": "3x on hotels, no annual fee"
@@ -1133,21 +1159,30 @@
         "delta",
         "united",
         "american airlines",
-        "southwest",
-        "jetblue",
-        "spirit",
-        "frontier",
+        "air canada",
+        "southwest airlines",
         "alaska airlines",
-        "air france",
-        "british airways",
-        "lufthansa",
-        "emirate",
-        "emirates",
-        "hawaiian airlines"
+        "jetblue",
+        "spirit airlines"
       ],
       "cat": "Travel",
       "icon": "\u2708\ufe0f",
       "recs": [
+        {
+          "card": "Delta Gold Amex",
+          "earn": "2x Delta + 2x dining",
+          "why": "Best if you fly Delta \u2014 earns 2x directly on Delta purchases"
+        },
+        {
+          "card": "United Explorer Card",
+          "earn": "2x United + 2x dining",
+          "why": "Best if you fly United \u2014 2x on United + priority boarding"
+        },
+        {
+          "card": "Citi AA Platinum Select",
+          "earn": "2x American + 2x dining",
+          "why": "Best if you fly American \u2014 2x AA + first bag free"
+        },
         {
           "card": "Amex Gold",
           "earn": "3x MR on flights",
@@ -1162,6 +1197,11 @@
           "card": "Capital One Venture X",
           "earn": "5x flights via C1 Travel",
           "why": "5x via portal, 2x everywhere else"
+        },
+        {
+          "card": "Chase Aeroplan Card",
+          "earn": "3x dining & grocery",
+          "why": "Earns Aeroplan pts redeemable on Air Canada + Star Alliance"
         }
       ]
     },
@@ -1375,35 +1415,6 @@
     },
     {
       "names": [
-        "planet fitness",
-        "la fitness",
-        "equinox",
-        "orangetheory",
-        "crunch",
-        "ymca"
-      ],
-      "cat": "Entertainment",
-      "icon": "\ud83c\udfcb\ufe0f",
-      "recs": [
-        {
-          "card": "US Bank Cash+",
-          "earn": "5% gym/fitness",
-          "why": "Choose 'gyms & fitness clubs' category"
-        },
-        {
-          "card": "Wells Fargo Active Cash",
-          "earn": "2% cash back",
-          "why": "Flat-rate fallback"
-        },
-        {
-          "card": "Chase Freedom Unlimited",
-          "earn": "1.5% cash back",
-          "why": "General fallback"
-        }
-      ]
-    },
-    {
-      "names": [
         "costco gas",
         "bj's wholesale",
         "bj's gas",
@@ -1458,6 +1469,432 @@
           "card": "Wells Fargo Active Cash",
           "earn": "2% cash back",
           "why": "Reliable flat-rate for SaaS/cloud spend"
+        }
+      ]
+    },
+    {
+      "names": [
+        "chipotle",
+        "chipotle mexican grill",
+        "qdoba",
+        "moe's southwest grill"
+      ],
+      "cat": "Dining",
+      "icon": "\ud83c\udf2e",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x dining",
+          "why": "4x at restaurants worldwide \u2014 best no-brainer for dining"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "3x dining",
+          "why": "3x dining with solid entertainment bonus too"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "3x dining + premium travel protections"
+        },
+        {
+          "card": "Bilt Obsidian",
+          "earn": "3x dining (if dining chosen)",
+          "why": "3x when dining is your annual Bilt category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "chick-fil-a",
+        "chickfila",
+        "subway",
+        "jimmy john's",
+        "jersey mike's",
+        "firehouse subs",
+        "popeyes",
+        "raising cane's"
+      ],
+      "cat": "Dining",
+      "icon": "\ud83c\udf57",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x dining",
+          "why": "4x at restaurants worldwide"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "3x dining",
+          "why": "3x dining + 3x grocery + entertainment"
+        },
+        {
+          "card": "Chase Freedom Flex",
+          "earn": "3x dining",
+          "why": "Permanent 3x on dining, no AF"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x dining",
+          "why": "3x dining + strong travel protections"
+        }
+      ]
+    },
+    {
+      "names": [
+        "taco bell",
+        "wendy's",
+        "burger king",
+        "jack in the box",
+        "del taco",
+        "carl's jr",
+        "sonic",
+        "five guys"
+      ],
+      "cat": "Dining",
+      "icon": "\ud83c\udf54",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x dining",
+          "why": "4x at restaurants including fast food"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "3x dining",
+          "why": "3x dining, no AF on SavorOne variant"
+        },
+        {
+          "card": "Chase Freedom Flex",
+          "earn": "3x dining",
+          "why": "3x dining with no annual fee"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% as top category",
+          "why": "5% back if dining is your highest-spend category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "domino's",
+        "dominoes",
+        "pizza hut",
+        "papa john's",
+        "papa murphy's",
+        "little caesars",
+        "mod pizza"
+      ],
+      "cat": "Dining",
+      "icon": "\ud83c\udf55",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x dining",
+          "why": "4x at restaurants including pizza chains"
+        },
+        {
+          "card": "Capital One Savor",
+          "earn": "3x dining",
+          "why": "3x dining + solid cash-back card"
+        },
+        {
+          "card": "Chase Freedom Flex",
+          "earn": "3x dining",
+          "why": "3x dining permanently, no AF"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% if top category",
+          "why": "5% when dining is your top monthly spend"
+        }
+      ]
+    },
+    {
+      "names": [
+        "safeway",
+        "albertsons",
+        "vons",
+        "pavilions",
+        "tom thumb",
+        "randalls",
+        "jewel-osco",
+        "shaw's",
+        "star market",
+        "acme"
+      ],
+      "cat": "Grocery",
+      "icon": "\ud83d\uded2",
+      "recs": [
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% at U.S. supermarkets",
+          "why": "Best grocery card: 6% up to $6K/yr, then 1%"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x at U.S. supermarkets",
+          "why": "4x (points) at U.S. supermarkets up to $25K/yr"
+        },
+        {
+          "card": "Chase Aeroplan Card",
+          "earn": "3x grocery",
+          "why": "3x Aeroplan pts redeemable on Air Canada + Star Alliance"
+        },
+        {
+          "card": "Amex Blue Cash Everyday",
+          "earn": "3% at U.S. supermarkets",
+          "why": "3% no-AF option up to $6K/yr"
+        }
+      ]
+    },
+    {
+      "names": [
+        "meijer",
+        "h-e-b",
+        "heb",
+        "wegmans",
+        "market basket",
+        "price chopper",
+        "weis markets",
+        "giant eagle",
+        "winco"
+      ],
+      "cat": "Grocery",
+      "icon": "\ud83c\udfea",
+      "recs": [
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% at U.S. supermarkets",
+          "why": "6% back on supermarket spend up to $6K/yr"
+        },
+        {
+          "card": "Amex Gold",
+          "earn": "4x at U.S. supermarkets",
+          "why": "4x MR points, best for points earners"
+        },
+        {
+          "card": "Amex Blue Cash Everyday",
+          "earn": "3% at U.S. supermarkets",
+          "why": "3% with no annual fee up to $6K/yr"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% as top category",
+          "why": "5% if grocery is your highest monthly category"
+        }
+      ]
+    },
+    {
+      "names": [
+        "chevron",
+        "texaco",
+        "speedway",
+        "sunoco",
+        "marathon",
+        "circle k",
+        "casey's",
+        "wawa",
+        "sheetz",
+        "quiktrip"
+      ],
+      "cat": "Gas",
+      "icon": "\u26fd",
+      "recs": [
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% as top category",
+          "why": "5% when gas is your highest-spend monthly category"
+        },
+        {
+          "card": "PenFed Gold Visa",
+          "earn": "5% at gas stations",
+          "why": "Flat 5% on gas, no annual fee \u2014 best no-hassle gas card"
+        },
+        {
+          "card": "Discover IT Chrome",
+          "earn": "2% gas & dining",
+          "why": "2% at gas stations & restaurants, no AF"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3% gas",
+          "why": "3% gas + 3x dining, travel, transit \u2014 all with no AF"
+        }
+      ]
+    },
+    {
+      "names": [
+        "spotify",
+        "apple music",
+        "pandora",
+        "amazon music",
+        "tidal",
+        "youtube music",
+        "deezer",
+        "soundcloud"
+      ],
+      "cat": "Streaming",
+      "icon": "\ud83c\udfb5",
+      "recs": [
+        {
+          "card": "US Bank Cash+",
+          "earn": "5% streaming",
+          "why": "5% on streaming as one of your two chosen categories"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% streaming",
+          "why": "6% on select U.S. streaming subscriptions"
+        },
+        {
+          "card": "Wells Fargo Autograph",
+          "earn": "3% streaming",
+          "why": "3% on streaming, no annual fee"
+        },
+        {
+          "card": "Chase Sapphire Preferred",
+          "earn": "3x streaming",
+          "why": "3x on streaming + dining + travel, $95 AF"
+        }
+      ]
+    },
+    {
+      "names": [
+        "expedia",
+        "hotels.com",
+        "priceline",
+        "kayak",
+        "travelocity",
+        "orbitz",
+        "trivago"
+      ],
+      "cat": "Travel",
+      "icon": "\ud83c\udf10",
+      "recs": [
+        {
+          "card": "Capital One Venture X",
+          "earn": "10x on hotels & rentals via C1 Travel",
+          "why": "10x on C1 Travel portal \u2014 use portal instead of OTA for max points"
+        },
+        {
+          "card": "Chase Sapphire Reserve",
+          "earn": "3x travel + portal bonus",
+          "why": "3x travel, boosted to 5x via Chase Ultimate Rewards portal"
+        },
+        {
+          "card": "Capital One Venture",
+          "earn": "5x via C1 Travel",
+          "why": "5x on hotels/rentals via Capital One Travel portal"
+        },
+        {
+          "card": "Citi Strata Premier",
+          "earn": "3x on hotels & air",
+          "why": "3x hotels, airlines, restaurants & grocery"
+        }
+      ]
+    },
+    {
+      "names": [
+        "staples",
+        "office depot",
+        "officemax",
+        "office max"
+      ],
+      "cat": "Shopping",
+      "icon": "\ud83d\udda8\ufe0f",
+      "recs": [
+        {
+          "card": "Chase Ink Business Cash",
+          "earn": "5x at office supply stores",
+          "why": "5x (up to $25K/yr) \u2014 easily best card for office supply spend"
+        },
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% as top category",
+          "why": "5% when office supplies is your highest monthly category"
+        },
+        {
+          "card": "BofA Customized Cash",
+          "earn": "3% chosen category",
+          "why": "Set shopping as your 3% category for consistent earn"
+        },
+        {
+          "card": "Chase Freedom Flex",
+          "earn": "5% rotating or 1%",
+          "why": "5% when rotating category includes office stores (check schedule)"
+        }
+      ]
+    },
+    {
+      "names": [
+        "autozone",
+        "auto zone",
+        "o'reilly",
+        "advance auto",
+        "napa auto",
+        "pep boys",
+        "jiffy lube",
+        "midas",
+        "firestone",
+        "valvoline"
+      ],
+      "cat": "Gas",
+      "icon": "\ud83d\udd27",
+      "recs": [
+        {
+          "card": "Citi Custom Cash",
+          "earn": "5% as top category",
+          "why": "5% if auto/service is your top monthly spending category"
+        },
+        {
+          "card": "Wells Fargo Active Cash",
+          "earn": "2% everywhere",
+          "why": "Flat 2% catch-all \u2014 reliable for niche spend"
+        },
+        {
+          "card": "Chase Freedom Unlimited",
+          "earn": "1.5% everywhere",
+          "why": "1.5% base + no AF; pairs well with CSR or CSP"
+        },
+        {
+          "card": "BofA Customized Cash",
+          "earn": "3% chosen category",
+          "why": "Set 'gas & EV charging' category for 3% on fuel-adjacent spend"
+        }
+      ]
+    },
+    {
+      "names": [
+        "instacart",
+        "shipt",
+        "amazon fresh",
+        "fresh",
+        "good eggs"
+      ],
+      "cat": "Grocery",
+      "icon": "\ud83d\udce6",
+      "recs": [
+        {
+          "card": "Amex Gold",
+          "earn": "4x \u2014 codes as grocery",
+          "why": "Instacart often codes as grocery/supermarket \u2014 earns 4x MR"
+        },
+        {
+          "card": "Amex Blue Cash Preferred",
+          "earn": "6% if coded as grocery",
+          "why": "6% if the merchant codes as U.S. supermarket"
+        },
+        {
+          "card": "Amazon Prime Visa",
+          "earn": "5% Amazon Fresh",
+          "why": "5% on Amazon Fresh orders if you have Prime"
+        },
+        {
+          "card": "Capital One SavorOne",
+          "earn": "3% grocery",
+          "why": "3% on grocery stores, no annual fee"
         }
       ]
     }

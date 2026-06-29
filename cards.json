@@ -164,14 +164,17 @@
     },
     {
       "id": "amex_marriott",
-      "name": "Amex Marriott Bonvoy",
+      "name": "Amex Marriott Bonvoy Bevy",
       "issuer": "American Express",
       "af": 250,
       "color": "#8B0000",
       "cats": [
-        "Travel"
+        "Travel",
+        "Dining",
+        "Grocery"
       ],
-      "tip": "6x at Marriott, 4x restaurants & U.S. supermarkets, 2x elsewhere. Free night certificate annually (up to 35K pts)."
+      "tip": "Mid-tier Marriott card ($250 AF). 6x on Marriott Bonvoy hotel stays, 4x at restaurants worldwide & U.S. supermarkets (combined cap $15K/yr, then 2x), 2x on all other purchases. Complimentary Gold Elite status. 15 Elite Night Credits annually. Transfer to Marriott Bonvoy partners.",
+      "earn": "6x Marriott, 4x dining & grocery, 2x elsewhere"
     },
     {
       "id": "amex_biz_gold",
@@ -815,6 +818,121 @@
         "Travel"
       ],
       "tip": "Premium Bilt 2.0 card ($495 AF). Earns 2x on all everyday purchases (non-housing). Up to 1.25x on rent/mortgage based on monthly non-housing spend tiers. $200 annual Bilt Cash credit, semi-annual hotel credits. Transfer 1:1 to Hyatt, United, American, Alaska, Air Canada. Best for renters who spend broadly and want premium perks."
+    },
+    {
+      "id": "robinhood_gold",
+      "name": "Robinhood Gold Card",
+      "issuer": "Robinhood / Coastal Community Bank",
+      "af": 0,
+      "color": "#00C805",
+      "earn": "3x on all purchases",
+      "cats": [
+        "Catch-all",
+        "Travel"
+      ],
+      "tip": "Requires Robinhood Gold membership ($5/mo or $50/yr). Earns 3% cash back on all purchases \u2014 one of the highest flat rates available. 5% on travel booked via Robinhood Travel portal. No foreign transaction fee. Rewards deposited into Robinhood brokerage account (invest, hold as cash, or transfer out)."
+    },
+    {
+      "id": "fidelity_visa",
+      "name": "Fidelity Rewards Visa",
+      "issuer": "Elan Financial / Fidelity",
+      "af": 0,
+      "color": "#006241",
+      "earn": "2x on all purchases",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "No annual fee, unlimited 2% cash back on all purchases deposited into eligible Fidelity accounts (brokerage, IRA, 529, etc.). Fidelity Rewards+ members with $250K+ in Fidelity assets earn 3%. No foreign transaction fees. Visa Signature benefits including travel insurance and purchase security."
+    },
+    {
+      "id": "bofa_unlim",
+      "name": "BofA Unlimited Cash Rewards",
+      "issuer": "Bank of America",
+      "af": 0,
+      "color": "#E31837",
+      "earn": "1.5% on all purchases",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "No annual fee, unlimited 1.5% cash back on all purchases. BofA Preferred Rewards members can earn up to 2.625% with Platinum Honors tier ($100K+ combined BofA/Merrill assets). Good simple flat-rate card if you bank with BofA."
+    },
+    {
+      "id": "c1_ventureone",
+      "name": "Capital One VentureOne",
+      "issuer": "Capital One",
+      "af": 0,
+      "color": "#D03027",
+      "earn": "1.25x on all purchases",
+      "cats": [
+        "Travel",
+        "Catch-all"
+      ],
+      "tip": "No annual fee travel card. Earns 1.25x miles on all purchases, 5x on hotels, vacation rentals, and rental cars booked through Capital One Travel. Miles transfer 1:1 to 15+ airline and hotel partners. No foreign transaction fees. Good entry-level travel card before upgrading to the Venture or Venture X."
+    },
+    {
+      "id": "chase_aeroplan",
+      "name": "Chase Aeroplan Card",
+      "issuer": "Chase / Air Canada",
+      "af": 95,
+      "color": "#00205B",
+      "earn": "3x dining & grocery, 2x elsewhere",
+      "cats": [
+        "Travel",
+        "Dining",
+        "Grocery"
+      ],
+      "tip": "$95 AF. Earns 3x Aeroplan points on dining, grocery stores, and Air Canada purchases; 2x on all other purchases. Automatic Aeroplan 25K Elite Status for first two years. First checked bag free on Air Canada flights. 500 bonus points for every $2K spent (max 1,500/month). Transfer to Star Alliance partners via Aeroplan."
+    },
+    {
+      "id": "amex_marriott_brilliant",
+      "name": "Amex Marriott Bonvoy Brilliant",
+      "issuer": "American Express",
+      "af": 650,
+      "color": "#8B1A1A",
+      "earn": "6x Marriott, 3x dining & airlines, 2x elsewhere",
+      "cats": [
+        "Travel",
+        "Dining"
+      ],
+      "tip": "Premium Marriott card ($650 AF). 6x on Marriott Bonvoy hotel stays, 3x at restaurants worldwide and on flights booked directly with airlines, 2x on all other purchases. $300 Marriott Bonvoy statement credit annually, 1 free night award each year (up to 85K pts), Priority Pass lounge access, Platinum Elite status. Best card for heavy Marriott loyalists."
+    },
+    {
+      "id": "chase_marriott_bold",
+      "name": "Chase Marriott Bonvoy Bold",
+      "issuer": "Chase",
+      "af": 0,
+      "color": "#7B2D8B",
+      "earn": "3x Marriott, 2x grocery/rideshare/streaming",
+      "cats": [
+        "Travel",
+        "Grocery"
+      ],
+      "tip": "No annual fee Marriott card. Earns 3x on Marriott Bonvoy hotel purchases, 2x on grocery stores, rideshare, and select streaming/internet/phone services, 1x elsewhere. Automatic Silver Elite Status with Marriott Bonvoy. 5 Elite Night Credits per year. Best no-AF entry point into Marriott Bonvoy ecosystem."
+    },
+    {
+      "id": "walmart_rewards",
+      "name": "Capital One Walmart Rewards",
+      "issuer": "Capital One / Walmart",
+      "af": 0,
+      "color": "#007DC6",
+      "earn": "5% Walmart.com, 2% in-store",
+      "cats": [
+        "Shopping",
+        "Gas"
+      ],
+      "tip": "No annual fee. 5% back on Walmart.com & Walmart app (including grocery pickup/delivery), 2% at Walmart stores, restaurants & travel, 1% elsewhere. Note: Capital One and Walmart have ended their partnership \u2014 existing cardholders can continue using the card but new applications are no longer accepted."
+    },
+    {
+      "id": "sofi_card",
+      "name": "SoFi Credit Card",
+      "issuer": "SoFi / The Bank of Missouri",
+      "af": 0,
+      "color": "#6A0DAD",
+      "earn": "2x on all purchases",
+      "cats": [
+        "Catch-all"
+      ],
+      "tip": "No annual fee, 2% cash back on all purchases when redeemed into a SoFi Money, Invest, or loan account (1% if taken as statement credit). 3% on travel booked via SoFi Travel portal. Includes cell phone insurance (up to $1,000), $5/mo Lyft credit after 5 rides, no foreign transaction fees, Mastercard World Elite benefits."
     },
     {
       "id": "usb_cash",
