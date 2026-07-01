@@ -3,26 +3,35 @@ name: Deploy SwipeRight
 on:
   push:
     branches: [main, 'feature/**']
-  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Write build info
-        run: echo "{\"version\":\"4.2\",\"built\":\"$(date -u '+%b %d %H:%M UTC')\"}" > build-info.json
+        run: |
+          echo "{\"version\":\"4.2\",\"built\":\"$(date -u '+%b %d %H:%M UTC')\"}" > build-info.json
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: swiperight
-          directory: .
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          path: .
+
+      - id: deploy
+        name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v5
