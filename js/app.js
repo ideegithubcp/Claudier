@@ -5,6 +5,7 @@ import { renderStatsPanel } from './stats.js';
 import { startGPS, searchPlacesByText, nearbyPick } from './places.js';
 import { renderWallet, setWalletFilter, removeCard, openModal, closeModal, modalOverlayClick, filterCardOptions, toggleCardSelect, saveModalCards, openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard, exportWallet, importWallet, clearTaps } from './wallet.js';
 import { openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCardEdit, clearCardEdit } from './overrides.js';
+import { initGenie, openGenie, closeGenie, genieAsk, genieChip } from './genie.js';
 
 // Expose all functions called from HTML onclick attributes
 Object.assign(window, {
@@ -17,6 +18,7 @@ Object.assign(window, {
   openCustomModal, editCustomCard, closeCustomModal, customOverlayClick, toggleCustomCat, saveCustomCard,
   exportWallet, importWallet, clearTaps,
   openEditModal, closeEditModal, editOverlayClick, toggleEditCat, saveCardEdit, clearCardEdit,
+  openGenie, closeGenie, genieAsk, genieChip,
 });
 
 // Service worker
@@ -33,6 +35,7 @@ if ('serviceWorker' in navigator) {
 
 startClock();
 loadBuildInfo();
+initGenie();
 startMascot();
 initKeyboardHandlers();
 initPWAInstall();

@@ -278,6 +278,25 @@
   </div>
 </div>
 
+<!-- GENIE FLOATING BUTTON -->
+<button class="genie-fab" onclick="openGenie()" aria-label="Ask the Card Genie" title="Ask the Card Genie">🪔</button>
+
+<!-- GENIE PANEL -->
+<div class="genie-overlay" id="genie-overlay" onclick="if(event.target===this)closeGenie()" role="dialog" aria-modal="true" aria-label="Card Genie">
+  <div class="genie-panel">
+    <div class="genie-header">
+      <div class="genie-title">🪔 Card Genie</div>
+      <div class="genie-counter" id="genie-counter">3 / 3 questions left today</div>
+      <button class="genie-close" onclick="closeGenie()" aria-label="Close">×</button>
+    </div>
+    <div class="genie-messages" id="genie-messages"></div>
+    <div class="genie-input-row">
+      <textarea id="genie-input" class="genie-input" placeholder="Ask about your cards…" rows="1" aria-label="Your question"></textarea>
+      <button id="genie-send" class="genie-send" onclick="genieAsk()">Ask</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 
