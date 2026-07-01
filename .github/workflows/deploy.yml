@@ -1,4 +1,5 @@
 name: Deploy SwipeRight
+
 on:
   push:
     branches: [main, 'feature/**']
@@ -7,18 +8,21 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Write build info
-        run: echo "{\"version\":\"4.1\",\"built\":\"$(date -u '+%b %d %H:%M UTC')\"}" > build-info.json
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3
+        run: echo "{\"version\":\"4.2\",\"built\":\"$(date -u '+%b %d %H:%M UTC')\"}" > build-info.json
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
-          publish-dir: '.'        # root = your HTML files
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: 'Deploy from ${{ github.ref }}'
-          enable-pull-request-comment: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: swiperight
+          directory: .
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
